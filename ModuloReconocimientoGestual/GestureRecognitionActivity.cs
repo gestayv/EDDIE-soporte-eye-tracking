@@ -34,6 +34,7 @@ namespace ModuloReconocimientoGestual
 
         bool activeX = false;
         bool activeY = false;
+        bool mouseRecOn = false;
 
         int xFinal = 0;
         int yFinal = 0;
@@ -42,13 +43,27 @@ namespace ModuloReconocimientoGestual
         public int SensorX
         {
             get { return sensorX; }
-            
+
         }
 
         int sensorY;
         public int SensorY
         {
             get { return sensorY; }
+
+        }
+
+
+        public int XFinal
+        {
+            get { return xFinal; }
+
+        }
+
+
+        public int YFinal
+        {
+            get { return yFinal; }
 
         }
 
@@ -67,7 +82,7 @@ namespace ModuloReconocimientoGestual
 
         public bool ActiveX
         {
-            set { activeX = value;}
+            set { activeX = value; }
         }
 
         public bool ActiveY
@@ -75,78 +90,90 @@ namespace ModuloReconocimientoGestual
             set { activeY = value; }
         }
 
+        public bool MouseRecOn
+        {
+            set { mouseRecOn = value; }
+        }
+
         public Rectangle RectangularSelection
         {
+
             get { return rectangularSelection; }
+            set { rectangularSelection = value; }
         }
 
 
 
-       
-        public Image<Bgr, byte> Capture_ImageGrabbed(VideoCapture captureGesture,float SStartX, float SEndX, float AStartX, float AEndX, float SStartY, float SEndY, float AStartY, float AEndY)
+
+        public Image<Bgr, byte> Capture_ImageGrabbed(VideoCapture captureGesture, float SStartX, float SEndX, float AStartX, float AEndX, float SStartY, float SEndY, float AStartY, float AEndY)
         {
             //try
             //{
-                Mat m = new Mat();
-                captureGesture.Retrieve(m);
+            Mat m = new Mat();
+            captureGesture.Retrieve(m);
 
-                if (plugin == null)
-                {
-                    return m.ToImage<Bgr, byte>();
-                }
-                else
-                {
-                    imageOut = plugin.RunPlugin(captureGesture).ToImage<Bgr, byte>();
-                    sensorX = plugin.Center.X;
-                    sensorY = plugin.Center.Y;
+            if (plugin == null)
+            {
+                return m.ToImage<Bgr, byte>();
+            }
+            else
+            {
+                imageOut = plugin.RunPlugin(captureGesture).ToImage<Bgr, byte>();
+                sensorX = plugin.Center.X;
+                sensorY = plugin.Center.Y;
 
-                    if (plugin.DetectGesture)
+                if (plugin.DetectGesture)
+                {
+                    sensorStart = SStartX;
+                    sensorEnd = SEndX;
+                    appStart = AStartX;
+                    appEnd = AEndX;
+
+                    sensorStarty = (float)SStartY;
+                    sensorEndy = (float)SEndY;
+                    appStarty = (float)AStartY;
+                    appEndy = (float)AEndY;
+
+
+
+
+                    if (activeX)
                     {
-                        sensorStart = SStartX;
-                        sensorEnd = SEndX;
-                        appStart = AStartX;
-                        appEnd = AEndX;
+                        xFinal = (int)Math.Abs((plugin.Center.X - sensorStart) * ((appEnd - appStart) / (sensorEnd - sensorStart)) + appStart);
+                    }
+                    else
+                    {
+                        xFinal = plugin.Center.X;
+                    }
 
-                        sensorStarty = (float)SStartY;
-                        sensorEndy = (float)SEndY;
-                        appStarty = (float)AStartY;
-                        appEndy = (float)AEndY;
-
-
-                      
-
-                        if (activeX)
-                        {
-                            xFinal = (int)Math.Abs((plugin.Center.X - sensorStart) * ((appEnd - appStart) / (sensorEnd - sensorStart)) + appStart);
-                        }
-                        else
-                        {
-                            xFinal = plugin.Center.X;
-                        }
-
-                        if (activeY)
-                        {
-                            yFinal = (int)Math.Abs((plugin.Center.Y - sensorStarty) * ((appEndy - appStarty) / (sensorEndy - sensorStarty)) + appStarty);
-                        }
-                        else
-                        {
-                            yFinal = 500;
-                        }
-
+                    if (activeY)
+                    {
+                        yFinal = (int)Math.Abs((plugin.Center.Y - sensorStarty) * ((appEndy - appStarty) / (sensorEndy - sensorStarty)) + appStarty);
+                    }
+                    else
+                    {
+                        yFinal = plugin.Center.Y;
+                    }
+                    if (mouseRecOn)
+                    {
                         MouseCursor.MoveCursor(xFinal, yFinal);
+                    }
+                    Console.WriteLine("X Y :" + xFinal + "," + yFinal);
 
-                        if (!clickDown && plugin.AutoClick)
-                        {
-                            Clicking.SendClick(xFinal, yFinal);
-                            Console.WriteLine("     Gesture recognition Click down (autoclick)");
-                            clickDown = true;
-                            respX = plugin.Center.X;
-                            respY = plugin.Center.Y;
-                        }
 
-                        if (!plugin.AutoClick)
+                    if (!clickDown && plugin.AutoClick)
+                    {
+                        Clicking.SendClick(xFinal, yFinal);
+                        Console.WriteLine("     Gesture recognition Click down (autoclick)");
+                        clickDown = true;
+                        respX = plugin.Center.X;
+                        respY = plugin.Center.Y;
+                    }
+
+                    if (!plugin.AutoClick)
+                    {
+                        if (plugin.DetectClick && clickDown)
                         {
-                        if (plugin.DetectClick && clickDown) {
                             Clicking.SendClick(xFinal, yFinal);
                             Console.WriteLine("     Gesture recognition Click down");
                             clickDown = false;
@@ -160,33 +187,58 @@ namespace ModuloReconocimientoGestual
 
                     }
                 }
-                    else
+                else
+                {
+                    if (clickDown && plugin.AutoClick)
                     {
-                        if (clickDown && plugin.AutoClick)
+
+                        Clicking.SendUpClick(xFinal, yFinal);
+                        Console.WriteLine("     Gesture recognition Click up(autoclick)");
+
+                        if (plugin.AutoCamCapture)
                         {
-
-                            Clicking.SendUpClick(xFinal, yFinal);
-                            Console.WriteLine("     Gesture recognition Click up(autoclick)");
-                        
-                            if (plugin.AutoCamCapture)
-                            {
-                                //Disparo de evento al finalizar una seleccion rectangular
-                                // si el plugin AutoCamCapture lo permite
-                                rectangularSelection.X = plugin.Center.X;
-                                rectangularSelection.Y = plugin.Center.Y;
-                                rectangularSelection.Width = Math.Abs(respX - plugin.Center.X);
-                                rectangularSelection.Height = Math.Abs(respY - plugin.Center.Y);
-                                selectedRectangle(rectangularSelection);
-                            }
-                            clickDown = false;
-
+                            //Disparo de evento al finalizar una seleccion rectangular
+                            // si el plugin AutoCamCapture lo permite
+                            rectangularSelection.X = plugin.Center.X;
+                            rectangularSelection.Y = plugin.Center.Y;
+                            rectangularSelection.Width = Math.Abs(respX - plugin.Center.X);
+                            rectangularSelection.Height = Math.Abs(respY - plugin.Center.Y);
+                            selectedRectangle(rectangularSelection);
                         }
+                        clickDown = false;
+
                     }
                 }
+            }
 
-                return imageOut;
+            return imageOut;
 
         }
+
+        public void FinalToRectXY()
+        {
+            rectangularSelection.X = xFinal;
+            rectangularSelection.Y = yFinal;
+            Console.WriteLine("rectangulo 1" + rectangularSelection);
+        }
+
+        public void FinalToRectWH()
+        {
+
+            // rectangularSelection.Width = Math.Abs(rectangularSelection.X - xFinal);
+            //rectangularSelection.Height = Math.Abs(rectangularSelection.Y - yFinal);
+            //rectangularSelection.X = Math.Abs(rectangularSelection.X - xFinal);
+            //rectangularSelection.Y = Math.Abs(rectangularSelection.Y - yFinal);
+            //rectangularSelection.Width = xFinal;
+            //rectangularSelection.Height = yFinal;
+            rectangularSelection.Width = Math.Abs(rectangularSelection.X - xFinal);
+            rectangularSelection.Height = Math.Abs(rectangularSelection.Y - yFinal);
+            rectangularSelection.X = xFinal;
+            rectangularSelection.Y = yFinal;
+            Console.WriteLine("X Y :" + xFinal + "," + yFinal);
+            Console.WriteLine("rectangulo 2" + rectangularSelection);
+        }
+
 
         class MouseCursor
         {

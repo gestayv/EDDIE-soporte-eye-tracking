@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiEnciclopedia2", "ApiEnci
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apis", "Apis", "{E593CC45-5446-4885-B511-F411AAF71715}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseRecognition", "MouseRecognition\MouseRecognition.csproj", "{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{4AC51111-F707-4C02-AEEA-F91A4CFF19D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AC51111-F707-4C02-AEEA-F91A4CFF19D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AC51111-F707-4C02-AEEA-F91A4CFF19D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{E38D75C7-EDCC-4170-826A-A066408AEC0B} = {E593CC45-5446-4885-B511-F411AAF71715}
 		{4E80CEA7-BB51-4267-99F9-6B80DFB3F329} = {E593CC45-5446-4885-B511-F411AAF71715}
 		{4AC51111-F707-4C02-AEEA-F91A4CFF19D9} = {E593CC45-5446-4885-B511-F411AAF71715}
+		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0} = {7432BB62-7783-4112-9635-D7D447A75581}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74785ED8-BCC4-407D-94A3-EBA4056B9E49}

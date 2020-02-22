@@ -60,3 +60,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal3\ApiBuscarYoutube\obj\Debug\ApiBus
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.dll
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiBuscarYoutube.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiBuscarYoutube.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csprojAssemblyReference.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csproj.CoreCompileInputs.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.csproj.CopyComplete
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBuscarYoutube\obj\Debug\ApiBuscarYoutube.pdb

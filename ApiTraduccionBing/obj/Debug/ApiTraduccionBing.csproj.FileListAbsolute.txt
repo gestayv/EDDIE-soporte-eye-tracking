@@ -75,3 +75,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal3\ApiTraduccionBing\obj\Debug\ApiTr
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.dll
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiTraduccionBing.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiTraduccionBing.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csprojAssemblyReference.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csproj.CoreCompileInputs.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.csproj.CopyComplete
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiTraduccionBing\obj\Debug\ApiTraduccionBing.pdb

@@ -82,3 +82,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal4\ApiBusquedaImagenCloudVision\obj\
 C:\Users\Dania\source\repos\1IntegracionFinal4\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal4\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.dll
 C:\Users\Dania\source\repos\1IntegracionFinal4\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiBusquedaImagenCloudVision.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiBusquedaImagenCloudVision.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.csprojAssemblyReference.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.csproj.CoreCompileInputs.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.csproj.CopyComplete
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiBusquedaImagenCloudVision\obj\Debug\ApiBusquedaImagenCloudVision.pdb

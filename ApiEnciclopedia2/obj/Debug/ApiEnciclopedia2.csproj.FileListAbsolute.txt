@@ -22,3 +22,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal3\ApiEnciclopedia2\obj\Debug\ApiEnc
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.dll
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiEnciclopedia2.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiEnciclopedia2.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csprojAssemblyReference.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CoreCompileInputs.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CopyComplete
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.pdb

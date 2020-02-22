@@ -27,7 +27,7 @@ namespace ModuloVisualizacionDatos
 
         public struct PageSize
         {
-            
+
             public float Right;
             public float Top;
         }
@@ -60,14 +60,19 @@ namespace ModuloVisualizacionDatos
             BackColor = Color.FromArgb(255, 255, 255);
             this.highlightHeight = highlightHeight;
             nClick = 0;
-            
+
 
             InitializeComponent();
-            
+
         }
 
+        //Clicks gatillados desde dentro del sistema, ej: click mouse PC
         public delegate void NumClicksEventHandler();
         public event NumClicksEventHandler NumClicks;
+
+
+        public event NumClicksEventHandler FirstClicks;
+
 
 
         public void RuntimeResize(int x, int y, int width, int height)
@@ -79,7 +84,7 @@ namespace ModuloVisualizacionDatos
 
         public void RuntimeFinalLocation(int x, int y)
         {
-            
+
             Size = new Size(x - Location.X, y - Location.Y);
             Refresh();
         }
@@ -90,7 +95,7 @@ namespace ModuloVisualizacionDatos
             StartLocation = e.Location;
             //textBox1.AppendText("Mouse precionada \n");
             nClick += 1;
-            
+            FirstClicks();
         }
 
 
@@ -111,7 +116,7 @@ namespace ModuloVisualizacionDatos
                     //e.Graphics.DrawRectangle(Pens.Red, GetRectangle());
                     pe.Graphics.FillRectangle(Brushes.Yellow, item);
                 }
-                
+
             }
         }
 
@@ -137,7 +142,7 @@ namespace ModuloVisualizacionDatos
 
         public Rectangle GetRectangle(int HighlightHeight)
         {
-          
+
             rect = new Rectangle();
             rect.X = Math.Min(StartLocation.X, EndLcation.X);
             rect.Y = Math.Min(StartLocation.Y, EndLcation.Y);
@@ -162,20 +167,20 @@ namespace ModuloVisualizacionDatos
             rectangles = new List<Rectangle>();
             foreach (var item in RectangleIText)
             {
-                
+
                 var rect = new Rectangle();
                 var nRect = new NormRect();
-                nRect.Left = (item.Left/pageSize.Right) *this.Width;
-                nRect.Bottom = (1-(item.Bottom / pageSize.Top)- (item.Height / pageSize.Top)) * this.Height;
-                nRect.Right = ((item.Width / pageSize.Right) )* this.Width;
-                nRect.Top = ((item.Height/ pageSize.Top)) * this.Height;
+                nRect.Left = (item.Left / pageSize.Right) * this.Width;
+                nRect.Bottom = (1 - (item.Bottom / pageSize.Top) - (item.Height / pageSize.Top)) * this.Height;
+                nRect.Right = ((item.Width / pageSize.Right)) * this.Width;
+                nRect.Top = ((item.Height / pageSize.Top)) * this.Height;
                 rect.X = (int)(nRect.Left);
                 rect.Y = (int)(nRect.Bottom);
                 rect.Width = (int)(nRect.Right);
                 rect.Height = (int)(nRect.Top);
                 rectangles.Add(rect);
             }
-           
+
         }
 
         public Rectangle GetRectangle()
@@ -186,12 +191,12 @@ namespace ModuloVisualizacionDatos
             rect.Y = Math.Min(StartLocation.Y, EndLcation.Y);
             rect.Width = Math.Abs(StartLocation.X - EndLcation.X);
             rect.Height = Math.Abs(StartLocation.Y - EndLcation.Y);
-            
+
 
             return rect;
         }
 
-    
+
 
         protected override void OnMouseUp(MouseEventArgs e)
         {

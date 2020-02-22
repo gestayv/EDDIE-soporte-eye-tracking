@@ -41,9 +41,10 @@
             // 
             // btn_guardar
             // 
-            this.btn_guardar.Location = new System.Drawing.Point(301, 209);
+            this.btn_guardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_guardar.Location = new System.Drawing.Point(324, 254);
             this.btn_guardar.Name = "btn_guardar";
-            this.btn_guardar.Size = new System.Drawing.Size(75, 23);
+            this.btn_guardar.Size = new System.Drawing.Size(131, 56);
             this.btn_guardar.TabIndex = 14;
             this.btn_guardar.Text = "Guardar";
             this.btn_guardar.UseVisualStyleBackColor = true;
@@ -52,18 +53,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 18);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(25, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 13);
+            this.label1.Size = new System.Drawing.Size(197, 20);
             this.label1.TabIndex = 13;
             this.label1.Text = "Activar interacción por voz:";
             // 
             // rbtn_voz_no
             // 
             this.rbtn_voz_no.AutoSize = true;
-            this.rbtn_voz_no.Location = new System.Drawing.Point(18, 57);
+            this.rbtn_voz_no.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_voz_no.Location = new System.Drawing.Point(29, 83);
             this.rbtn_voz_no.Name = "rbtn_voz_no";
-            this.rbtn_voz_no.Size = new System.Drawing.Size(39, 17);
+            this.rbtn_voz_no.Size = new System.Drawing.Size(47, 24);
             this.rbtn_voz_no.TabIndex = 12;
             this.rbtn_voz_no.TabStop = true;
             this.rbtn_voz_no.Text = "No";
@@ -72,9 +75,10 @@
             // rbtn_voz_si
             // 
             this.rbtn_voz_si.AutoSize = true;
-            this.rbtn_voz_si.Location = new System.Drawing.Point(18, 34);
+            this.rbtn_voz_si.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_voz_si.Location = new System.Drawing.Point(29, 60);
             this.rbtn_voz_si.Name = "rbtn_voz_si";
-            this.rbtn_voz_si.Size = new System.Drawing.Size(34, 17);
+            this.rbtn_voz_si.Size = new System.Drawing.Size(41, 24);
             this.rbtn_voz_si.TabIndex = 11;
             this.rbtn_voz_si.TabStop = true;
             this.rbtn_voz_si.Text = "Si";
@@ -85,26 +89,28 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.rbtn_no_botones);
             this.panel1.Controls.Add(this.rbtn_Si_botones);
-            this.panel1.Location = new System.Drawing.Point(12, 92);
+            this.panel1.Location = new System.Drawing.Point(29, 126);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.Size = new System.Drawing.Size(221, 137);
             this.panel1.TabIndex = 19;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.Size = new System.Drawing.Size(143, 20);
             this.label2.TabIndex = 15;
             this.label2.Text = "¿Mostrar botones?";
             // 
             // rbtn_no_botones
             // 
             this.rbtn_no_botones.AutoSize = true;
-            this.rbtn_no_botones.Location = new System.Drawing.Point(6, 39);
+            this.rbtn_no_botones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_no_botones.Location = new System.Drawing.Point(7, 71);
             this.rbtn_no_botones.Name = "rbtn_no_botones";
-            this.rbtn_no_botones.Size = new System.Drawing.Size(39, 17);
+            this.rbtn_no_botones.Size = new System.Drawing.Size(47, 24);
             this.rbtn_no_botones.TabIndex = 17;
             this.rbtn_no_botones.TabStop = true;
             this.rbtn_no_botones.Text = "No";
@@ -113,9 +119,10 @@
             // rbtn_Si_botones
             // 
             this.rbtn_Si_botones.AutoSize = true;
-            this.rbtn_Si_botones.Location = new System.Drawing.Point(6, 16);
+            this.rbtn_Si_botones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtn_Si_botones.Location = new System.Drawing.Point(7, 41);
             this.rbtn_Si_botones.Name = "rbtn_Si_botones";
-            this.rbtn_Si_botones.Size = new System.Drawing.Size(34, 17);
+            this.rbtn_Si_botones.Size = new System.Drawing.Size(41, 24);
             this.rbtn_Si_botones.TabIndex = 16;
             this.rbtn_Si_botones.TabStop = true;
             this.rbtn_Si_botones.Text = "Si";
@@ -125,13 +132,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 251);
+            this.ClientSize = new System.Drawing.Size(511, 338);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_guardar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rbtn_voz_no);
             this.Controls.Add(this.rbtn_voz_si);
             this.Name = "SeleccionInteraccionPorVoz";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SeleccionInteraccionPorVoz";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

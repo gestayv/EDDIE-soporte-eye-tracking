@@ -27,18 +27,23 @@ namespace AugmentedReadingApp
                 activarBusquedaVoz = rbtn_voz_si.Text;
                 mostrarBotonesconVoz = rbtn_Si_botones.Text;
                 MessageBox.Show("Ha seleccionado la opción de interacción por voz");
+                this.Hide();
             }
             if (rbtn_voz_si.Checked && rbtn_no_botones.Checked)
             {
                 activarBusquedaVoz = rbtn_voz_si.Text;
                 mostrarBotonesconVoz = rbtn_no_botones.Text;
                 MessageBox.Show("Ha seleccionado la opción de interacción por voz");
+                this.Hide();
             }
             if (rbtn_voz_no.Checked)
             {
                 activarBusquedaVoz = rbtn_voz_no.Text;
                 MessageBox.Show("Ha seleccionado la opción de interacción por botones");
+                this.Hide();
             }
+
         }
+
     }
 }

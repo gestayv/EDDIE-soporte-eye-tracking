@@ -73,3 +73,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal3\ApiDefinicionesGoogle\obj\Debug\A
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.dll
 C:\Users\Dania\source\repos\1IntegracionFinal3\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiDefinicionesGoogle.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiDefinicionesGoogle.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csprojAssemblyReference.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CoreCompileInputs.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CopyComplete
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.pdb

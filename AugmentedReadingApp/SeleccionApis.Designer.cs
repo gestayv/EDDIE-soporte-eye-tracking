@@ -181,6 +181,7 @@
             this.Controls.Add(this.lbl_Enciclopedias);
             this.Controls.Add(this.cbx_apisEnciclopedia);
             this.Name = "SeleccionApis";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SeleccionApis";
             this.Load += new System.EventHandler(this.SeleccionApis_Load);
             this.ResumeLayout(false);

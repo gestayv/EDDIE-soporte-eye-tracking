@@ -17,10 +17,8 @@ using ModuloConsistenciaDatos;
 namespace AugmentedReadingApp
 {
     public partial class InteractionCoordinator : Form
-    {
-        public byte[] byteImagenBuscada;
+    {   //Clase y atributos para detectar y desplegar camaras
 
-        //Clase y atributos para detectar y desplegar camaras
         CameraActivity camerasText = new CameraActivity();
         CameraActivity camerasGesture = new CameraActivity();
         private int _CameraTextIndex;
@@ -35,7 +33,11 @@ namespace AugmentedReadingApp
         public GestureRecognitionActivity recGestual = new GestureRecognitionActivity();
         public ProjectionScreenActivity projection;
         public DigitalDocSync documentoSyn;
-        OpenFileDialog  openFilePDF = new OpenFileDialog();
+        OpenFileDialog openFilePDF = new OpenFileDialog();
+
+        public byte[] byteImagenBuscada;
+
+
 
         private Mat rectangleImage;
         public Mat RectangleImage
@@ -49,10 +51,11 @@ namespace AugmentedReadingApp
 
         public InteractionCoordinator()
         {
-            SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
-            seleccionInteraccionPorVoz.Show();
-
             projection = new ProjectionScreenActivity(this);
+
+            SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
+            seleccionInteraccionPorVoz.TopMost = true;
+            seleccionInteraccionPorVoz.Show();
 
             InitializeComponent();
 
@@ -72,15 +75,14 @@ namespace AugmentedReadingApp
             recGestual.selectedRectangle += PutRectangle;
 
             GetSettings();
+
         }
 
         //Clase reconociminto gestual
         void LoadPlugins(string folder)
         {
-            string path = Directory.GetCurrentDirectory();
-
             _plugins.Clear();
-            foreach (var dll in Directory.GetFiles(path + "\\Plugins", "*.dll"))
+            foreach (var dll in Directory.GetFiles(folder + "\\Plugins", "*.dll"))
             {
                 try
                 {
@@ -121,7 +123,7 @@ namespace AugmentedReadingApp
         {
             var menuItem = sender as ToolStripMenuItem;
             plugin = _plugins[menuItem.Text];
-            recGestual.Plugin = _plugins[menuItem.Text]; 
+            recGestual.Plugin = _plugins[menuItem.Text];
             UncheckOtherToolStripMenuItems((ToolStripMenuItem)sender);
             ((ToolStripMenuItem)menuItem).Checked = true;
 
@@ -244,7 +246,7 @@ namespace AugmentedReadingApp
             textBoxX.Text = hecho;
         }
 
-        
+
 
         private void SetValue_textBoxY(string hecho)
         {
@@ -260,6 +262,7 @@ namespace AugmentedReadingApp
         {
             recGestual.ActiveX = checkBoxX.Checked;
             recGestual.ActiveY = checkBoxY.Checked;
+            recGestual.MouseRecOn = checkBoxMouse.Checked;
             imageBox2.Image = recGestual.Capture_ImageGrabbed(captureGesture, (float)numericUpDownSStartX.Value,
             (float)numericUpDownSEndX.Value, (float)numericUpDownAStartX.Value, (float)numericUpDownAEndX.Value,
             (float)numericUpDownSStartY.Value, (float)numericUpDownSEndY.Value, (float)numericUpDownAStartY.Value,
@@ -299,15 +302,20 @@ namespace AugmentedReadingApp
 
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void button4_Click(object sender, EventArgs e)
         {
+
             PutRectangle(recGestual.RectangularSelection);
-    
+
         }
 
         public string ImageToBase64(System.Drawing.Image image,
-  System.Drawing.Imaging.ImageFormat format)
+        System.Drawing.Imaging.ImageFormat format)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -347,18 +355,37 @@ namespace AugmentedReadingApp
                 if (captureGesture != null)
                 {
                     captureGesture.Retrieve(m);
+                    if (checkBoxMouse.Checked)
+                    {
 
-                    rectangleImage = cropColorFrame(m, recGestual.RectangularSelection);
+                        rectangleImage = cropColorFrame(m, recGestual.RectangularSelection);
+                    }
+                    else
+                    {
 
+                        // rectangleImage = cropColorFrame(m, projection.Highlight.GetRectangle());
+                        rectangleImage = cropColorFrame(m, recGestual.RectangularSelection);
+                    }
                     if (rectangleImage != null)
                     {
                         imageBox4.Image = rectangleImage.ToImage<Bgr, Byte>();
                         Image<Bgr, Byte> img = rectangleImage.ToImage<Bgr, Byte>();
+                        Console.WriteLine("Imagen capturada " + recGestual.RectangularSelection);
                         Bitmap bimage = img.ToBitmap();
                         System.IO.MemoryStream ms = new MemoryStream();
                         bimage.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                         byteImagenBuscada = ms.ToArray();
+                        //if (byteImagenBuscada != null && byteImagenBuscada.Length > 0)
+                        //{
+                        //    MessageBox.Show("se ha transformado la imagen a byte[] correctamente");
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("no se ha transformado la imagen a byte[] ");
+
+                        //}
                     }
+
                 }
             }
         }
@@ -368,7 +395,7 @@ namespace AugmentedReadingApp
         {
             //copia de input
             Image<Bgr, Byte> buffer_im = input.ToImage<Bgr, Byte>();
-            if (cropRegion.Width > 0 && cropRegion.Height > 0)
+            if (cropRegion.Width > 0 && cropRegion.Height > 0 && cropRegion.Location.X < input.Width)
             {
                 buffer_im.ROI = cropRegion;
 
@@ -396,9 +423,21 @@ namespace AugmentedReadingApp
             }
         }
 
-        private void Resize_Click(object sender, EventArgs e)
+        public void GetSettings()
         {
-            projection.Highlight.RuntimeFinalLocation((int)FinalLocateX.Value, (int)FinalLocateY.Value);
+            numericUpDownSStartX.Value = Properties.Settings.Default.ValorX1;
+            numericUpDownSStartY.Value = Properties.Settings.Default.ValorY1;
+            numericUpDownSEndX.Value = Properties.Settings.Default.ValorX2;
+            numericUpDownSEndY.Value = Properties.Settings.Default.ValorY2;
+
+        }
+        public void SaveSettings()
+        {
+            Properties.Settings.Default.ValorX1 = (int)numericUpDownSStartX.Value;
+            Properties.Settings.Default.ValorY1 = (int)numericUpDownSStartY.Value;
+            Properties.Settings.Default.ValorX2 = (int)numericUpDownSEndX.Value;
+            Properties.Settings.Default.ValorY2 = (int)numericUpDownSEndY.Value;
+            Properties.Settings.Default.Save();
 
         }
 
@@ -408,21 +447,10 @@ namespace AugmentedReadingApp
             GetSettings();
         }
 
-        public void GetSettings()
+        private void Resize_Click(object sender, EventArgs e)
         {
-            numericUpDownSStartX.Value = Properties.Settings.Default.ValorX1;
-            numericUpDownSStartY.Value = Properties.Settings.Default.ValorY1;
-            numericUpDownSEndX.Value = Properties.Settings.Default.ValorX2;
-            numericUpDownSEndY.Value = Properties.Settings.Default.ValorY2;
-        }
+            projection.Highlight.RuntimeFinalLocation((int)FinalLocateX.Value, (int)FinalLocateY.Value);
 
-        public void SaveSettings()
-        {
-            Properties.Settings.Default.ValorX1 = (int)numericUpDownSStartX.Value;
-            Properties.Settings.Default.ValorY1 = (int)numericUpDownSStartY.Value;
-            Properties.Settings.Default.ValorX2 = (int)numericUpDownSEndX.Value;
-            Properties.Settings.Default.ValorY2 = (int)numericUpDownSEndY.Value;
-            Properties.Settings.Default.Save();
         }
 
     }

@@ -89,6 +89,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.checkBoxMouse = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAStartY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAEndY)).BeginInit();
@@ -258,7 +259,7 @@
             this.numericUpDownAStartY.Size = new System.Drawing.Size(90, 20);
             this.numericUpDownAStartY.TabIndex = 105;
             this.numericUpDownAStartY.Value = new decimal(new int[] {
-            20,
+            600,
             0,
             0,
             0});
@@ -281,7 +282,7 @@
             this.numericUpDownAEndY.Size = new System.Drawing.Size(90, 20);
             this.numericUpDownAEndY.TabIndex = 104;
             this.numericUpDownAEndY.Value = new decimal(new int[] {
-            570,
+            300,
             0,
             0,
             0});
@@ -390,7 +391,7 @@
             this.numericUpDownAStartX.Size = new System.Drawing.Size(90, 20);
             this.numericUpDownAStartX.TabIndex = 97;
             this.numericUpDownAStartX.Value = new decimal(new int[] {
-            298,
+            600,
             0,
             0,
             0});
@@ -413,7 +414,7 @@
             this.numericUpDownAEndX.Size = new System.Drawing.Size(90, 20);
             this.numericUpDownAEndX.TabIndex = 96;
             this.numericUpDownAEndX.Value = new decimal(new int[] {
-            797,
+            300,
             0,
             0,
             0});
@@ -914,11 +915,23 @@
             this.label12.TabIndex = 159;
             this.label12.Text = "uu";
             // 
+            // checkBoxMouse
+            // 
+            this.checkBoxMouse.AutoSize = true;
+            this.checkBoxMouse.Location = new System.Drawing.Point(804, 609);
+            this.checkBoxMouse.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.checkBoxMouse.Name = "checkBoxMouse";
+            this.checkBoxMouse.Size = new System.Drawing.Size(98, 17);
+            this.checkBoxMouse.TabIndex = 161;
+            this.checkBoxMouse.Text = "Recognition on";
+            this.checkBoxMouse.UseVisualStyleBackColor = true;
+            // 
             // InteractionCoordinator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1180, 654);
+            this.Controls.Add(this.checkBoxMouse);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -1070,5 +1083,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.CheckBox checkBoxMouse;
     }
 }

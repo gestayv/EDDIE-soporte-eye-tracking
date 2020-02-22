@@ -31,8 +31,8 @@ namespace AugmentedReadingApp
         int panelWidth;
         bool Hidden;
 
-        string conceptoBuscar;
-        //string conceptoBuscar = "Harry Potter";
+        //string conceptoBuscar;
+        string conceptoBuscar = "LQ!ve";
 
         StringBuilder csvFile = new StringBuilder();
         string csvpath = Directory.GetCurrentDirectory() + "/CSV_registro_actividades/log_actividades.csv";
@@ -41,6 +41,7 @@ namespace AugmentedReadingApp
         {
             
             originalForm = incomingForm;
+
             InitializeComponent();
             
             pictureBox3.Image = Image.FromFile("x_mark_red_circle.png");
@@ -63,10 +64,13 @@ namespace AugmentedReadingApp
             this.Controls.Add(Highlight);
             Highlight.BringToFront();
 
-            Highlight.NumClicks += ButtonAction;
+            Highlight.NumClicks += ButtonAction;//Evento gatillado al terminar un resaltado o una captura de imagen
+            Highlight.FirstClicks += FirstClick;
 
             SeleccionApis formSeleccionApis = new SeleccionApis(this);
+            formSeleccionApis.TopMost = true;
             formSeleccionApis.Show();
+
             panelWidth = panel_log.Width;
             Hidden = true;
             panel_log.Visible = false;
@@ -135,8 +139,40 @@ namespace AugmentedReadingApp
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
 
- 
+            if (Highlight.HighLightOn)
+            {
+
+                originalForm.CaptureTxt();
+
+                try
+                {
+                    textBox1.Text = OCRProcess.TransformImage(originalForm.recTxt.TextImage.Bitmap);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("OCRProcess Resaltado: " + ex.Message);
+                }
+
+            }
+            else
+            {
+                originalForm.CaptureImage();
+
+                try
+                {
+                    textBox1.Text = OCRProcess.TransformImage(originalForm.RectangleImage.Bitmap);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("OCRProcess rectangulo: " + ex.Message);
+                }
+            }
+        }
+
+
         private void button3_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -159,17 +195,22 @@ namespace AugmentedReadingApp
 
         }
 
+        private void FirstClick()
+        {
+            originalForm.recGestual.FinalToRectXY();
+
+        }
         private void ButtonAction()
         {
 
-            if (Highlight.HighLightOn)
-            {
+            if (Highlight.HighLightOn)//condicion de que el highlight esta presionado, 
+            {                        //si no ocurre se va automaticamente al modo de captura de imagen.
 
                 originalForm.CaptureTxt();
 
                 try
                 {
-                    textBox1.Text = OCRProcess.TransformImage(originalForm.recTxt.TextImage.Bitmap);
+                    textBox1.Text = OCRProcess.TransformImage(originalForm.recTxt.TextImage.Bitmap); //Transforma un fragmento de texto
                     conceptoBuscar = OCRProcess.TransformImage(originalForm.recTxt.TextImage.Bitmap);
                     //string palabraBuscar = OCRProcess.TransformImage(originalForm.recTxt.TextImage.Bitmap);
                     //conceptoBuscar = Regex.Replace(conceptoBuscar, @"\n", "");
@@ -178,25 +219,29 @@ namespace AugmentedReadingApp
                 {
                     MessageBox.Show("OCRProcess Resaltado: " + ex.Message);
                 }
-
                 conceptoBuscar = Regex.Replace(conceptoBuscar, @"\n", "");
             }
             else
             {
-                if (originalForm.plugin.AutoCamCapture)
+                if (originalForm.plugin.AutoCamCapture)//codicion de que el plugin permita autocapture (funcione con una camara). ej: reconocimiento gestual por lapiz
                 {
+                    if (!originalForm.checkBoxMouse.Checked)
+                    {
+                        originalForm.recGestual.FinalToRectWH();
+                    }
+
+                    
 
                     originalForm.CaptureImage();
 
                     try
-                        {
-                            textBox1.Text = OCRProcess.TransformImage();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("OCRProcess rectangulo: " + ex.Message);
-                        }
-
+                    {
+                        // textBox1.Text = OCRProcess.TransformImage();//activar si se selecciona un fragmento de texto
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("OCRProcess rectangulo: " + ex.Message);
+                    }
                 }
             }
         }
@@ -372,8 +417,7 @@ namespace AugmentedReadingApp
                 lbl_datoBuscado_trad_def.Visible = true;
                 lbl_datoBuscado_trad_def.Text = textoTraducir;
                 TraducirTexto traducirTexto = new TraducirTexto();
-                try
-                {
+                try{
                     fl_busquedasRecientes.Controls.Add(busquedaReciente);
                     csvFile.AppendLine(formatTime + " ; " + textoTraducir + " ; " + apiUtilizada);
 
@@ -398,7 +442,7 @@ namespace AugmentedReadingApp
             rtb_result_definicion_traduccion.Visible = true;
             btn_leerDefinicionTraduccion.Visible = true;
 
-            rtb_result_definicion_traduccion.SelectionBullet = true;
+            //rtb_result_definicion_traduccion.SelectionBullet = true;
             rtb_result_definicion_traduccion.Clear();
             var definicionBuscada = conceptoBuscar;
 
@@ -436,13 +480,15 @@ namespace AugmentedReadingApp
                         definicionesEncontradas = buscarDefinicionG.buscarDefinicion(definicionBuscada, apiSeleccionada);
                         foreach (var elemento in definicionesEncontradas)
                         {
+                            rtb_result_definicion_traduccion.SelectionBullet = true;
                             rtb_result_definicion_traduccion.AppendText(elemento + Environment.NewLine);
+                            rtb_result_definicion_traduccion.SelectionBullet = false;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    rtb_result_definicion_traduccion.AppendText("No se ha podido encontrar la palabra buscada" + Environment.NewLine);
+                    rtb_result_definicion_traduccion.AppendText("No se ha podido encontrar la palabra buscada");
                 }
             }            
         }

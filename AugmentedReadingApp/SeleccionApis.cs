@@ -198,6 +198,8 @@ namespace AugmentedReadingApp
             apiSeleccionadaImagen = cbx_apisImagenes.GetItemText(cbx_apisImagenes.SelectedItem);
             idiomaSeleccionadoTraduccion = cbx_idiomaTraducir.GetItemText(cbx_idiomaTraducir.SelectedValue);
             MessageBox.Show("Apis seleccionadas con éxito");
+            this.WindowState = FormWindowState.Minimized;
+
         }
     }
 }

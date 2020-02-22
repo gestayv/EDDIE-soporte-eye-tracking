@@ -67,3 +67,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal7\ApiWikipedia\obj\Debug\ApiWikiped
 C:\Users\Dania\source\repos\1IntegracionFinal7\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal7\ApiWikipedia\obj\Debug\ApiWikipedia.dll
 C:\Users\Dania\source\repos\1IntegracionFinal7\ApiWikipedia\obj\Debug\ApiWikipedia.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiWikipedia.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\AugmentedReadingApp\bin\x86\Debug\Apis\ApiWikipedia.pdb
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.csprojAssemblyReference.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CoreCompileInputs.cache
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CopyComplete
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.dll
+C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.pdb
