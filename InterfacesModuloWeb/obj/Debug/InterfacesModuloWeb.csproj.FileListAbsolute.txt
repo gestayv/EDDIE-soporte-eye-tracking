@@ -74,3 +74,9 @@ C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\InterfacesModulo
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.csproj.CoreCompileInputs.cache
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.dll
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\bin\Debug\InterfacesModuloWeb.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\bin\Debug\InterfacesModuloWeb.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.csprojAssemblyReference.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.csproj.CoreCompileInputs.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.pdb

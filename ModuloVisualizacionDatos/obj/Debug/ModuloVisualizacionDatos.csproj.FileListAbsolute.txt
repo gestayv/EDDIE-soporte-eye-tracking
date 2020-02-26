@@ -166,3 +166,12 @@ C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloVisualizac
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.dll
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\bin\Debug\ModuloVisualizacionDatos.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\bin\Debug\ModuloVisualizacionDatos.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\bin\Debug\itextsharp.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\bin\Debug\itextsharp.xml
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csprojAssemblyReference.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CoreCompileInputs.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CopyComplete
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.pdb

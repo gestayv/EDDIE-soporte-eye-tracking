@@ -31,8 +31,8 @@ namespace AugmentedReadingApp
         int panelWidth;
         bool Hidden;
 
-        //string conceptoBuscar;
-        string conceptoBuscar = "LQ!ve";
+        string conceptoBuscar;
+        //string conceptoBuscar = "LQ!ve";
 
         StringBuilder csvFile = new StringBuilder();
         string csvpath = Directory.GetCurrentDirectory() + "/CSV_registro_actividades/log_actividades.csv";

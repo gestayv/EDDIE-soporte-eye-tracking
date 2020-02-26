@@ -363,3 +363,11 @@ Please use OO.ui.throttle/debounce instead. See https://phabricator.wikimedia.or
 [0221/213427.455:WARNING:audio_sync_reader.cc(187)] ASR: No room in socket buffer.: Se está cerrando la canalización. (0xE8)
 [0221/213430.381:INFO:CONSOLE(0)] "Uncaught (in promise) NotSupportedError: screen.orientation.lock() is not available on this device.", source: https://m.youtube.com/watch?v=28W_sotzXUw (0)
 [0221/213436.735:ERROR:render_media_log.cc(27)] MediaEvent: MEDIA_ERROR_LOG_ENTRY {"error":"video decode error"}
+[0224/001258.013:ERROR:browser_process_sub_thread.cc(221)] Waited 25 ms for network service
+[0224/230217.693:INFO:CONSOLE(0)] "Refused to display 'https://accounts.google.com/ServiceLogin?ltmpl=mobile&uilel=3&service=youtube&hl=en&passive=true&continue=https%3A%2F%2Fm.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26hl%3Den%26feature%3Dmobile_passive%26next%3Dhttps%253A%252F%252Fm.youtube.com%252Fsignin_passive%26app%3Dm%26noapp%3D1' in a frame because it set 'X-Frame-Options' to 'deny'.", source: https://m.youtube.com/results?search_query=nombre+%2C+ (0)
+[0224/232311.624:WARNING:spdy_session.cc(3326)] Received HEADERS for invalid stream 1
+[0225/231432.468:WARNING:spdy_session.cc(3326)] Received HEADERS for invalid stream 3
+[0225/231513.877:WARNING:spdy_session.cc(3326)] Received HEADERS for invalid stream 21
+[0225/231951.941:ERROR:broker_win.cc(55)] Error reading broker pipe: Ha terminado la canalización. (0x6D)
+[0225/231951.946:ERROR:broker_win.cc(137)] Error sending sync broker message: Se está cerrando la canalización. (0xE8)
+[0225/231951.946:ERROR:command_buffer_proxy_impl.cc(94)] ContextResult::kFatalFailure: AllocateAndMapSharedMemory failed

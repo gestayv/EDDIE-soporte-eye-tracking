@@ -302,10 +302,7 @@ namespace AugmentedReadingApp
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -340,7 +337,7 @@ namespace AugmentedReadingApp
 
                     imageBox4.Image = cropColorFrame(m, rectangle).ToImage<Bgr, byte>();
                     ImageToBase64(cropColorFrame(m, rectangle).Bitmap, System.Drawing.Imaging.ImageFormat.Bmp);
-
+                    CaptureImage();
                     //imageBox4.Image = cropColorFrame(m, new Rectangle(10,10,0,1)).ToImage<Bgr, byte>();
                 }
 

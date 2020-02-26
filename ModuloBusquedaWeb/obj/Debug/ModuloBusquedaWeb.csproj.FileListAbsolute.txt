@@ -115,3 +115,12 @@ C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloBusquedaWe
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.dll
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\bin\Debug\ModuloBusquedaWeb.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\bin\Debug\ModuloBusquedaWeb.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\bin\Debug\Newtonsoft.Json.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\bin\Debug\Newtonsoft.Json.xml
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.csprojAssemblyReference.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.csproj.CoreCompileInputs.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.csproj.CopyComplete
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloBusquedaWeb\obj\Debug\ModuloBusquedaWeb.pdb

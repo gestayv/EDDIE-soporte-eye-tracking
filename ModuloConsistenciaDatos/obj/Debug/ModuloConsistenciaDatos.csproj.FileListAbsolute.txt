@@ -133,3 +133,12 @@ C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloConsistenc
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.dll
 C:\Users\Dania\source\repos\1IntegracionFinal9ProyectoCasiFinal\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\bin\Debug\ModuloConsistenciaDatos.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\bin\Debug\ModuloConsistenciaDatos.pdb
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\bin\Debug\itextsharp.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\bin\Debug\itextsharp.xml
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csprojAssemblyReference.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CoreCompileInputs.cache
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CopyComplete
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.dll
+D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.pdb
