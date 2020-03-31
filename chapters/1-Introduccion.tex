@@ -3,6 +3,7 @@
 
 \section{Antecedentes y motivación}
 \label{intro:motivacion}
+% Hacer un prologo donde hable de la brecha entre lo real y lo virtual y como existen acercamientos que buscan minimizar su visibilidad/presencia
 Según el continuo de la virtualidad de Milgram, la realidad mixta (MR del inglés \textit{mixed reality}) abarca todo tipo de enfoques que permiten combinar elementos virtuales con el mundo real. La realidad aumentada (AR, de \textit{augmented reality}) corresponde a uno de estos enfoques y, gracias a los avances tecnológicos en décadas recientes, este ha ganado terreno en distintas áreas como el turismo, el \textit{retail}, el cuidado médico, la industria, entre otras (\cite{jung_dieck_2018}).
 
 Un caso puntual de la aplicación de AR corresponde a sistemas de ``lectura aumentada'', los cuales por medio del enfoque señalado son capaces de apoyar el proceso de lectura de documentos físicos, al facilitar ciertas tareas y, al mismo tiempo, otorgar acceso a utilidades a las que no se tiene acceso al momento de leer un libro o documento físico por si sólo, donde los límites del apoyo otorgado dependen únicamente de la tecnología empleada. 
@@ -13,17 +14,17 @@ EDDIE (\textit{Augment\textbf{ED} Rea\textbf{DI}ng D\textbf{E}ck}) es un tipo de
 
 % Si bien eddie es un sistema que se encuentra en un estado funcional, existe la posibilidad de extender sus capacidades  al trabajar sobre cuatro de los distintos módulos que lo componen: interacciones, datos, consistencia, usabilidad. El trabajo sobre estos módulos permite por un lado, beneficios para lector, mientras que por otro lado, tambien abre las puertas para <beneficios quienes usan la plataforma para estudios>
 
-% Acá usar un parrafo final para explicar cómo existe un tipo de tecnología que es perfecta para la labor principal de la plataforma (la lectura de docs), el seguimiento de movs oculares
+% Acá usar un parrafo final para explicar cómo existe un tipo de tecnología que es perfecta para la labor principal de la plataforma (la lectura de docs), el seguimiento de movs oculares y porqué
 
 \section{Descripci\'on del problema}
 \label{intro:problema}
-% 1. Problema surge del display utilizado en conjunto al dispositivo eye tracking
+% 1. Problema surge del display utilizado en conjunto a la tecnología de eye tracking empleada
 % 2. usualemnte este display corresponde a un monitor frente al usuario (confirmar esto)
 % 3. sin embargo el display de la plataforma corresponde a un proyector, el cual proyecta (redundante?) una imagen sobre una mesa 
 % 4. las diferencias que introduce trabajar con este tipo de display estan ligadas a la posición del usuario respecto a la imagen que observa y al nivel de luz generado por el display en sí, el cual puede interferir en las mediciones realizadas por el dispositivo eye tracking
 % 5. Tomando en consideración estos dos tipos de display, ¿es posible integrar tecnologías de eye tracking sobre la plataforma, asegurando un nivel de precisión similar o equivalente al que se obtiene normalmente en monitores?
 
-En el departamento de Ingeniería en Informática de la Universidad de Santiago de Chile, se ha desarrollado un sistema de lectura aumentada, el cual por medio de distintas utilidades permite apoyar al proceso de lectura de documentos físicos. Este sistema aún se encuentra en desarrollo y resulta posible identificar ciertas carencias en los módulos que lo componen, en la forma de funcionalidades que de ser implementadas, aportarían para generar una solución más robusta. Una de ellas corresponde al seguimiento o captura de los movimientos oculares de un lector, la cual ampliaría las capacidades de la plataforma al permitir el análisis de estos movimientos y al habilitar interacciones por medio de ciertos gestos oculares.
+% * También el problema es determinar la forma en que se debe construir un plugin para que sea capaz de aceptar todo tipo de dispositivos de eye tracking, no solo limitandolo a los que se mencionan...
 
 Debido a que el \textit{display} que utiliza la plataforma (correspondiente a un proyector) difiere de aquel empleado tradicionalmente con sensores \textit{eye tracking} (monitores), surgen dos desafíos por enfrentar:
 \begin{enumerate}
