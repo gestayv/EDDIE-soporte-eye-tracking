@@ -157,14 +157,14 @@
             // comenzarToolStripMenuItem
             // 
             this.comenzarToolStripMenuItem.Name = "comenzarToolStripMenuItem";
-            this.comenzarToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.comenzarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.comenzarToolStripMenuItem.Text = "Comenzar";
             this.comenzarToolStripMenuItem.Click += new System.EventHandler(this.comenzarToolStripMenuItem_Click);
             // 
             // detenerToolStripMenuItem
             // 
             this.detenerToolStripMenuItem.Name = "detenerToolStripMenuItem";
-            this.detenerToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.detenerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.detenerToolStripMenuItem.Text = "Detener";
             this.detenerToolStripMenuItem.Click += new System.EventHandler(this.detenerToolStripMenuItem_Click);
             // 

@@ -80,3 +80,9 @@ D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\In
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.csproj.CoreCompileInputs.cache
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.dll
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\InterfacesModuloWeb\bin\Debug\InterfacesModuloWeb.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\InterfacesModuloWeb\bin\Debug\InterfacesModuloWeb.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\InterfacesModuloWeb\obj\Debug\InterfacesModuloWeb.pdb

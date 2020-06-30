@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AugmentedReadingApp", "AugmentedReadingApp\AugmentedReadingApp.csproj", "{F6FB7AC4-52B4-4EEA-9353-58065B161459}"
 EndProject
@@ -40,6 +40,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apis", "Apis", "{E593CC45-5446-4885-B511-F411AAF71715}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseRecognition", "MouseRecognition\MouseRecognition.csproj", "{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PluginsRastreoOcular", "PluginsRastreoOcular", "{5AA5353B-7089-413A-B865-52EB1206303F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuloLog", "ModuloLog\ModuloLog.csproj", "{8AF35920-C9F0-4C7D-8C47-8F91CE3E163C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfazRastreoOcular", "InterfazEyeTracking\InterfazRastreoOcular.csproj", "{7448F9E8-A026-40F0-8B5F-123D0558A0B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginGazeCloud", "PluginGazeCloud\PluginGazeCloud.csproj", "{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +123,18 @@ Global
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AF35920-C9F0-4C7D-8C47-8F91CE3E163C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AF35920-C9F0-4C7D-8C47-8F91CE3E163C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AF35920-C9F0-4C7D-8C47-8F91CE3E163C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AF35920-C9F0-4C7D-8C47-8F91CE3E163C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7448F9E8-A026-40F0-8B5F-123D0558A0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +150,7 @@ Global
 		{4E80CEA7-BB51-4267-99F9-6B80DFB3F329} = {E593CC45-5446-4885-B511-F411AAF71715}
 		{4AC51111-F707-4C02-AEEA-F91A4CFF19D9} = {E593CC45-5446-4885-B511-F411AAF71715}
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0} = {7432BB62-7783-4112-9635-D7D447A75581}
+		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986} = {5AA5353B-7089-413A-B865-52EB1206303F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74785ED8-BCC4-407D-94A3-EBA4056B9E49}

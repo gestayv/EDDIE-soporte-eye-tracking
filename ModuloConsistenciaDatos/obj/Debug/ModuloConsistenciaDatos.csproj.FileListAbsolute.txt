@@ -142,3 +142,12 @@ D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debu
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CopyComplete
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.dll
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\bin\Debug\ModuloConsistenciaDatos.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\bin\Debug\ModuloConsistenciaDatos.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\bin\Debug\itextsharp.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\bin\Debug\itextsharp.xml
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.csproj.CopyComplete
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloConsistenciaDatos\obj\Debug\ModuloConsistenciaDatos.pdb

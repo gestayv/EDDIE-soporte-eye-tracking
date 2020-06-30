@@ -37,6 +37,7 @@ namespace AugmentedReadingApp
 
         public byte[] byteImagenBuscada;
 
+        // 
 
 
         private Mat rectangleImage;
@@ -55,7 +56,8 @@ namespace AugmentedReadingApp
 
             SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
             seleccionInteraccionPorVoz.TopMost = true;
-            seleccionInteraccionPorVoz.Show();
+            // DESCOMENTAR ===========================================================================================
+            //seleccionInteraccionPorVoz.Show();
 
             InitializeComponent();
 

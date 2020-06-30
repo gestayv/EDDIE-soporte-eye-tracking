@@ -175,3 +175,12 @@ D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Deb
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CopyComplete
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.dll
 D:\Repo-proyecto-github\EDDIE-Augmented-Reading\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\bin\Debug\ModuloVisualizacionDatos.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\bin\Debug\ModuloVisualizacionDatos.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\bin\Debug\itextsharp.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\bin\Debug\itextsharp.xml
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.csproj.CopyComplete
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ModuloVisualizacionDatos\obj\Debug\ModuloVisualizacionDatos.pdb

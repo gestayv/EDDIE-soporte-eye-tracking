@@ -102,7 +102,7 @@ namespace AugmentedReadingApp
                     ).ToArray();
 
             var nombresApiEnciclopedia = new List<String>();
-            foreach (var loader in loaders)
+            foreach (var loader in loaders) 
             {
                 nombresApiEnciclopedia.Add(loader.getName());
             }
