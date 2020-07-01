@@ -2258,3 +2258,5 @@ C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\obj\x86\Debug\Augme
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\obj\x86\Debug\AugmentedReadingApp.exe
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\obj\x86\Debug\AugmentedReadingApp.pdb
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\obj\x86\Debug\AugmentedReadingApp.EyeTrackingConfiguration.resources
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloRastreoOcular.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloRastreoOcular.pdb

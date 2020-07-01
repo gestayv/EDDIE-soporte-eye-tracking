@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-using System.ComponentModel;
+using ModuloRastreoOcular;  
+
 
 namespace AugmentedReadingApp
 {
@@ -31,6 +32,8 @@ namespace AugmentedReadingApp
                                                         .Select(p => Path.GetFileName(p)).ToArray();
             // Pass to the combobox
             trackingPlugins.Items.AddRange(pluginsNames);
+
+            reticleExample.Image = Image.FromFile(Directory.GetCurrentDirectory() + "/RecursosEyeTracking/" + "reticle_1.png");
         }
 
         private void cancelChanges_MouseClick(object sender, MouseEventArgs e)
@@ -45,41 +48,20 @@ namespace AugmentedReadingApp
             //  The selected plugin's assembly is loaded from the full path.
             Assembly pluginAssembly = Assembly.LoadFrom(selectedPlugin);
 
-
-
-            //  The assembly is instantiated assuming the class to be used is always the first Type defined
-            //  This should be assigned to a global object that is created in the main form, so everyone can access to it.
-            //  I also need a way of saving configurations (mouse control, reticle design?), so the program can know at any moment
-            //  how the eye tracking is supossed to behave.
-            assemblyType = pluginAssembly.GetTypes()[0];
-
-            // todo lo que sigue debería manejarlo otra clase, la asignación previa es sobre un parámetro de la clase
-            assemblyInstance = Activator.CreateInstance(assemblyType);
-            
-            EventInfo evPropChange = assemblyType.GetEvent("PropertyChanged");
-            Type delegateType = evPropChange.EventHandlerType;
-
-            Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
-
-            MethodInfo addHandler = evPropChange.GetAddMethod();
-            Object[] addHandlerArgs = { propChangeDel };
-            addHandler.Invoke(assemblyInstance, addHandlerArgs);
-
-            
-            MethodInfo assemblyOpenConn = assemblyType.GetMethod("OpenConnection");
-            assemblyOpenConn.Invoke(assemblyInstance, new object[] { });
-
-            Console.WriteLine();
-
-            // Tengo mi singleton, este qué hace? es el que se conecta con el assembly del plugin, pero es realmente necesario?
-            // mi singleton no debería ser la instancia del assembly en cuestion? o el singleton debería contener la instancia del assembly?
+            ClaseIntermedia test = ClaseIntermedia.GetInstance();
+            test.pluginAssembly = pluginAssembly;
+            test.setUpAssembly();
+            test.PropertyChanged += TestReticleEvent;
         }
 
-        public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
+        public void TestReticleEvent(object sender, PropertyChangedEventArgs e)
         {
-            PropertyInfo Data = assemblyType.GetProperty("Data");
-            Dictionary<string, string> Coordinates =  (Dictionary<string, string>)Data.GetValue(assemblyInstance);
-            Console.WriteLine("Clase Intermedia - {0}, {1}, {2}", Coordinates["X_Coordinate"], Coordinates["Y_Coordinate"], Coordinates["Timestamp"]);
+            ClaseIntermedia test2 = ClaseIntermedia.GetInstance();
+            int x = (int)Double.Parse(test2.Data["X_Coordinate"]);
+            int y = (int)Double.Parse(test2.Data["Y_Coordinate"]);
+            reticleExample.Left = x;
+            reticleExample.Top = y;
         }
+
     }
 }

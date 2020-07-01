@@ -45,7 +45,7 @@ namespace PluginGazeCloud
                 server.ClientConnected += ClientConnected;
                 server.ClientDisconnected += ClientDisconnected;
                 server.MessageReceived += MessageReceived;
-                //server.Logger = Logger;
+                server.Logger = Logger;
                 server.Start();
                 return true;
             }

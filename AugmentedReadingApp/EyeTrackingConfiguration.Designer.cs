@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.saveChanges = new System.Windows.Forms.Button();
             this.cancelChanges = new System.Windows.Forms.Button();
+            this.reticleExample = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.reticleExample)).BeginInit();
             this.SuspendLayout();
             // 
             // trackingPlugins
@@ -72,19 +74,29 @@
             this.cancelChanges.UseVisualStyleBackColor = true;
             this.cancelChanges.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cancelChanges_MouseClick);
             // 
+            // reticleExample
+            // 
+            this.reticleExample.BackColor = System.Drawing.Color.Transparent;
+            this.reticleExample.Location = new System.Drawing.Point(119, 96);
+            this.reticleExample.Name = "reticleExample";
+            this.reticleExample.Size = new System.Drawing.Size(100, 92);
+            this.reticleExample.TabIndex = 4;
+            this.reticleExample.TabStop = false;
+            // 
             // EyeTrackingConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 269);
+            this.Controls.Add(this.reticleExample);
             this.Controls.Add(this.cancelChanges);
             this.Controls.Add(this.saveChanges);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.trackingPlugins);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EyeTrackingConfiguration";
             this.Text = "Configuración Rastreo Ocular";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.reticleExample)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,5 +108,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button saveChanges;
         private System.Windows.Forms.Button cancelChanges;
+        private System.Windows.Forms.PictureBox reticleExample;
     }
 }

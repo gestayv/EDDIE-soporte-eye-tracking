@@ -12,6 +12,7 @@ using CefSharp.WinForms;
 using ModuloBusquedaWeb;
 using ModuloProcesamientoImagenes;
 using ModuloVisualizacionDatos;
+using ModuloRastreoOcular;
 
 namespace AugmentedReadingApp
 {
@@ -71,6 +72,7 @@ namespace AugmentedReadingApp
             //                              DELETE AFTER
             EyeTrackingConfiguration testET = new EyeTrackingConfiguration();
             testET.Show();
+            ClaseIntermedia tes2 = ClaseIntermedia.GetInstance();
             // ================================================================================================
 
             SeleccionApis formSeleccionApis = new SeleccionApis(this);
