@@ -78,9 +78,8 @@ namespace AugmentedReadingApp
         public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
         {
             PropertyInfo Data = assemblyType.GetProperty("Data");
-            var test =  Data.GetValue(assemblyInstance);
-            Console.WriteLine("asdasd");
-            //Console.WriteLine("Clase Intermedia - {0}, {1}, {2}", Coordinates.ElementAt(0), Coordinates.ElementAt(1), Coordinates.ElementAt(2));
+            Dictionary<string, string> Coordinates =  (Dictionary<string, string>)Data.GetValue(assemblyInstance);
+            Console.WriteLine("Clase Intermedia - {0}, {1}, {2}", Coordinates["X_Coordinate"], Coordinates["Y_Coordinate"], Coordinates["Timestamp"]);
         }
     }
 }
