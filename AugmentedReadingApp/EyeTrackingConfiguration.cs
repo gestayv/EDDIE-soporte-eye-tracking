@@ -50,15 +50,15 @@ namespace AugmentedReadingApp
         //  Luego, en la clase intermedia crear un método para inicializar la clase que dibuja la retícula.
         private void saveChanges_MouseClick(object sender, MouseEventArgs e)
         {
-            string selectedPlugin = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\" + trackingPlugins.Text;
-            string selectedReticle = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
+            string selectedPlugin   =   Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\" + trackingPlugins.Text;
+            string selectedReticle  =   Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
 
             if (trackingPlugins.Text != "")
             {
                 Assembly pluginAssembly = Assembly.LoadFrom(selectedPlugin);
                 IntermediateClass interClass = IntermediateClass.GetInstance();
 
-                interClass.initializeClass(pluginAssembly, controlMouse.Checked, Image.FromFile(selectedReticle));
+                interClass.initializeClass(pluginAssembly, controlMouse.Checked, saveData.Checked, Image.FromFile(selectedReticle));
                 interClass.setUpAssembly();
             }
             this.Close();
@@ -78,6 +78,11 @@ namespace AugmentedReadingApp
         private void controlMouse_MouseHover(object sender, EventArgs e)
         {
             toolTipMouseControl.Show("Si se selecciona, el usuario podrá controlar el \npuntero con sus movimientos oculares.", controlMouse);
+        }
+
+        private void saveData_MouseHover(object sender, EventArgs e)
+        {
+            toolTipSaveData.Show("Si se selecciona, los datos capturados por el eye tracker\nson guardados en un archivo .csv", saveData);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace ModuloRastreoOcular
 {
@@ -16,8 +17,8 @@ namespace ModuloRastreoOcular
     public class IntermediateClass
     {
         //  Attributes for implementing the class as a thread safe singleton
-        private static IntermediateClass _Instance = null;
-        private static readonly object padlock = new object();
+        private static IntermediateClass _Instance  =   null;
+        private static readonly object padlock      =   new object();
 
         //  Attributes for reflection
         public Assembly pluginAssembly;
@@ -27,23 +28,16 @@ namespace ModuloRastreoOcular
         //  Attributes for handling new eye tracking data
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
         public event PropertyChangedEventHandler PropertyChanged;   
-        public bool mouseControl;
-        //public Form currentForm;
+        private bool mouseControl;
 
-        // Dibujo reticula
+        //  Attributes for saving data to file
+        private bool saveData;
+        private EyeTrackingLogging logging;
+
+        //  Attributes for drawing a reticle to screen
         private ReticleDrawing drawingClass;
 
-        public void initializeClass(Assembly pluginAssembly, bool mouseControl, Image reticle) 
-        {
-            this.pluginAssembly = pluginAssembly;
-            this.mouseControl = mouseControl;
-            if (reticle != null)
-            {
-                drawingClass = new ReticleDrawing();
-                drawingClass.reticle = reticle;
-            }
-        }
-
+        //  Dictionary where the eye tracking data is kept
         public Dictionary<string, string> Data 
         {
             get { return _Data; }
@@ -54,6 +48,7 @@ namespace ModuloRastreoOcular
             }
         }
 
+        //  Returns an unique instance of the class, ensuring it behaves like a singleton
         public static IntermediateClass GetInstance() 
         {
             if (_Instance == null) 
@@ -69,34 +64,69 @@ namespace ModuloRastreoOcular
             }
             return _Instance;
         }
+       
+        /// <summary>
+        /// Method for initializating IntermediateClasss
+        /// </summary>
+        /// <param name="pluginAssembly">Assembly corresponding to the eye tracking plugin selected</param>
+        /// <param name="mouseControl">Bool value that indicates if the user will control the mouse with its gaze</param>
+        /// <param name="saveData">Bool value that indicates if the eye tracking data will be saved to a file</param>
+        /// <param name="reticle">Image containing the reticle selected, can be null.</param>
+        public void initializeClass(Assembly pluginAssembly, bool mouseControl, bool saveData, Image reticle)
+        {
+            this.pluginAssembly = pluginAssembly;
+            this.mouseControl = mouseControl;
+            this.saveData = saveData;
+            if (reticle != null)
+            {
+                //  If a reticle is selected, the class for managing its drawing is created
+                drawingClass = new ReticleDrawing();
+                drawingClass.reticle = reticle;
+            }
+            if (saveData)
+            {
+                //  If saveData was selected, a file where contents will be written is created.
+                logging = new EyeTrackingLogging();
+                string loggingDirectory = Directory.GetCurrentDirectory() + "//Eye Tracking Logging";
+                string fileName = DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
+                logging.dataLoggger = logging.CreateLogTarget(loggingDirectory, fileName);
+            }
+
+        }
 
         // TODO: revisar si necesito limpiar el assembly cuando se hace un cambio de plugin en la marcha.
+        /// <summary>
+        /// Method that uses reflection to set up the eye tracking plugin that has been selected, specifically:
+        /// 1. Subscribing to the "PropertyChanged" event (in order to detect when new eye tracking data is received)
+        /// 2. Calling the "OpenConnection" method, to startup the connection with the eye tracker device.
+        /// </summary>
         public void setUpAssembly() 
         {
-            //  Se obtiene el tipo del assembly (primera clase declarada) y se genera una instancia
-            assemblyType = pluginAssembly.GetTypes()[0];
-            assemblyInstance = Activator.CreateInstance(assemblyType);
-             
-            //  Se obtiene el evento que se levanta al recibir nuevos datos del eye tracker y se
-            //  le asigna un nuevo delegado en esta función.
-            EventInfo evPropChange = assemblyType.GetEvent("PropertyChanged");
-            Type delegateType = evPropChange.EventHandlerType;
+            
+            assemblyType        =   pluginAssembly.GetTypes()[0];
+            assemblyInstance    =   Activator.CreateInstance(assemblyType);
 
-            Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
+            EventInfo evPropChange  =   assemblyType.GetEvent("PropertyChanged");
+            Type delegateType       =   evPropChange.EventHandlerType;
 
-            MethodInfo addHandler = evPropChange.GetAddMethod();
-            Object[] addHandlerArgs = { propChangeDel };
+            Delegate propChangeDel  =   Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
+            MethodInfo addHandler   =   evPropChange.GetAddMethod();
+            Object[] addHandlerArgs =   { propChangeDel };
             addHandler.Invoke(assemblyInstance, addHandlerArgs);
 
-            //  Se invoca el método para establecer conexión con el eye tracker
-            MethodInfo assemblyOpenConn = assemblyType.GetMethod("OpenConnection");
+            MethodInfo assemblyOpenConn =   assemblyType.GetMethod("OpenConnection");
             assemblyOpenConn.Invoke(assemblyInstance, new object[] { });
         }
 
+        /// <summary>
+        /// Method used in the subscription to "PropertyChanged" of the eye tracking plugin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
         {
-            PropertyInfo assemblyData = assemblyType.GetProperty("Data");
-            Dictionary<string, string> Coordinates = (Dictionary<string, string>)assemblyData.GetValue(assemblyInstance);
+            PropertyInfo assemblyData               =   assemblyType.GetProperty("Data");
+            Dictionary<string, string> Coordinates  =   (Dictionary<string, string>)assemblyData.GetValue(assemblyInstance);
             Data = Coordinates;
             //if (mouseControl) 
             //{
@@ -106,9 +136,17 @@ namespace ModuloRastreoOcular
             {
                 drawingClass.updateData(Data["X_Coordinate"], Data["Y_Coordinate"]);
             }
-
+            if (saveData)
+            {
+                logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"]);
+            }
         }
 
+        /// <summary>
+        /// Method fired when the property Data of the class is modified
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

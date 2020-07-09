@@ -139,6 +139,7 @@
             this.saveData.TabIndex = 10;
             this.saveData.Text = "Guardar Datos";
             this.saveData.UseVisualStyleBackColor = true;
+            this.saveData.MouseHover += new System.EventHandler(this.saveData_MouseHover);
             // 
             // EyeTrackingConfiguration
             // 

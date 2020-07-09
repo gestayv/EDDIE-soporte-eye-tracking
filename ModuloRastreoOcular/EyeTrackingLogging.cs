@@ -12,7 +12,7 @@ namespace ModuloRastreoOcular
 {
     class EyeTrackingLogging : InterfazLogging.ILogging<Logger>
     {
-        public Logger testLogger;
+        public Logger dataLoggger;
 
         public bool CloseLogTarget(Logger file)
         {
@@ -34,10 +34,10 @@ namespace ModuloRastreoOcular
 
             try
             {
-                testLogger = new LoggerConfiguration()
+                dataLoggger = new LoggerConfiguration()
                             .WriteTo.Async(a => a.File(fileRouteName, outputTemplate: "{Message}{NewLine}{Exception}"), bufferSize: 1000, blockWhenFull: true)
                             .CreateLogger();
-                return testLogger;
+                return dataLoggger;
             }
             catch (Exception e)
             {
