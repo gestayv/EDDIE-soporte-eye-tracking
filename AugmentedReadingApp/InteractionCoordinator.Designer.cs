@@ -90,6 +90,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.checkBoxMouse = new System.Windows.Forms.CheckBox();
+            this.rastreoOcularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAStartY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAEndY)).BeginInit();
@@ -138,7 +140,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reconocimientoToolStripMenuItem,
-            this.complementoToolStripMenuItem});
+            this.complementoToolStripMenuItem,
+            this.rastreoOcularToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1180, 24);
@@ -157,14 +160,14 @@
             // comenzarToolStripMenuItem
             // 
             this.comenzarToolStripMenuItem.Name = "comenzarToolStripMenuItem";
-            this.comenzarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.comenzarToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.comenzarToolStripMenuItem.Text = "Comenzar";
             this.comenzarToolStripMenuItem.Click += new System.EventHandler(this.comenzarToolStripMenuItem_Click);
             // 
             // detenerToolStripMenuItem
             // 
             this.detenerToolStripMenuItem.Name = "detenerToolStripMenuItem";
-            this.detenerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.detenerToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.detenerToolStripMenuItem.Text = "Detener";
             this.detenerToolStripMenuItem.Click += new System.EventHandler(this.detenerToolStripMenuItem_Click);
             // 
@@ -926,6 +929,21 @@
             this.checkBoxMouse.Text = "Recognition on";
             this.checkBoxMouse.UseVisualStyleBackColor = true;
             // 
+            // rastreoOcularToolStripMenuItem
+            // 
+            this.rastreoOcularToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurarToolStripMenuItem});
+            this.rastreoOcularToolStripMenuItem.Name = "rastreoOcularToolStripMenuItem";
+            this.rastreoOcularToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.rastreoOcularToolStripMenuItem.Text = "Rastreo Ocular";
+            // 
+            // configurarToolStripMenuItem
+            // 
+            this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
+            this.configurarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configurarToolStripMenuItem.Text = "Configurar";
+            this.configurarToolStripMenuItem.Click += new System.EventHandler(this.configurarToolStripMenuItem_Click);
+            // 
             // InteractionCoordinator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1084,5 +1102,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.CheckBox checkBoxMouse;
+        private System.Windows.Forms.ToolStripMenuItem rastreoOcularToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configurarToolStripMenuItem;
     }
 }

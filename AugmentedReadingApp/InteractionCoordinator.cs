@@ -14,6 +14,7 @@ using ModuloConsistenciaDatos;
 //using Leap;
 
 
+
 namespace AugmentedReadingApp
 {
     public partial class InteractionCoordinator : Form
@@ -37,8 +38,8 @@ namespace AugmentedReadingApp
 
         public byte[] byteImagenBuscada;
 
-        // 
-
+        // Classes for eye tracking
+        //IntermediateClass interClass = IntermediateClass.GetInstance();
 
         private Mat rectangleImage;
         public Mat RectangleImage
@@ -56,8 +57,7 @@ namespace AugmentedReadingApp
 
             SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
             seleccionInteraccionPorVoz.TopMost = true;
-            // DESCOMENTAR ===========================================================================================
-            //seleccionInteraccionPorVoz.Show();
+            seleccionInteraccionPorVoz.Show();
 
             InitializeComponent();
 
@@ -452,6 +452,11 @@ namespace AugmentedReadingApp
 
         }
 
+        private void configurarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EyeTrackingConfiguration eyeTrackingConfig = new EyeTrackingConfiguration();
+            eyeTrackingConfig.Show();
+        }
     }
 }
 

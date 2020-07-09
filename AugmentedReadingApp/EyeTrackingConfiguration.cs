@@ -9,8 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-using ModuloRastreoOcular;  
-
+using ModuloRastreoOcular;
 
 namespace AugmentedReadingApp
 {
@@ -18,22 +17,28 @@ namespace AugmentedReadingApp
     {
         public Type assemblyType;
         public object assemblyInstance;
-
+        public Image newImage;
 
         public EyeTrackingConfiguration()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Get the name of all plugins
-            string[] pluginsNames = Directory.GetFiles(Directory.GetCurrentDirectory() + "/PluginsEyeTracking", "Plugin*.dll")
+            //  After loading the form, get the name of all assemblies and reticles
+            string[] pluginsNames = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\", "*.dll")
                                                         .Select(p => Path.GetFileName(p)).ToArray();
-            // Pass to the combobox
-            trackingPlugins.Items.AddRange(pluginsNames);
 
-            reticleExample.Image = Image.FromFile(Directory.GetCurrentDirectory() + "/RecursosEyeTracking/" + "reticle_1.png");
+            string[] reticleNames = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\", "*.png")
+                                                        .Select(p => Path.GetFileName(p)).ToArray();
+            //  Assign names to comboboxes
+            trackingPlugins.Items.AddRange(pluginsNames);
+            reticleSelected.Items.Add("None");
+            reticleSelected.Items.AddRange(reticleNames);
+            reticleExample.SizeMode = PictureBoxSizeMode.StretchImage;
+            reticleDimensions.Text = "Ancho: 0px\nAlto: 0px";
         }
 
         private void cancelChanges_MouseClick(object sender, MouseEventArgs e)
@@ -41,27 +46,38 @@ namespace AugmentedReadingApp
             this.Close();
         }
 
+        //  Crear un método para inicializar la clase intermedia.
+        //  Luego, en la clase intermedia crear un método para inicializar la clase que dibuja la retícula.
         private void saveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             string selectedPlugin = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\" + trackingPlugins.Text;
+            string selectedReticle = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
 
-            //  The selected plugin's assembly is loaded from the full path.
-            Assembly pluginAssembly = Assembly.LoadFrom(selectedPlugin);
+            if (trackingPlugins.Text != "")
+            {
+                Assembly pluginAssembly = Assembly.LoadFrom(selectedPlugin);
+                IntermediateClass interClass = IntermediateClass.GetInstance();
 
-            ClaseIntermedia test = ClaseIntermedia.GetInstance();
-            test.pluginAssembly = pluginAssembly;
-            test.setUpAssembly();
-            test.PropertyChanged += TestReticleEvent;
+                interClass.initializeClass(pluginAssembly, controlMouse.Checked, Image.FromFile(selectedReticle));
+                interClass.setUpAssembly();
+            }
+            this.Close();
         }
 
-        public void TestReticleEvent(object sender, PropertyChangedEventArgs e)
+        private void reticleSelected_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ClaseIntermedia test2 = ClaseIntermedia.GetInstance();
-            int x = (int)Double.Parse(test2.Data["X_Coordinate"]);
-            int y = (int)Double.Parse(test2.Data["Y_Coordinate"]);
-            reticleExample.Left = x;
-            reticleExample.Top = y;
+            string selectedReticle = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
+            if(reticleSelected.Text != "None")
+            {
+                Image reticle = Image.FromFile(selectedReticle);
+                reticleExample.Image = reticle;
+                reticleDimensions.Text = "Ancho: " + reticle.Width + "px\nAlto: " + reticle.Width + "px";
+            }
         }
 
+        private void controlMouse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipMouseControl.Show("Si se selecciona, el usuario podrá controlar el \npuntero con sus movimientos oculares.", controlMouse);
+        }
     }
 }

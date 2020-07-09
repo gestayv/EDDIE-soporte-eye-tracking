@@ -3,7 +3,6 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-
 using WatsonWebsocket;
 using InterfazRastreoOcular;
 
@@ -31,10 +30,10 @@ namespace PluginGazeCloud
             {
                 handler(this, e);
             }
-            else
-            {
-                Console.WriteLine("handler null");
-            }
+            //else
+            //{
+            //    Console.WriteLine("handler null");
+            //}
         }
 
         public bool OpenConnection()

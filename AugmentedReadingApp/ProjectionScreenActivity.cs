@@ -68,17 +68,9 @@ namespace AugmentedReadingApp
             Highlight.NumClicks += ButtonAction;//Evento gatillado al terminar un resaltado o una captura de imagen
             Highlight.FirstClicks += FirstClick;
 
-            // ================================================================================================
-            //                              DELETE AFTER
-            EyeTrackingConfiguration testET = new EyeTrackingConfiguration();
-            testET.Show();
-            ClaseIntermedia tes2 = ClaseIntermedia.GetInstance();
-            // ================================================================================================
-
             SeleccionApis formSeleccionApis = new SeleccionApis(this);
             formSeleccionApis.TopMost = true;
-            // DESCOMENTAR ===========================================================================================
-            //formSeleccionApis.Show();
+            formSeleccionApis.Show();
 
             panelWidth = panel_log.Width;
             Hidden = true;

@@ -5,23 +5,44 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace ModuloRastreoOcular
 {
-    public class ClaseIntermedia
+    /// <summary>
+    /// Singleton class used for managing functionalities related to eye tracking.
+    /// </summary>
+    public class IntermediateClass
     {
         //  Attributes for implementing the class as a thread safe singleton
-        private static ClaseIntermedia _Instance = null;
+        private static IntermediateClass _Instance = null;
         private static readonly object padlock = new object();
 
         //  Attributes for reflection
         public Assembly pluginAssembly;
         public Type assemblyType;
         public object assemblyInstance;
-
+            
         //  Attributes for handling new eye tracking data
-        public event PropertyChangedEventHandler PropertyChanged;
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
+        public event PropertyChangedEventHandler PropertyChanged;   
+        public bool mouseControl;
+        //public Form currentForm;
+
+        // Dibujo reticula
+        private ReticleDrawing drawingClass;
+
+        public void initializeClass(Assembly pluginAssembly, bool mouseControl, Image reticle) 
+        {
+            this.pluginAssembly = pluginAssembly;
+            this.mouseControl = mouseControl;
+            if (reticle != null)
+            {
+                drawingClass = new ReticleDrawing();
+                drawingClass.reticle = reticle;
+            }
+        }
 
         public Dictionary<string, string> Data 
         {
@@ -33,7 +54,7 @@ namespace ModuloRastreoOcular
             }
         }
 
-        public static ClaseIntermedia GetInstance() 
+        public static IntermediateClass GetInstance() 
         {
             if (_Instance == null) 
             {
@@ -41,7 +62,7 @@ namespace ModuloRastreoOcular
                 {
                     if (_Instance == null)
                     {
-                        _Instance = new ClaseIntermedia();
+                        _Instance = new IntermediateClass();
                     }
                     return _Instance;
                 }
@@ -77,7 +98,15 @@ namespace ModuloRastreoOcular
             PropertyInfo assemblyData = assemblyType.GetProperty("Data");
             Dictionary<string, string> Coordinates = (Dictionary<string, string>)assemblyData.GetValue(assemblyInstance);
             Data = Coordinates;
-            //Console.WriteLine("Clase Intermedia - {0}, {1}, {2}", Coordinates["X_Coordinate"], Coordinates["Y_Coordinate"], Coordinates["Timestamp"]);
+            //if (mouseControl) 
+            //{
+            //    MoveCursor(Int32.Parse(Data["X_Coordinate"]), Int32.Parse(Data["Y_Coordinate"]));
+            //}
+            if (drawingClass.reticle != null)
+            {
+                drawingClass.updateData(Data["X_Coordinate"], Data["Y_Coordinate"]);
+            }
+
         }
 
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -87,10 +116,14 @@ namespace ModuloRastreoOcular
             {
                 handler(this, e);
             }
-            else
-            {
-                Console.WriteLine("handler null");
-            }
         }
+
+        //private void MoveCursor(int xCoordinate, int yCoordinate)
+        //{
+        //    Cursor cursorEyeMovement = new Cursor(Cursor.Current.Handle);
+        //    Cursor.Position = new Point(xCoordinate, yCoordinate);
+        //    // this.Location/Size es de la form
+        //    Cursor.Clip = new Rectangle(currentForm.Location, currentForm.Size);
+        //}
     }
 }   

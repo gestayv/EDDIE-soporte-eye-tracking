@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ModuloLog
+namespace InterfazLogging
 {
     /// <summary>
     /// Interface for managing data logging
