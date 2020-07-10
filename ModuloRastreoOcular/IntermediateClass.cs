@@ -28,7 +28,10 @@ namespace ModuloRastreoOcular
         //  Attributes for handling new eye tracking data
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
         public event PropertyChangedEventHandler PropertyChanged;   
+        
+        //  Attributes for controling mouse movement
         private bool mouseControl;
+        private MouseControl controller;
 
         //  Attributes for saving data to file
         private bool saveData;
@@ -64,7 +67,7 @@ namespace ModuloRastreoOcular
             }
             return _Instance;
         }
-       
+
         /// <summary>
         /// Method for initializating IntermediateClasss
         /// </summary>
@@ -89,7 +92,11 @@ namespace ModuloRastreoOcular
                 logging = new EyeTrackingLogging();
                 string loggingDirectory = Directory.GetCurrentDirectory() + "//Eye Tracking Logging";
                 string fileName = DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
-                logging.dataLoggger = logging.CreateLogTarget(loggingDirectory, fileName);
+                logging.dataLoggger = logging.CreateLogTarget(loggingDirectory, fileName+".csv");
+            }
+            if (mouseControl)
+            {
+                controller = new MouseControl();
             }
 
         }
@@ -132,13 +139,17 @@ namespace ModuloRastreoOcular
             //{
             //    MoveCursor(Int32.Parse(Data["X_Coordinate"]), Int32.Parse(Data["Y_Coordinate"]));
             //}
-            if (drawingClass.reticle != null)
+            if (drawingClass != null)
             {
                 drawingClass.updateData(Data["X_Coordinate"], Data["Y_Coordinate"]);
             }
             if (saveData)
             {
                 logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"]);
+            }
+            if (mouseControl)
+            {
+                controller.MoveCursor(Data["X_Coordinate"], Data["Y_Coordinate"]);
             }
         }
 

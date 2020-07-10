@@ -50,15 +50,18 @@ namespace AugmentedReadingApp
         //  Luego, en la clase intermedia crear un método para inicializar la clase que dibuja la retícula.
         private void saveChanges_MouseClick(object sender, MouseEventArgs e)
         {
+            Image reticle = null;
             string selectedPlugin   =   Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\" + trackingPlugins.Text;
             string selectedReticle  =   Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
+            if (reticleSelected.Text != "" && reticleSelected.Text != "None")
+                reticle = Image.FromFile(selectedReticle);
 
             if (trackingPlugins.Text != "")
             {
                 Assembly pluginAssembly = Assembly.LoadFrom(selectedPlugin);
                 IntermediateClass interClass = IntermediateClass.GetInstance();
 
-                interClass.initializeClass(pluginAssembly, controlMouse.Checked, saveData.Checked, Image.FromFile(selectedReticle));
+                interClass.initializeClass(pluginAssembly, controlMouse.Checked, saveData.Checked, reticle);
                 interClass.setUpAssembly();
             }
             this.Close();

@@ -2260,3 +2260,13 @@ C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\obj\x86\Debug\Augme
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\obj\x86\Debug\AugmentedReadingApp.EyeTrackingConfiguration.resources
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloRastreoOcular.dll
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloRastreoOcular.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloLog.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.Async.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.File.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\netstandard.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloLog.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.xml
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.Async.xml
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.File.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.File.xml
