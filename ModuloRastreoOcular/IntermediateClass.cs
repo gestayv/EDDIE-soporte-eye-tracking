@@ -27,15 +27,15 @@ namespace ModuloRastreoOcular
             
         //  Attributes for handling new eye tracking data
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
-        public event PropertyChangedEventHandler PropertyChanged;   
-        
+        public event PropertyChangedEventHandler PropertyChanged;
+
         //  Attributes for controling mouse movement
-        private bool mouseControl;
         private MouseControl controller;
+        private bool mouseControl;
 
         //  Attributes for saving data to file
-        private bool saveData;
         private EyeTrackingLogging logging;
+        private bool saveData;
 
         //  Attributes for drawing a reticle to screen
         private ReticleDrawing drawingClass;
@@ -51,7 +51,6 @@ namespace ModuloRastreoOcular
             }
         }
 
-        //  Returns an unique instance of the class, ensuring it behaves like a singleton
         public static IntermediateClass GetInstance() 
         {
             if (_Instance == null) 
@@ -78,22 +77,41 @@ namespace ModuloRastreoOcular
         public void initializeClass(Assembly pluginAssembly, bool mouseControl, bool saveData, Image reticle)
         {
             this.pluginAssembly = pluginAssembly;
-            this.mouseControl = mouseControl;
-            this.saveData = saveData;
-            if (reticle != null)
+            this.mouseControl   = mouseControl;
+            this.saveData       = saveData;
+            
+            //  If a reticle is selected, the class for managing its drawing is created
+            if  (reticle != null)
             {
-                //  If a reticle is selected, the class for managing its drawing is created
+                if(drawingClass != null)
+                {
+                    drawingClass.clearUp();
+                }
                 drawingClass = new ReticleDrawing();
                 drawingClass.reticle = reticle;
             }
+            else if (reticle == null && drawingClass != null)
+            {
+                // Limpiar pantalla de drawing class, eliminar todo?
+                drawingClass.clearUp();
+                drawingClass = null;
+            }
+            
+            //  If saveData was selected, a file where contents will be written is created, after checking if a file has been
+            //  created before (in which case, it's closed before creating the new file).
             if (saveData)
             {
-                //  If saveData was selected, a file where contents will be written is created.
+                if(logging != null)
+                {
+                    logging.CloseLogTarget(logging.dataLoggger);
+                }
                 logging = new EyeTrackingLogging();
                 string loggingDirectory = Directory.GetCurrentDirectory() + "//Eye Tracking Logging";
                 string fileName = DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
-                logging.dataLoggger = logging.CreateLogTarget(loggingDirectory, fileName+".csv");
+                logging.dataLoggger = logging.CreateLogTarget(loggingDirectory, fileName + ".csv");
             }
+            
+            //  If mouseControl was selected, the class for controlling the mouse through eye movements is instantiated
             if (mouseControl)
             {
                 controller = new MouseControl();
@@ -101,7 +119,6 @@ namespace ModuloRastreoOcular
 
         }
 
-        // TODO: revisar si necesito limpiar el assembly cuando se hace un cambio de plugin en la marcha.
         /// <summary>
         /// Method that uses reflection to set up the eye tracking plugin that has been selected, specifically:
         /// 1. Subscribing to the "PropertyChanged" event (in order to detect when new eye tracking data is received)
@@ -126,7 +143,8 @@ namespace ModuloRastreoOcular
         }
 
         /// <summary>
-        /// Method used in the subscription to "PropertyChanged" of the eye tracking plugin
+        /// Method used in the subscription to "PropertyChanged" of the eye tracking plugin, it manages all actions linked
+        /// to the eye tracker, whenever new data is received.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -135,10 +153,6 @@ namespace ModuloRastreoOcular
             PropertyInfo assemblyData               =   assemblyType.GetProperty("Data");
             Dictionary<string, string> Coordinates  =   (Dictionary<string, string>)assemblyData.GetValue(assemblyInstance);
             Data = Coordinates;
-            //if (mouseControl) 
-            //{
-            //    MoveCursor(Int32.Parse(Data["X_Coordinate"]), Int32.Parse(Data["Y_Coordinate"]));
-            //}
             if (drawingClass != null)
             {
                 drawingClass.updateData(Data["X_Coordinate"], Data["Y_Coordinate"]);
@@ -167,12 +181,5 @@ namespace ModuloRastreoOcular
             }
         }
 
-        //private void MoveCursor(int xCoordinate, int yCoordinate)
-        //{
-        //    Cursor cursorEyeMovement = new Cursor(Cursor.Current.Handle);
-        //    Cursor.Position = new Point(xCoordinate, yCoordinate);
-        //    // this.Location/Size es de la form
-        //    Cursor.Clip = new Rectangle(currentForm.Location, currentForm.Size);
-        //}
     }
 }   

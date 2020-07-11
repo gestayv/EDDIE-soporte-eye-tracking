@@ -18,6 +18,11 @@ namespace ModuloRastreoOcular
         private const int MOUSEEVENTF_LEFTDOWN = 0x02;
         private const int MOUSEEVENTF_LEFTUP = 0x02;
 
+        /// <summary>
+        /// Method used to move the cursor to a new position based on a pair of coordinates
+        /// </summary>
+        /// <param name="xCoordinate"></param>
+        /// <param name="yCoordinate"></param>
         public void MoveCursor(string xCoordinate, string yCoordinate)
         {
             int x = Int32.Parse(xCoordinate);

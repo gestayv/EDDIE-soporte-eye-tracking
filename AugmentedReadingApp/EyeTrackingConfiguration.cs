@@ -46,8 +46,11 @@ namespace AugmentedReadingApp
             this.Close();
         }
 
-        //  Crear un método para inicializar la clase intermedia.
-        //  Luego, en la clase intermedia crear un método para inicializar la clase que dibuja la retícula.
+        /// <summary>
+        /// Method to save the current eyetracking configuration.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             Image reticle = null;

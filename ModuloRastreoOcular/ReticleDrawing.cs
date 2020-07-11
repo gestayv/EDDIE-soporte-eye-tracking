@@ -12,15 +12,12 @@ namespace ModuloRastreoOcular
 {
     public class ReticleDrawing
     {
+        //  Attributes for managing reticle drawing: The image to be used, the transparent form where it will be drawn, and it's coordinates
         public Image reticle;
-        Form transparentForm;
-        int x, y;
-        // Recibo imagen o ruta de imagen que actua como reticula
+        private Form transparentForm;
+        private int x, y;
 
-        // Alternativas:
-        // 1. Recibo elemento gráfico de la form sobre la cual dibujo
-        // 2. Uso las librerías del sistema para dibujar
-        // 3. Uso una librería gráfica para dibujar
+        //  Class initialization
         public ReticleDrawing()
         {
             transparentForm = new Form
@@ -35,10 +32,17 @@ namespace ModuloRastreoOcular
             transparentForm.Show();
         }
 
+        /// <summary>
+        /// Method in charge of updating the reticle's position when new coordinates are received
+        /// </summary>
+        /// <param name="xCoord">X coordinate where the reticle will be drawn</param>
+        /// <param name="yCoord">Y coordinate where the reticle will be drawn</param>
         public void updateData(string xCoord, string yCoord)
         {
             x = Int32.Parse(xCoord) - reticle.Width / 2;
             y = Int32.Parse(yCoord) - reticle.Height / 2;
+            //  In order to avoid a cross-thread exception, the Invoke method is used to call a method that invalidates and updates the
+            //  transparent form.
             if (transparentForm.InvokeRequired)
             {
                 transparentForm.Invoke(new MethodInvoker(updateGUI));
@@ -51,6 +55,16 @@ namespace ModuloRastreoOcular
             transparentForm.Update();
         }
 
+        public void clearUp() 
+        {
+            transparentForm.Close();
+        }
+
+        /// <summary>
+        /// Method that gets called whenever the transparent form has to be redrawn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TransparentForm_Paint(object sender, PaintEventArgs e)
         {
             if(reticle != null)

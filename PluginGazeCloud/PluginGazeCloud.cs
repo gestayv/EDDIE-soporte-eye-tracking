@@ -96,6 +96,6 @@ namespace PluginGazeCloud
                 };
                 Data = auxDict;
             }
-            }
+        }
     }
 }
