@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClickCountdown.cs" />
     <Compile Include="EyeTrackingLogging.cs" />
     <Compile Include="IntermediateClass.cs" />
     <Compile Include="MouseControl.cs" />

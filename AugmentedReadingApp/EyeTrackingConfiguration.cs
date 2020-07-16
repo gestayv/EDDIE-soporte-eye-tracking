@@ -39,6 +39,12 @@ namespace AugmentedReadingApp
             reticleSelected.Items.AddRange(reticleNames);
             reticleExample.SizeMode = PictureBoxSizeMode.StretchImage;
             reticleDimensions.Text = "Ancho: 0px\nAlto: 0px";
+
+            IntermediateClass intermediate = IntermediateClass.GetInstance();
+            if (intermediate.pluginAssembly == null)
+            {
+                resetConfig.Enabled = false;
+            }
         }
 
         private void cancelChanges_MouseClick(object sender, MouseEventArgs e)
@@ -54,20 +60,32 @@ namespace AugmentedReadingApp
         private void saveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             Image reticle = null;
+            IntermediateClass interClass = IntermediateClass.GetInstance();
             string selectedPlugin   =   Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\" + trackingPlugins.Text;
             string selectedReticle  =   Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
+            
             if (reticleSelected.Text != "" && reticleSelected.Text != "None")
                 reticle = Image.FromFile(selectedReticle);
 
             if (trackingPlugins.Text != "")
             {
-                Assembly pluginAssembly = Assembly.LoadFrom(selectedPlugin);
-                IntermediateClass interClass = IntermediateClass.GetInstance();
-
-                interClass.initializeClass(pluginAssembly, controlMouse.Checked, saveData.Checked, reticle);
+                
+                interClass.initializeClass(selectedPlugin, controlMouse.Checked, saveData.Checked, reticle);
                 interClass.setUpAssembly();
             }
+            else
+            {
+                interClass.clearClass();
+            }
+            
             this.Close();
+        }
+
+        private void resetConfig_Click(object sender, EventArgs e)
+        {
+            IntermediateClass intermediate = IntermediateClass.GetInstance();
+            intermediate.clearClass();
+            resetConfig.Enabled = false;
         }
 
         private void reticleSelected_SelectedIndexChanged(object sender, EventArgs e)

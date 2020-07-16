@@ -36,6 +36,8 @@
             this.comenzarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detenerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.complementoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rastreoOcularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelRecTxt = new System.Windows.Forms.Label();
             this.ComboBoxCameraList2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -90,8 +92,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.checkBoxMouse = new System.Windows.Forms.CheckBox();
-            this.rastreoOcularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configurarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAStartY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAEndY)).BeginInit();
@@ -176,6 +176,21 @@
             this.complementoToolStripMenuItem.Name = "complementoToolStripMenuItem";
             this.complementoToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.complementoToolStripMenuItem.Text = "Complemento";
+            // 
+            // rastreoOcularToolStripMenuItem
+            // 
+            this.rastreoOcularToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurarToolStripMenuItem});
+            this.rastreoOcularToolStripMenuItem.Name = "rastreoOcularToolStripMenuItem";
+            this.rastreoOcularToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.rastreoOcularToolStripMenuItem.Text = "Rastreo Ocular";
+            // 
+            // configurarToolStripMenuItem
+            // 
+            this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
+            this.configurarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configurarToolStripMenuItem.Text = "Configurar";
+            this.configurarToolStripMenuItem.Click += new System.EventHandler(this.configurarToolStripMenuItem_Click);
             // 
             // labelRecTxt
             // 
@@ -929,21 +944,6 @@
             this.checkBoxMouse.Text = "Recognition on";
             this.checkBoxMouse.UseVisualStyleBackColor = true;
             // 
-            // rastreoOcularToolStripMenuItem
-            // 
-            this.rastreoOcularToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configurarToolStripMenuItem});
-            this.rastreoOcularToolStripMenuItem.Name = "rastreoOcularToolStripMenuItem";
-            this.rastreoOcularToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.rastreoOcularToolStripMenuItem.Text = "Rastreo Ocular";
-            // 
-            // configurarToolStripMenuItem
-            // 
-            this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
-            this.configurarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.configurarToolStripMenuItem.Text = "Configurar";
-            this.configurarToolStripMenuItem.Click += new System.EventHandler(this.configurarToolStripMenuItem_Click);
-            // 
             // InteractionCoordinator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1010,6 +1010,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "InteractionCoordinator";
             this.Text = "Configuración";
+            this.Load += new System.EventHandler(this.InteractionCoordinator_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAStartY)).EndInit();

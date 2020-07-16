@@ -11,6 +11,7 @@ using System.Reflection;
 using System.IO;
 using ModuloReconocimientoGestual;
 using ModuloConsistenciaDatos;
+using ModuloRastreoOcular;
 //using Leap;
 
 
@@ -57,7 +58,8 @@ namespace AugmentedReadingApp
 
             SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
             seleccionInteraccionPorVoz.TopMost = true;
-            seleccionInteraccionPorVoz.Show();
+            // TODO: here
+            //seleccionInteraccionPorVoz.Show();
 
             InitializeComponent();
 
@@ -456,6 +458,12 @@ namespace AugmentedReadingApp
         {
             EyeTrackingConfiguration eyeTrackingConfig = new EyeTrackingConfiguration();
             eyeTrackingConfig.Show();
+        }
+
+        private void InteractionCoordinator_Load(object sender, EventArgs e)
+        {
+            IntermediateClass intermediateClass = IntermediateClass.GetInstance();
+            intermediateClass.setEventsEyeTracking(this);
         }
     }
 }

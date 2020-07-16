@@ -41,6 +41,7 @@
             this.toolTipMouseControl = new System.Windows.Forms.ToolTip(this.components);
             this.saveData = new System.Windows.Forms.CheckBox();
             this.toolTipSaveData = new System.Windows.Forms.ToolTip(this.components);
+            this.resetConfig = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.reticleExample)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +65,7 @@
             // 
             // saveChanges
             // 
-            this.saveChanges.Location = new System.Drawing.Point(144, 248);
+            this.saveChanges.Location = new System.Drawing.Point(120, 248);
             this.saveChanges.Name = "saveChanges";
             this.saveChanges.Size = new System.Drawing.Size(75, 23);
             this.saveChanges.TabIndex = 2;
@@ -141,11 +142,22 @@
             this.saveData.UseVisualStyleBackColor = true;
             this.saveData.MouseHover += new System.EventHandler(this.saveData_MouseHover);
             // 
+            // resetConfig
+            // 
+            this.resetConfig.Location = new System.Drawing.Point(15, 248);
+            this.resetConfig.Name = "resetConfig";
+            this.resetConfig.Size = new System.Drawing.Size(75, 23);
+            this.resetConfig.TabIndex = 11;
+            this.resetConfig.Text = "Reset";
+            this.resetConfig.UseVisualStyleBackColor = true;
+            this.resetConfig.Click += new System.EventHandler(this.resetConfig_Click);
+            // 
             // EyeTrackingConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 283);
+            this.Controls.Add(this.resetConfig);
             this.Controls.Add(this.saveData);
             this.Controls.Add(this.controlMouse);
             this.Controls.Add(this.reticleSelected);
@@ -180,5 +192,6 @@
         private System.Windows.Forms.ToolTip toolTipMouseControl;
         private System.Windows.Forms.CheckBox saveData;
         private System.Windows.Forms.ToolTip toolTipSaveData;
+        private System.Windows.Forms.Button resetConfig;
     }
 }

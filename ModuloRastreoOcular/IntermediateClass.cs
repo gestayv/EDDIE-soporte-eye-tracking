@@ -29,16 +29,13 @@ namespace ModuloRastreoOcular
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //  Attributes for controling mouse movement
+        //  Attributes for controling mouse movement, logging data, drawing the reticle, and generate clicks.
         private MouseControl controller;
-        private bool mouseControl;
-
-        //  Attributes for saving data to file
         private EyeTrackingLogging logging;
-        private bool saveData;
-
-        //  Attributes for drawing a reticle to screen
         private ReticleDrawing drawingClass;
+        private ClickCountdown generateClicks;
+        private bool mouseControl;
+        private bool saveData;
 
         //  Dictionary where the eye tracking data is kept
         public Dictionary<string, string> Data 
@@ -74,9 +71,9 @@ namespace ModuloRastreoOcular
         /// <param name="mouseControl">Bool value that indicates if the user will control the mouse with its gaze</param>
         /// <param name="saveData">Bool value that indicates if the eye tracking data will be saved to a file</param>
         /// <param name="reticle">Image containing the reticle selected, can be null.</param>
-        public void initializeClass(Assembly pluginAssembly, bool mouseControl, bool saveData, Image reticle)
+        public void initializeClass(string pluginName, bool mouseControl, bool saveData, Image reticle)
         {
-            this.pluginAssembly = pluginAssembly;
+            this.pluginAssembly = Assembly.LoadFrom(pluginName);
             this.mouseControl   = mouseControl;
             this.saveData       = saveData;
             
@@ -114,9 +111,60 @@ namespace ModuloRastreoOcular
             //  If mouseControl was selected, the class for controlling the mouse through eye movements is instantiated
             if (mouseControl)
             {
-                controller = new MouseControl();
+                if(controller == null)
+                {
+                    controller = new MouseControl();
+                    
+                }
+                if (generateClicks == null)
+                {
+                    generateClicks = new ClickCountdown(2000);
+                }
+                generateClicks.executeClick = mouseControl;
             }
 
+        }
+
+        /// <summary>
+        /// Method for cleaning up the class, leaving it in the same state as before executing
+        /// the method "initializeClass"
+        /// </summary>
+        public void clearClass() 
+        {
+            pluginAssembly      =   null;
+            assemblyType        =   null;
+            assemblyInstance    =   null;
+            mouseControl        =   false;
+            saveData            =   false;
+            if (controller != null)
+            {
+                controller = null;
+            }
+            if (logging != null)
+            {
+                logging.CloseLogTarget(logging.dataLoggger);
+                logging = null;
+            }
+            if (drawingClass != null)
+            {
+                drawingClass.clearUp();
+                drawingClass = null;
+            }
+            //if(generateClicks != null)
+            //{
+                
+            //}
+        }
+
+        /// <summary>
+        /// Method for passing a form to the class in charge of handling click generation
+        /// </summary>
+        /// <param name="formReceived"></param>
+        public void setEventsEyeTracking(Form formReceived) 
+        {
+            if (generateClicks == null)
+                generateClicks = new ClickCountdown(2000);
+            generateClicks.AssignEvent(formReceived);
         }
 
         /// <summary>
@@ -150,9 +198,13 @@ namespace ModuloRastreoOcular
         /// <param name="e"></param>
         public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
         {
+            //  First the property where the eye tracking data is saved is recovered
             PropertyInfo assemblyData               =   assemblyType.GetProperty("Data");
             Dictionary<string, string> Coordinates  =   (Dictionary<string, string>)assemblyData.GetValue(assemblyInstance);
             Data = Coordinates;
+
+            //  Then, for each action linked to the new eye tracking coordinates, the program determines what to execute and what not to.
+            //  These actions beings (up until now), drawing the reticle, saving the new data to a file and controlling the mouse's position.
             if (drawingClass != null)
             {
                 drawingClass.updateData(Data["X_Coordinate"], Data["Y_Coordinate"]);
@@ -180,6 +232,5 @@ namespace ModuloRastreoOcular
                 handler(this, e);
             }
         }
-
     }
 }   

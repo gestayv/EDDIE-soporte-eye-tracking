@@ -72,7 +72,7 @@ namespace ModuloRastreoOcular
                 Point ulCorner = new Point(x, y);
                 Size imgSize = new Size(reticle.Width, reticle.Height);
                 Rectangle destRec = new Rectangle(ulCorner, imgSize);
-
+                
 
                 e.Graphics.DrawImage(reticle, destRec);
             }
