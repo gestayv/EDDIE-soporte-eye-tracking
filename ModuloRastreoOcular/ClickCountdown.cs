@@ -13,12 +13,7 @@ namespace ModuloRastreoOcular
         List<Form> forms = new List<Form>();
         private System.Timers.Timer clickTimer;
         public bool executeClick;
-        
-        public ClickCountdown(int countdown)
-        {
-            clickTimer = new System.Timers.Timer(countdown);
-            clickTimer.Elapsed += PollUpdates;
-        }
+       
 
         /// <summary>
         /// Method to add events to buttons, comboboxes, checkboxes and menustrips of a form.
@@ -97,6 +92,12 @@ namespace ModuloRastreoOcular
             forms.Clear();
         }
 
+        public void CreateTimer(int seconds)
+        {
+            clickTimer = new System.Timers.Timer(seconds*1000);
+            clickTimer.Elapsed += PollUpdates;
+        }
+
         /// <summary>
         /// Event that starts a timer once the mouse enters a Form control
         /// </summary>
@@ -104,7 +105,8 @@ namespace ModuloRastreoOcular
         /// <param name="e"></param>
         private void OnMouseEnterButton(object sender, EventArgs e)
         {
-            clickTimer.Start();
+            if(clickTimer != null)
+                clickTimer.Start();
         }
 
         /// <summary>
@@ -118,8 +120,8 @@ namespace ModuloRastreoOcular
             {
                 Console.WriteLine(sender);
             }
-            
-            clickTimer.Stop();
+            if(clickTimer != null)
+                clickTimer.Stop();
         }
 
         [DllImport("user32.dll")]

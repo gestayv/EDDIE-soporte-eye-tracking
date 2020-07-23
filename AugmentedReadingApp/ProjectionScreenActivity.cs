@@ -71,7 +71,7 @@ namespace AugmentedReadingApp
             SeleccionApis formSeleccionApis = new SeleccionApis(this);
             formSeleccionApis.TopMost = true;
             // TODO: here
-            //formSeleccionApis.Show();
+            formSeleccionApis.Show();
 
             panelWidth = panel_log.Width;
             Hidden = true;
@@ -119,7 +119,7 @@ namespace AugmentedReadingApp
 
             //  Setting up the 
             IntermediateClass intermediateClass = IntermediateClass.GetInstance();
-            intermediateClass.setEventsEyeTracking(this);
+            intermediateClass.SetEventsEyeTracking(this);
         }
       
 

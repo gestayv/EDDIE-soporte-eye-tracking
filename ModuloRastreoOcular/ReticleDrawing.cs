@@ -18,8 +18,9 @@ namespace ModuloRastreoOcular
         private int x, y;
 
         //  Class initialization
-        public ReticleDrawing()
+        public ReticleDrawing(string reticleRoute)
         {
+            reticle = Image.FromFile(reticleRoute);
             transparentForm = new Form
             {
                 BackColor = Color.White,
@@ -37,7 +38,7 @@ namespace ModuloRastreoOcular
         /// </summary>
         /// <param name="xCoord">X coordinate where the reticle will be drawn</param>
         /// <param name="yCoord">Y coordinate where the reticle will be drawn</param>
-        public void updateData(string xCoord, string yCoord)
+        public void UpdateData(string xCoord, string yCoord)
         {
             x = Int32.Parse(xCoord) - reticle.Width / 2;
             y = Int32.Parse(yCoord) - reticle.Height / 2;
@@ -45,17 +46,17 @@ namespace ModuloRastreoOcular
             //  transparent form.
             if (transparentForm.InvokeRequired)
             {
-                transparentForm.Invoke(new MethodInvoker(updateGUI));
+                transparentForm.Invoke(new MethodInvoker(UpdateGUI));
             }
         }
 
-        public void updateGUI() 
+        public void UpdateGUI() 
         {
             transparentForm.Invalidate();
             transparentForm.Update();
         }
 
-        public void clearUp() 
+        public void ClearUp() 
         {
             transparentForm.Close();
         }

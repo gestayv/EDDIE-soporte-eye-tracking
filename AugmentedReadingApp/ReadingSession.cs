@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// TODO: Como aplicar un evento a todas las forms de una aplicación
-// TODO: Como aplicar un evento a todos los botones de una form
-// TODO: Manejo de coordenadas de eye tracking (restar posición de la form a la coordenada del eye tracker????)
-// TODO: Cuando se activa la form interactuar con clase intermedia para que sepa dónde dibujar el puntero
+// TODO: Registrar clicks en guardado de datos (usar un flag cuando se genera un click, que se le pase al registro de datos)
+// TODO: Clicks asincrónicos?
+// TODO: Modificar clase base para añadir evento de onmouseenter/hover (visualización de datos?)}
+// TODO: Guardar configuraciones, cargar siempre la ultima configuración
 namespace AugmentedReadingApp
 {
     static class ReadingSession

@@ -59,7 +59,7 @@ namespace AugmentedReadingApp
             SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
             seleccionInteraccionPorVoz.TopMost = true;
             // TODO: here
-            //seleccionInteraccionPorVoz.Show();
+            seleccionInteraccionPorVoz.Show();
 
             InitializeComponent();
 
@@ -460,11 +460,11 @@ namespace AugmentedReadingApp
             eyeTrackingConfig.Show();
         }
 
-        private void InteractionCoordinator_Load(object sender, EventArgs e)
-        {
-            IntermediateClass intermediateClass = IntermediateClass.GetInstance();
-            intermediateClass.setEventsEyeTracking(this);
-        }
+        //private void InteractionCoordinator_Load(object sender, EventArgs e)
+        //{
+        //    IntermediateClass intermediateClass = IntermediateClass.GetInstance();
+        //    intermediateClass.setEventsEyeTracking(this);
+        //}
     }
 }
 

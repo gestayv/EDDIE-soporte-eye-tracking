@@ -1010,7 +1010,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "InteractionCoordinator";
             this.Text = "Configuración";
-            this.Load += new System.EventHandler(this.InteractionCoordinator_Load);
+            //this.Load += new System.EventHandler(this.InteractionCoordinator_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAStartY)).EndInit();
