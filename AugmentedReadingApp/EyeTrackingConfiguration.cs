@@ -11,10 +11,6 @@ using System.Windows.Forms;
 using System.Reflection;
 using ModuloRastreoOcular;
 
-// ruta default se asigna en load, para plugins, retículas y guardado de archivos
-// cuando se selecciona una nueva ruta:
-    // se actualiza el textbox, y para plugins y retículas se actualizan las combobox
-
 namespace AugmentedReadingApp
 {
     public partial class EyeTrackingConfiguration : Form
@@ -22,7 +18,7 @@ namespace AugmentedReadingApp
         public Type assemblyType;
         public object assemblyInstance;
 
-        private string pluginsCurrentRoute  = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\";
+        private string pluginsCurrentRoute = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\";
         private string reticlesCurrentRoute = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\";
         private string dataSaveCurrentRoute = Directory.GetCurrentDirectory() + "\\Eye Tracking Logging\\";
 
@@ -37,7 +33,7 @@ namespace AugmentedReadingApp
             //  Combobox population
             InitializeComboBox(trackingPlugins, pluginsCurrentRoute, "*.dll");
             InitializeComboBox(reticleSelected, reticlesCurrentRoute, "*.png");
-            
+
             reticleExample.SizeMode = PictureBoxSizeMode.StretchImage;
             reticleDimensions.Text = "Ancho: 0px\nAlto: 0px";
 
@@ -52,7 +48,14 @@ namespace AugmentedReadingApp
             }
         }
 
-        private void InitializeComboBox(ComboBox target, string route, string fileFormat) 
+        /// <summary>
+        /// Initializes a combobox in a winform, using the names of the files of a certain format,
+        /// of a specific directory, as the items of said combobox.
+        /// </summary>
+        /// <param name="target">Combobox to be initialized</param>
+        /// <param name="route">Route of the files to be used to fill the combobox</param>
+        /// <param name="fileFormat">Format of the files to be used to fill the combobox</param>
+        private void InitializeComboBox(ComboBox target, string route, string fileFormat)
         {
             if (target.Items.Count > 0)
                 target.Items.Clear();
@@ -63,6 +66,11 @@ namespace AugmentedReadingApp
             target.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Method to cancel the eyetracking configuration.
+        /// </summary>
+        /// <param name="sender"></param>   
+        /// <param name="e"></param>
         private void CancelChanges_MouseClick(object sender, MouseEventArgs e)
         {
             this.Close();
@@ -76,8 +84,8 @@ namespace AugmentedReadingApp
         private void SaveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             IntermediateClass interClass = IntermediateClass.GetInstance();
-            string selectedPlugin   =   pluginsCurrentRoute + trackingPlugins.Text;
-            string selectedReticle  =   reticlesCurrentRoute + reticleSelected.Text;
+            string selectedPlugin = pluginsCurrentRoute + trackingPlugins.Text;
+            string selectedReticle = reticlesCurrentRoute + reticleSelected.Text;
 
             if (trackingPlugins.Text != "")
             {
@@ -87,7 +95,7 @@ namespace AugmentedReadingApp
                     interClass.SetUpAssembly();
                     this.Close();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -98,6 +106,11 @@ namespace AugmentedReadingApp
             }
         }
 
+        /// <summary>
+        /// Method to reset the current eye tracking configuration being used
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetConfig_Click(object sender, EventArgs e)
         {
             IntermediateClass intermediate = IntermediateClass.GetInstance();
@@ -106,9 +119,9 @@ namespace AugmentedReadingApp
         }
 
         private void ReticleSelected_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+        {
             string selectedReticle = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
-            if(reticleSelected.Text != "None")
+            if (reticleSelected.Text != "None")
             {
                 Image reticle = Image.FromFile(selectedReticle);
                 reticleExample.Image = reticle;
@@ -182,6 +195,72 @@ namespace AugmentedReadingApp
                 saveFileRoute.Text = routeBrowser.SelectedPath;
                 dataSaveCurrentRoute = routeBrowser.SelectedPath;
             }
+        }
+
+        private void PluginsRouteBrowse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipBrowsePlugin.Show("Presione el botón para seleccionar una carpeta desde la cual se cargarán\nlos plugins de rastreo ocular.", pluginsRouteBrowse);
+        }
+
+        private void ReticlesRouteBrowse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipBrowseReticle.Show("Presione el botón para seleccionar una carpeta desde la cual se cargarán\nlas distintas retículas.", reticlesRouteBrowse);
+        }
+
+        private void SaveFileRouteBrowse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipBrowseSaveFile.Show("Presione el botón para seleccionar una carpeta en la cual se guardarán los archivos\n" +
+                                        "generados a partir de los datos capturados por el dispositivo de rastreo ocular.", saveFileRouteBrowse);
+        }
+
+        private void loadConfig_Click(object sender, EventArgs e)
+        {
+            openFileConfig.Title = "Seleccione un archivo para cargar una configuración";
+            openFileConfig.Filter = "Archivos de texto (*.txt)|*.txt|Archivo JSON (*.json)|*.json";
+            SettingsManager settings = new SettingsManager();
+            if (openFileConfig.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    //  Opening settings
+                    var filePath = openFileConfig.FileName;
+                    FormAttributes settingsAttribute = settings.LoadSettings(filePath);
+                    //  Settting loading...
+                    pluginsRoute.Text               = settingsAttribute.pluginsRoute;
+                    InitializeComboBox(trackingPlugins, pluginsRoute.Text, "*.dll");
+                    trackingPlugins.SelectedIndex   = settingsAttribute.pluginsIndex;
+                    reticlesRoute.Text              = settingsAttribute.reticlesRoute;
+                    InitializeComboBox(reticleSelected, reticlesRoute.Text, "*.png");
+                    reticleSelected.SelectedIndex   = settingsAttribute.reticlesIndex;
+                    controlMouse.Checked            = settingsAttribute.mouseControl;
+                    clickTimer.Value                = settingsAttribute.clickTime;
+                    saveData.Checked                = settingsAttribute.saveData;
+                    fileNameTextBox.Text            = settingsAttribute.fileName;
+                    saveFileRoute.Text              = settingsAttribute.fileRoute;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+        }
+
+        private void saveConfig_Click(object sender, EventArgs e)
+        {
+            // dialog configuration
+            saveFileConfig.Title = "Seleccione un directorio y un nombre para guardar su configuración";
+            saveFileConfig.DefaultExt = "config - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
+            saveFileConfig.Filter = "Archivos de texto (*.txt)|*.txt|Archivo JSON (*.json)|*.json";
+            saveFileConfig.ShowDialog();
+            
+            // preparation of data to be saved
+            object[] configData = { pluginsRoute.Text, trackingPlugins.SelectedIndex, reticlesRoute.Text, reticleSelected.SelectedIndex,
+                controlMouse.Checked, Decimal.ToInt32(clickTimer.Value), saveData.Checked, fileNameTextBox.Text, saveFileRoute.Text };
+            List<object> config = new List<object>();
+            config.AddRange(configData);
+            SettingsManager settings = new SettingsManager();
+            settings.SaveSettings(saveFileConfig.FileName, config);
         }
     }
 }

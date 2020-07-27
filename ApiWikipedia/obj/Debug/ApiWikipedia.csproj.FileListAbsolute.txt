@@ -74,3 +74,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.dll
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiWikipedia\obj\Debug\ApiWikipedia.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Apis\ApiWikipedia.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Apis\ApiWikipedia.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiWikipedia\obj\Debug\ApiWikipedia.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiWikipedia\obj\Debug\ApiWikipedia.csproj.CopyComplete
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiWikipedia\obj\Debug\ApiWikipedia.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiWikipedia\obj\Debug\ApiWikipedia.pdb

@@ -80,3 +80,10 @@ C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesG
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.dll
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Apis\ApiDefinicionesGoogle.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Apis\ApiDefinicionesGoogle.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csprojAssemblyReference.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.csproj.CopyComplete
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiDefinicionesGoogle\obj\Debug\ApiDefinicionesGoogle.pdb

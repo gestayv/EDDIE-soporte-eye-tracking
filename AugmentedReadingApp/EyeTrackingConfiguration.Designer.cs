@@ -60,6 +60,13 @@
             this.fileNameTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.toolTipBrowsePlugin = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipBrowseReticle = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipBrowseSaveFile = new System.Windows.Forms.ToolTip(this.components);
+            this.openFileConfig = new System.Windows.Forms.OpenFileDialog();
+            this.saveConfig = new System.Windows.Forms.Button();
+            this.loadConfig = new System.Windows.Forms.Button();
+            this.saveFileConfig = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.reticleExample)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clickTimer)).BeginInit();
             this.reticleGroupBox.SuspendLayout();
@@ -78,7 +85,7 @@
             // 
             // saveChanges
             // 
-            this.saveChanges.Location = new System.Drawing.Point(150, 475);
+            this.saveChanges.Location = new System.Drawing.Point(153, 497);
             this.saveChanges.Name = "saveChanges";
             this.saveChanges.Size = new System.Drawing.Size(75, 23);
             this.saveChanges.TabIndex = 2;
@@ -88,7 +95,7 @@
             // 
             // cancelChanges
             // 
-            this.cancelChanges.Location = new System.Drawing.Point(255, 475);
+            this.cancelChanges.Location = new System.Drawing.Point(243, 497);
             this.cancelChanges.Name = "cancelChanges";
             this.cancelChanges.Size = new System.Drawing.Size(75, 23);
             this.cancelChanges.TabIndex = 3;
@@ -150,11 +157,11 @@
             // 
             // resetConfig
             // 
-            this.resetConfig.Location = new System.Drawing.Point(45, 475);
+            this.resetConfig.Location = new System.Drawing.Point(60, 497);
             this.resetConfig.Name = "resetConfig";
             this.resetConfig.Size = new System.Drawing.Size(75, 23);
             this.resetConfig.TabIndex = 11;
-            this.resetConfig.Text = "Reset";
+            this.resetConfig.Text = "Reiniciar";
             this.resetConfig.UseVisualStyleBackColor = true;
             this.resetConfig.Click += new System.EventHandler(this.ResetConfig_Click);
             // 
@@ -167,6 +174,7 @@
             this.pluginsRouteBrowse.Text = "...";
             this.pluginsRouteBrowse.UseVisualStyleBackColor = true;
             this.pluginsRouteBrowse.Click += new System.EventHandler(this.PluginsRoute_Click);
+            this.pluginsRouteBrowse.MouseHover += new System.EventHandler(this.PluginsRouteBrowse_MouseHover);
             // 
             // reticlesRouteBrowse
             // 
@@ -177,6 +185,7 @@
             this.reticlesRouteBrowse.Text = "...";
             this.reticlesRouteBrowse.UseVisualStyleBackColor = true;
             this.reticlesRouteBrowse.Click += new System.EventHandler(this.ReticlesRoute_Click);
+            this.reticlesRouteBrowse.MouseHover += new System.EventHandler(this.ReticlesRouteBrowse_MouseHover);
             // 
             // saveFileRouteBrowse
             // 
@@ -188,6 +197,7 @@
             this.saveFileRouteBrowse.Text = "...";
             this.saveFileRouteBrowse.UseVisualStyleBackColor = true;
             this.saveFileRouteBrowse.Click += new System.EventHandler(this.SaveFileRoute_Click);
+            this.saveFileRouteBrowse.MouseHover += new System.EventHandler(this.SaveFileRouteBrowse_MouseHover);
             // 
             // clickTimer
             // 
@@ -336,7 +346,7 @@
             this.fileNameTextBox.Enabled = false;
             this.fileNameTextBox.Location = new System.Drawing.Point(118, 55);
             this.fileNameTextBox.Name = "fileNameTextBox";
-            this.fileNameTextBox.Size = new System.Drawing.Size(177, 20);
+            this.fileNameTextBox.Size = new System.Drawing.Size(211, 20);
             this.fileNameTextBox.TabIndex = 20;
             // 
             // label7
@@ -357,18 +367,44 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Ruta de guardado";
             // 
+            // openFileConfig
+            // 
+            this.openFileConfig.FileName = "openFileDialog1";
+            // 
+            // saveConfig
+            // 
+            this.saveConfig.Location = new System.Drawing.Point(60, 454);
+            this.saveConfig.Name = "saveConfig";
+            this.saveConfig.Size = new System.Drawing.Size(114, 37);
+            this.saveConfig.TabIndex = 22;
+            this.saveConfig.Text = "Guardar Configuración";
+            this.saveConfig.UseVisualStyleBackColor = true;
+            this.saveConfig.Click += new System.EventHandler(this.saveConfig_Click);
+            // 
+            // loadConfig
+            // 
+            this.loadConfig.Location = new System.Drawing.Point(204, 454);
+            this.loadConfig.Name = "loadConfig";
+            this.loadConfig.Size = new System.Drawing.Size(114, 37);
+            this.loadConfig.TabIndex = 23;
+            this.loadConfig.Text = "Cargar \r\nConfiguración";
+            this.loadConfig.UseVisualStyleBackColor = true;
+            this.loadConfig.Click += new System.EventHandler(this.loadConfig_Click);
+            // 
             // EyeTrackingConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 510);
+            this.ClientSize = new System.Drawing.Size(372, 532);
+            this.Controls.Add(this.saveChanges);
+            this.Controls.Add(this.loadConfig);
+            this.Controls.Add(this.saveConfig);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pluginGroupBox);
             this.Controls.Add(this.reticleGroupBox);
             this.Controls.Add(this.resetConfig);
             this.Controls.Add(this.cancelChanges);
-            this.Controls.Add(this.saveChanges);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -422,5 +458,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox fileNameTextBox;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ToolTip toolTipBrowsePlugin;
+        private System.Windows.Forms.ToolTip toolTipBrowseReticle;
+        private System.Windows.Forms.ToolTip toolTipBrowseSaveFile;
+        private System.Windows.Forms.OpenFileDialog openFileConfig;
+        private System.Windows.Forms.Button saveConfig;
+        private System.Windows.Forms.Button loadConfig;
+        private System.Windows.Forms.SaveFileDialog saveFileConfig;
     }
 }

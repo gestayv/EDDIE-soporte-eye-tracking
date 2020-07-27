@@ -36,6 +36,7 @@ namespace ModuloRastreoOcular
         private ClickCountdown generateClicks;
         private bool mouseControl;
         private bool saveData;
+        public int click;
 
         //  Dictionary where the eye tracking data is kept
         public Dictionary<string, string> Data 
@@ -105,7 +106,7 @@ namespace ModuloRastreoOcular
                     logging.CloseLogTarget(logging.dataLoggger);
                 }
                 logging = new EyeTrackingLogging();
-                fileName = DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss") + fileName;
+                fileName = fileName + " - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
                 logging.CreateLogTarget(saveRoute, fileName + ".csv");
             }
 
@@ -123,6 +124,7 @@ namespace ModuloRastreoOcular
                 }
                 generateClicks.CreateTimer(countdown);
                 generateClicks.executeClick = mouseControl;
+                click = 0;
             }
 
         }
@@ -209,7 +211,8 @@ namespace ModuloRastreoOcular
             }
             if (saveData)
             {
-                logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"]);
+                logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + click.ToString());
+                click = 0;
             }
             if (mouseControl)
             {

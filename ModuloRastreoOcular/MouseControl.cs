@@ -15,8 +15,6 @@ namespace ModuloRastreoOcular
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x02;
 
         /// <summary>
         /// Method used to move the cursor to a new position based on a pair of coordinates
@@ -29,7 +27,5 @@ namespace ModuloRastreoOcular
             int y = Int32.Parse(yCoordinate);
             SetCursorPos(x, y);
         }
-
-
     }
 }

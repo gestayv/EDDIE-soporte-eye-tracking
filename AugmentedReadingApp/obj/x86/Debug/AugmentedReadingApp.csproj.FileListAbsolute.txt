@@ -2270,3 +2270,4 @@ C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Seril
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.Async.xml
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.File.pdb
 C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Serilog.Sinks.File.xml
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\ModuloRastreoOcular.dll.config

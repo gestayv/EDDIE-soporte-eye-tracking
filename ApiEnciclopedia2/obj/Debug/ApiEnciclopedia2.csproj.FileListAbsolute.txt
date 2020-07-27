@@ -29,3 +29,9 @@ C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CopyComplete
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.dll
 C:\Users\Dania\source\repos\1IntegracionFinal8ProyectoCasiFinal\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Apis\ApiEnciclopedia2.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\AugmentedReadingApp\bin\x86\Debug\Apis\ApiEnciclopedia2.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CoreCompileInputs.cache
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CopyComplete
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.dll
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.pdb

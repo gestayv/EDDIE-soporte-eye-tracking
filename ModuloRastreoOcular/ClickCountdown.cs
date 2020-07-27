@@ -10,10 +10,10 @@ namespace ModuloRastreoOcular
 {
     class ClickCountdown
     {
-        List<Form> forms = new List<Form>();
         private System.Timers.Timer clickTimer;
+        private List<Form> forms = new List<Form>();
+        private IntermediateClass intermediate = IntermediateClass.GetInstance();
         public bool executeClick;
-       
 
         /// <summary>
         /// Method to add events to buttons, comboboxes, checkboxes and menustrips of a form.
@@ -141,6 +141,7 @@ namespace ModuloRastreoOcular
             {
                 mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
                 mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                intermediate.click = 1;
             }
             
         }
