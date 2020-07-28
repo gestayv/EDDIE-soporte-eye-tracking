@@ -481,6 +481,7 @@
             this.Name = "ProjectionScreenActivity";
             this.Text = "AR";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProjectionScreenActivity_FormClosing);
+            // TODO: hacer carga del formulario aparte
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();

@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using ModuloProcesamientoImagenes;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -206,21 +207,22 @@ namespace AugmentedReadingApp
             return SelectedItem.Key;
         }
 
-        private void ProyectionActivityBt(object sender, EventArgs e)
+        private async void ProyectionActivityBt(object sender, EventArgs e)
         {
             var CameraNumber = _CameraTextIndex;
 
             projection.Show();
-
-            if (captureText == null)
+            await Task.Run( () =>
             {
-                captureText = new VideoCapture(CameraNumber);
-                captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth, (double)numericUpDownResXText.Value);
-                captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight, (double)numericUpDownResYText.Value);
+                if (captureText == null)
+                {
+                    captureText = new VideoCapture(CameraNumber);
+                    captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth, (double)numericUpDownResXText.Value);
+                    captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight, (double)numericUpDownResYText.Value);
 
-                imageBox1.Image = recTxt.Recognition(captureText);
-            }
-
+                    imageBox1.Image = recTxt.Recognition(captureText);
+                }
+            });
         }
 
         private void comenzarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -459,12 +461,6 @@ namespace AugmentedReadingApp
             EyeTrackingConfiguration eyeTrackingConfig = new EyeTrackingConfiguration();
             eyeTrackingConfig.Show();
         }
-
-        //private void InteractionCoordinator_Load(object sender, EventArgs e)
-        //{
-        //    IntermediateClass intermediateClass = IntermediateClass.GetInstance();
-        //    intermediateClass.setEventsEyeTracking(this);
-        //}
     }
 }
 

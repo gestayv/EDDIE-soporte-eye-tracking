@@ -188,7 +188,7 @@
             // configurarToolStripMenuItem
             // 
             this.configurarToolStripMenuItem.Name = "configurarToolStripMenuItem";
-            this.configurarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configurarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.configurarToolStripMenuItem.Text = "Configurar";
             this.configurarToolStripMenuItem.Click += new System.EventHandler(this.configurarToolStripMenuItem_Click);
             // 
@@ -1010,7 +1010,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "InteractionCoordinator";
             this.Text = "Configuración";
-            //this.Load += new System.EventHandler(this.InteractionCoordinator_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAStartY)).EndInit();
