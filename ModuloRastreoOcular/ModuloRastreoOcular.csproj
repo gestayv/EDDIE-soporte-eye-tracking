@@ -78,6 +78,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonAlt.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ClickCountdown.cs" />
     <Compile Include="EyeTrackingLogging.cs" />
     <Compile Include="IntermediateClass.cs" />

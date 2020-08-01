@@ -141,7 +141,7 @@ namespace ModuloRastreoOcular
             {
                 mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
                 mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                intermediate.click = 1;
+                intermediate.clickRegister = 1;
             }
             
         }

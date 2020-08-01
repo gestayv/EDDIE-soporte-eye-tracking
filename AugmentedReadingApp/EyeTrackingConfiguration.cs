@@ -104,6 +104,7 @@ namespace AugmentedReadingApp
             {
                 MessageBox.Show("No se ha seleccionado un plugin");
             }
+            MessageBox.Show("Configuración seleccionada con éxito");
         }
 
         /// <summary>
@@ -220,27 +221,28 @@ namespace AugmentedReadingApp
             SettingsManager settings = new SettingsManager();
             if (openFileConfig.ShowDialog() == DialogResult.OK)
             {
-                try
+                
+                //  Opening settings
+                var filePath = openFileConfig.FileName;
+                FormAttributes settingsAttribute = settings.LoadSettings(filePath);
+                if(settingsAttribute != null)
                 {
-                    //  Opening settings
-                    var filePath = openFileConfig.FileName;
-                    FormAttributes settingsAttribute = settings.LoadSettings(filePath);
-                    //  Settting loading...
-                    pluginsRoute.Text               = settingsAttribute.pluginsRoute;
+                    pluginsRoute.Text = settingsAttribute.pluginsRoute;
                     InitializeComboBox(trackingPlugins, pluginsRoute.Text, "*.dll");
-                    trackingPlugins.SelectedIndex   = settingsAttribute.pluginsIndex;
-                    reticlesRoute.Text              = settingsAttribute.reticlesRoute;
+                    trackingPlugins.SelectedIndex = settingsAttribute.pluginsIndex;
+                    reticlesRoute.Text = settingsAttribute.reticlesRoute;
                     InitializeComboBox(reticleSelected, reticlesRoute.Text, "*.png");
-                    reticleSelected.SelectedIndex   = settingsAttribute.reticlesIndex;
-                    controlMouse.Checked            = settingsAttribute.mouseControl;
-                    clickTimer.Value                = settingsAttribute.clickTime;
-                    saveData.Checked                = settingsAttribute.saveData;
-                    fileNameTextBox.Text            = settingsAttribute.fileName;
-                    saveFileRoute.Text              = settingsAttribute.fileRoute;
+                    reticleSelected.SelectedIndex = settingsAttribute.reticlesIndex;
+                    controlMouse.Checked = settingsAttribute.mouseControl;
+                    clickTimer.Value = settingsAttribute.clickTime;
+                    saveData.Checked = settingsAttribute.saveData;
+                    fileNameTextBox.Text = settingsAttribute.fileName;
+                    saveFileRoute.Text = settingsAttribute.fileRoute;
+                    MessageBox.Show("Configuración cargada con éxito");
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("No se pudo cargar la configuración seleccionada.");
                 }
             }
 
@@ -253,14 +255,22 @@ namespace AugmentedReadingApp
             saveFileConfig.DefaultExt = "config - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
             saveFileConfig.Filter = "Archivos de texto (*.txt)|*.txt|Archivo JSON (*.json)|*.json";
             saveFileConfig.ShowDialog();
-            
+
             // preparation of data to be saved
             object[] configData = { pluginsRoute.Text, trackingPlugins.SelectedIndex, reticlesRoute.Text, reticleSelected.SelectedIndex,
                 controlMouse.Checked, Decimal.ToInt32(clickTimer.Value), saveData.Checked, fileNameTextBox.Text, saveFileRoute.Text };
             List<object> config = new List<object>();
             config.AddRange(configData);
+
             SettingsManager settings = new SettingsManager();
-            settings.SaveSettings(saveFileConfig.FileName, config);
+            if (settings.SaveSettings(saveFileConfig.FileName, config))
+            {
+                MessageBox.Show("Configuración guardada con éxito");
+            }
+            else
+            {
+                MessageBox.Show("No se pudo guardar la configuración seleccionada.");
+            }
         }
     }
 }

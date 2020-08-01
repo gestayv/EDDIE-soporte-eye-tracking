@@ -34,9 +34,10 @@ namespace ModuloRastreoOcular
         private EyeTrackingLogging logging;
         private ReticleDrawing drawingClass;
         private ClickCountdown generateClicks;
-        private bool mouseControl;
-        private bool saveData;
-        public int click;
+        public bool mouseControl;
+        public int clickTimer;
+        public bool saveData;
+        public int clickRegister;
 
         //  Dictionary where the eye tracking data is kept
         public Dictionary<string, string> Data 
@@ -78,9 +79,10 @@ namespace ModuloRastreoOcular
         /// <param name="fileName">Name of the file to be generated</param>
         public void InitializeClass(string pluginName, string reticleRoute, bool mouseControl, int countdown, bool saveData, string saveRoute, string fileName)
         {
-            this.pluginAssembly = Assembly.LoadFrom(pluginName);
-            this.mouseControl = mouseControl;
-            this.saveData = saveData;
+            pluginAssembly      = Assembly.LoadFrom(pluginName);
+            clickTimer          = countdown;
+            this.mouseControl   = mouseControl;
+            this.saveData       = saveData;
 
             //  If a reticle is selected, the class for managing its drawing is created
             if (reticleRoute != null)
@@ -105,8 +107,8 @@ namespace ModuloRastreoOcular
                 {
                     logging.CloseLogTarget(logging.dataLoggger);
                 }
-                logging = new EyeTrackingLogging();
-                fileName = fileName + " - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
+                logging     = new EyeTrackingLogging();
+                fileName    = fileName + " - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
                 logging.CreateLogTarget(saveRoute, fileName + ".csv");
             }
 
@@ -124,7 +126,7 @@ namespace ModuloRastreoOcular
                 }
                 generateClicks.CreateTimer(countdown);
                 generateClicks.executeClick = mouseControl;
-                click = 0;
+                clickRegister = 0;
             }
 
         }
@@ -211,8 +213,8 @@ namespace ModuloRastreoOcular
             }
             if (saveData)
             {
-                logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + click.ToString());
-                click = 0;
+                logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + clickRegister.ToString());
+                clickRegister = 0;
             }
             if (mouseControl)
             {

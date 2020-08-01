@@ -17,28 +17,45 @@ namespace ModuloRastreoOcular
 
         public FormAttributes LoadSettings(string fileRoute)
         {
-            string jsonConfig = File.ReadAllText(fileRoute);
-            FormAttributes fAttributes = JsonConvert.DeserializeObject<FormAttributes>(jsonConfig);
-            return fAttributes;
+            try
+            {
+                string jsonConfig = File.ReadAllText(fileRoute);
+                FormAttributes fAttributes = JsonConvert.DeserializeObject<FormAttributes>(jsonConfig);
+                return fAttributes;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
 
-        public void SaveSettings(string fileRoute, List<object> controls)
+        public bool SaveSettings(string fileRoute, List<object> controls)
         {
             FormAttributes fAttributes  = new FormAttributes();
-            fAttributes.pluginsRoute    = (string) controls.ElementAt(0);
-            fAttributes.pluginsIndex    = (int) controls.ElementAt(1);
-            fAttributes.reticlesRoute   = (string)controls.ElementAt(2);
-            fAttributes.reticlesIndex   = (int)controls.ElementAt(3);
-            fAttributes.mouseControl    = (bool)controls.ElementAt(4);
-            fAttributes.clickTime       = (int)controls.ElementAt(5);
-            fAttributes.saveData        = (bool)controls.ElementAt(6);
-            fAttributes.fileName        = (string)controls.ElementAt(7);
-            fAttributes.fileRoute       = (string)controls.ElementAt(8);
-            // ASSembly conflict
-            string jsonConfig = JsonConvert.SerializeObject(fAttributes);
-            configFile = CreateLogTarget("", fileRoute);
-            WriteToLog(configFile, jsonConfig);
-            CloseLogTarget(configFile);
+            try
+            {
+                fAttributes.pluginsRoute = (string)controls.ElementAt(0);
+                fAttributes.pluginsIndex = (int)controls.ElementAt(1);
+                fAttributes.reticlesRoute = (string)controls.ElementAt(2);
+                fAttributes.reticlesIndex = (int)controls.ElementAt(3);
+                fAttributes.mouseControl = (bool)controls.ElementAt(4);
+                fAttributes.clickTime = (int)controls.ElementAt(5);
+                fAttributes.saveData = (bool)controls.ElementAt(6);
+                fAttributes.fileName = (string)controls.ElementAt(7);
+                fAttributes.fileRoute = (string)controls.ElementAt(8);
+                // ASSembly conflict
+                string jsonConfig = JsonConvert.SerializeObject(fAttributes);
+                configFile = CreateLogTarget("", fileRoute);
+                WriteToLog(configFile, jsonConfig);
+                CloseLogTarget(configFile);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+            return true;
         }
 
         public FileStream CreateLogTarget(string name, string directory)

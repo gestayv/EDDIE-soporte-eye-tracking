@@ -203,6 +203,11 @@
             // 
             this.clickTimer.Enabled = false;
             this.clickTimer.Location = new System.Drawing.Point(259, 25);
+            this.clickTimer.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.clickTimer.Name = "clickTimer";
             this.clickTimer.Size = new System.Drawing.Size(70, 20);
             this.clickTimer.TabIndex = 16;
