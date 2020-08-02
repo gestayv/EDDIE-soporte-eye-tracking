@@ -67,32 +67,24 @@ namespace AugmentedReadingApp
         }
 
         /// <summary>
-        /// Method to cancel the eyetracking configuration.
-        /// </summary>
-        /// <param name="sender"></param>   
-        /// <param name="e"></param>
-        private void CancelChanges_MouseClick(object sender, MouseEventArgs e)
-        {
-            this.Close();
-        }
-
-        /// <summary>
-        /// Method to save the current eyetracking configuration.
+        /// Method to use the current eyetracking configuration
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SaveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             IntermediateClass interClass = IntermediateClass.GetInstance();
-            string selectedPlugin = pluginsCurrentRoute + trackingPlugins.Text;
-            string selectedReticle = reticlesCurrentRoute + reticleSelected.Text;
+            string selectedPlugin = ((trackingPlugins.Text == "None") ? null : pluginsCurrentRoute + trackingPlugins.Text);
+            string selectedReticle = ((reticleSelected.Text == "None") ? null : reticlesCurrentRoute + reticleSelected.Text);
 
-            if (trackingPlugins.Text != "")
+            if (trackingPlugins.Text != null)
             {
                 try
                 {
+                    
                     interClass.InitializeClass(selectedPlugin, selectedReticle, controlMouse.Checked, Decimal.ToInt32(clickTimer.Value), saveData.Checked, dataSaveCurrentRoute, fileNameTextBox.Text);
                     interClass.SetUpAssembly();
+                    MessageBox.Show("Configuración seleccionada con éxito");
                     this.Close();
                 }
                 catch (Exception ex)
@@ -104,7 +96,16 @@ namespace AugmentedReadingApp
             {
                 MessageBox.Show("No se ha seleccionado un plugin");
             }
-            MessageBox.Show("Configuración seleccionada con éxito");
+        }
+
+        /// <summary>
+        /// Method to cancel the eyetracking configuration.
+        /// </summary>
+        /// <param name="sender"></param>   
+        /// <param name="e"></param>
+        private void CancelChanges_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Close();
         }
 
         /// <summary>
@@ -121,23 +122,13 @@ namespace AugmentedReadingApp
 
         private void ReticleSelected_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedReticle = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\" + reticleSelected.Text;
+            string selectedReticle = reticlesCurrentRoute + "\\" + reticleSelected.Text;
             if (reticleSelected.Text != "None")
             {
                 Image reticle = Image.FromFile(selectedReticle);
                 reticleExample.Image = reticle;
                 reticleDimensions.Text = "Ancho: " + reticle.Width + "px\nAlto: " + reticle.Width + "px";
             }
-        }
-
-        private void ControlMouse_MouseHover(object sender, EventArgs e)
-        {
-            toolTipMouseControl.Show("Si se selecciona, el usuario podrá controlar el \npuntero con sus movimientos oculares.", controlMouse);
-        }
-
-        private void SaveData_MouseHover(object sender, EventArgs e)
-        {
-            toolTipSaveData.Show("Si se selecciona, los datos capturados por el eye tracker\nson guardados en un archivo .csv", saveData);
         }
 
         private void SaveData_CheckedChanged(object sender, EventArgs e)
@@ -198,22 +189,8 @@ namespace AugmentedReadingApp
             }
         }
 
-        private void PluginsRouteBrowse_MouseHover(object sender, EventArgs e)
-        {
-            toolTipBrowsePlugin.Show("Presione el botón para seleccionar una carpeta desde la cual se cargarán\nlos plugins de rastreo ocular.", pluginsRouteBrowse);
-        }
-
-        private void ReticlesRouteBrowse_MouseHover(object sender, EventArgs e)
-        {
-            toolTipBrowseReticle.Show("Presione el botón para seleccionar una carpeta desde la cual se cargarán\nlas distintas retículas.", reticlesRouteBrowse);
-        }
-
-        private void SaveFileRouteBrowse_MouseHover(object sender, EventArgs e)
-        {
-            toolTipBrowseSaveFile.Show("Presione el botón para seleccionar una carpeta en la cual se guardarán los archivos\n" +
-                                        "generados a partir de los datos capturados por el dispositivo de rastreo ocular.", saveFileRouteBrowse);
-        }
-
+        
+        // Configuration loading - saving methods
         private void loadConfig_Click(object sender, EventArgs e)
         {
             openFileConfig.Title = "Seleccione un archivo para cargar una configuración";
@@ -247,7 +224,7 @@ namespace AugmentedReadingApp
             }
 
         }
-
+        
         private void saveConfig_Click(object sender, EventArgs e)
         {
             // dialog configuration
@@ -271,6 +248,33 @@ namespace AugmentedReadingApp
             {
                 MessageBox.Show("No se pudo guardar la configuración seleccionada.");
             }
+        }
+
+        // Tooltips
+        private void PluginsRouteBrowse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipBrowsePlugin.Show("Presione el botón para seleccionar una carpeta desde la cual se cargarán\nlos plugins de rastreo ocular.", pluginsRouteBrowse);
+        }
+
+        private void ReticlesRouteBrowse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipBrowseReticle.Show("Presione el botón para seleccionar una carpeta desde la cual se cargarán\nlas distintas retículas.", reticlesRouteBrowse);
+        }
+
+        private void SaveFileRouteBrowse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipBrowseSaveFile.Show("Presione el botón para seleccionar una carpeta en la cual se guardarán los archivos\n" +
+                                        "generados a partir de los datos capturados por el dispositivo de rastreo ocular.", saveFileRouteBrowse);
+        }
+
+        private void ControlMouse_MouseHover(object sender, EventArgs e)
+        {
+            toolTipMouseControl.Show("Si se selecciona, el usuario podrá controlar el \npuntero con sus movimientos oculares.", controlMouse);
+        }
+
+        private void SaveData_MouseHover(object sender, EventArgs e)
+        {
+            toolTipSaveData.Show("Si se selecciona, los datos capturados por el eye tracker\nson guardados en un archivo .csv", saveData);
         }
     }
 }

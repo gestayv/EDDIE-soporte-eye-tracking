@@ -5,39 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace ModuloRastreoOcular
 {
-    class ButtonAlt : Button
+    public class ButtonAlt : Button
     {
         private System.Timers.Timer clickTimer;
         private IntermediateClass intermediate;
-        
+
         public ButtonAlt() : base()
         {
             intermediate = IntermediateClass.GetInstance();
-            if (intermediate.mouseControl && (intermediate.clickTimer > 0))
+            intermediate.TimerChanged += DetectTimerChange;
+            if (intermediate.mouseControl)
             {
-                clickTimer = new System.Timers.Timer(intermediate.clickTimer * 1000);
+                clickTimer = new System.Timers.Timer(intermediate.ClickTimer);
+                clickTimer.Elapsed += PollUpdates;
             }
         }
 
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            if (clickTimer != null)
-            {
-                clickTimer.Start();
-            }
+            if (intermediate.mouseControl && clickTimer != null) clickTimer.Start();
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            if (clickTimer != null)
-            {
-                clickTimer.Stop();
-            }
+            if (intermediate.mouseControl && clickTimer != null) clickTimer.Stop();
         }
 
         [DllImport("user32.dll")]
@@ -57,5 +54,26 @@ namespace ModuloRastreoOcular
             mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
             intermediate.clickRegister = 1;
         }
+
+        public void DetectTimerChange(object sender, PropertyChangedEventArgs e)
+        {
+            Console.WriteLine(sender);
+            if(e.PropertyName == "ClickTimer")
+            {
+                if (clickTimer == null)
+                {
+                    clickTimer = new System.Timers.Timer(intermediate.ClickTimer);
+                    clickTimer.Elapsed += PollUpdates;
+                }
+
+                clickTimer.Interval = intermediate.ClickTimer;
+            }
+        }
     }
 }
+
+// necesito que la clase de botón sepa:
+//  si se van a generar clicks con enter/leave
+//  el tiempo que toma en generarse un click
+//  cuando el timer llega a 0
+//  cuando se cambia el valor del timer

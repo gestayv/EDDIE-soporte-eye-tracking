@@ -27,17 +27,26 @@ namespace ModuloRastreoOcular
             
         //  Attributes for handling new eye tracking data
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged, TimerChanged;
 
         //  Attributes for controling mouse movement, logging data, drawing the reticle, and generate clicks.
         private MouseControl controller;
         private EyeTrackingLogging logging;
         private ReticleDrawing drawingClass;
-        private ClickCountdown generateClicks;
         public bool mouseControl;
-        public int clickTimer;
         public bool saveData;
         public int clickRegister;
+        private int _ClickTimer;
+
+        public int ClickTimer
+        {
+            get { return _ClickTimer; }
+            set
+            {
+                _ClickTimer = value;
+                OnTimerChanged(this, new PropertyChangedEventArgs(nameof(ClickTimer)));
+            }
+        }
 
         //  Dictionary where the eye tracking data is kept
         public Dictionary<string, string> Data 
@@ -80,7 +89,7 @@ namespace ModuloRastreoOcular
         public void InitializeClass(string pluginName, string reticleRoute, bool mouseControl, int countdown, bool saveData, string saveRoute, string fileName)
         {
             pluginAssembly      = Assembly.LoadFrom(pluginName);
-            clickTimer          = countdown;
+            ClickTimer          = countdown*1000;
             this.mouseControl   = mouseControl;
             this.saveData       = saveData;
 
@@ -118,14 +127,7 @@ namespace ModuloRastreoOcular
                 if (controller == null)
                 {
                     controller = new MouseControl();
-
                 }
-                if (generateClicks == null)
-                {
-                    generateClicks = new ClickCountdown();
-                }
-                generateClicks.CreateTimer(countdown);
-                generateClicks.executeClick = mouseControl;
                 clickRegister = 0;
             }
 
@@ -156,17 +158,6 @@ namespace ModuloRastreoOcular
                 drawingClass.ClearUp();
                 drawingClass = null;
             }
-        }
-
-        /// <summary>
-        /// Method for passing a form to the class in charge of handling click generation
-        /// </summary>
-        /// <param name="formReceived"></param>
-        public void SetEventsEyeTracking(Form formReceived) 
-        {
-            if (generateClicks == null)
-                generateClicks = new ClickCountdown();
-            generateClicks.AssignEvent(formReceived);
         }
 
         /// <summary>
@@ -229,11 +220,12 @@ namespace ModuloRastreoOcular
         /// <param name="e"></param>
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            PropertyChanged?.Invoke(this, e);
+        }
+        
+        public void OnTimerChanged(object sender, PropertyChangedEventArgs e)
+        {
+            TimerChanged?.Invoke(this, e);
         }
     }
 }   

@@ -116,10 +116,6 @@ namespace AugmentedReadingApp
             };
             navegador.Visible = false;
             panel_navegador.Controls.Add(navegador);
-
-            //  Setting up the clicks through eye tracking
-            IntermediateClass intermediateClass = IntermediateClass.GetInstance();
-            intermediateClass.SetEventsEyeTracking(this);
         }
       
         

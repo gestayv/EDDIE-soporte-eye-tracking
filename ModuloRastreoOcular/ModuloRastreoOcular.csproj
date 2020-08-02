@@ -81,7 +81,6 @@
     <Compile Include="ButtonAlt.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ClickCountdown.cs" />
     <Compile Include="EyeTrackingLogging.cs" />
     <Compile Include="IntermediateClass.cs" />
     <Compile Include="MouseControl.cs" />
