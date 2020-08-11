@@ -40,9 +40,6 @@ namespace AugmentedReadingApp
 
         public byte[] byteImagenBuscada;
 
-        // Classes for eye tracking
-        //IntermediateClass interClass = IntermediateClass.GetInstance();
-
         private Mat rectangleImage;
         public Mat RectangleImage
         {

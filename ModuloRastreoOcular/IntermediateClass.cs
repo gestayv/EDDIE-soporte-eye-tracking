@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.ComponentModel;
-using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
+using ModuloLog;
+
 
 namespace ModuloRastreoOcular
 {
@@ -31,7 +30,7 @@ namespace ModuloRastreoOcular
 
         //  Attributes for controling mouse movement, logging data, drawing the reticle, and generate clicks.
         private MouseControl controller;
-        private EyeTrackingLogging logging;
+        private StandardLogging logging;
         private ReticleDrawing drawingClass;
         public bool mouseControl;
         public bool saveData;
@@ -114,9 +113,9 @@ namespace ModuloRastreoOcular
             {
                 if (logging != null)
                 {
-                    logging.CloseLogTarget(logging.dataLoggger);
+                    logging.CloseLogTarget();
                 }
-                logging     = new EyeTrackingLogging();
+                logging     = new StandardLogging();
                 fileName    = fileName + " - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
                 logging.CreateLogTarget(saveRoute, fileName + ".csv");
             }
@@ -150,7 +149,7 @@ namespace ModuloRastreoOcular
             }
             if (logging != null)
             {
-                logging.CloseLogTarget(logging.dataLoggger);
+                logging.CloseLogTarget();
                 logging = null;
             }
             if (drawingClass != null)
@@ -204,7 +203,7 @@ namespace ModuloRastreoOcular
             }
             if (saveData)
             {
-                logging.WriteToLog(logging.dataLoggger, Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + clickRegister.ToString());
+                logging.WriteToLog(Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + clickRegister.ToString());
                 clickRegister = 0;
             }
             if (mouseControl)

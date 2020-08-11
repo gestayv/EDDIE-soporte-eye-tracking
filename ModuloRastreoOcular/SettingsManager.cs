@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using ModuloLog;
 
-
-
-// mover guardado de datos oculares al módulo de logging, tratar de generalizar el guardado de datos en una sola clase?
 
 namespace ModuloRastreoOcular
 {
-    public class SettingsManager : InterfazLogging.ILogging<FileStream>
+    public class SettingsManager
     {
-        FileStream configFile;
+        StandardLogging logSettings;
+
+        public SettingsManager()
+        {
+            logSettings = new StandardLogging();
+        }
 
         public FormAttributes LoadSettings(string fileRoute)
         {
@@ -46,9 +49,9 @@ namespace ModuloRastreoOcular
                 fAttributes.fileRoute = (string)controls.ElementAt(8);
                 // ASSembly conflict
                 string jsonConfig = JsonConvert.SerializeObject(fAttributes);
-                configFile = CreateLogTarget("", fileRoute);
-                WriteToLog(configFile, jsonConfig);
-                CloseLogTarget(configFile);
+                logSettings.CreateLogTarget("", fileRoute);
+                logSettings.WriteToLog(jsonConfig);
+                logSettings.CloseLogTarget();
             }
             catch (Exception ex)
             {
@@ -56,48 +59,6 @@ namespace ModuloRastreoOcular
                 return false;
             }
             return true;
-        }
-
-        public FileStream CreateLogTarget(string name, string directory)
-        {
-            try
-            {
-                return File.Create(directory);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return null;
-        }
-
-        public bool WriteToLog(FileStream file, string contents)
-        {
-            try
-            {
-                byte[] info = new UTF8Encoding(true).GetBytes(contents);
-                file.Write(info, 0, info.Length);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return false;
-        }
-
-        public bool CloseLogTarget(FileStream file)
-        {
-            try
-            {
-                file.Close();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            return false;
         }
     }
 

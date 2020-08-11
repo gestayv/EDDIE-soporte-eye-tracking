@@ -50,11 +50,9 @@
             this.lbl_traductor = new System.Windows.Forms.Label();
             this.lbl_enciclopedia = new System.Windows.Forms.Label();
             this.lbl_diccionario = new System.Windows.Forms.Label();
-            // TODO: BOTONES CAMBIADOS ==============================================================
             this.btn_diccionario = new ModuloRastreoOcular.ButtonAlt();
             this.btn_imagen = new ModuloRastreoOcular.ButtonAlt();
             this.btn_video = new ModuloRastreoOcular.ButtonAlt();
-            // TODO: BOTONES CAMBIADOS ==============================================================
             this.btn_enciclopedia = new ModuloRastreoOcular.ButtonAlt();
             this.btn_traductor = new ModuloRastreoOcular.ButtonAlt();
             this.btn_buscarWeb = new ModuloRastreoOcular.ButtonAlt();

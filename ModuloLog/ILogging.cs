@@ -9,12 +9,18 @@ namespace InterfazLogging
     public interface ILogging<T>
     {
         /// <summary>
+        /// Object where data will be written.
+        /// </summary>
+        T Target { set; get; }
+
+        /// <summary>
         /// Method for creating a reference to a file (which could be a StreamWriter, File, Logger, etc)
         /// </summary>
         /// <param name="name">Name of the file to be created</param>
         /// <param name="directory">Directory where the file is created</param>
-        /// <returns>Returns a reference to the file</returns>
-        T CreateLogTarget(string name, string directory);
+        /// <param name="customBuffer">Size of the buffer to be used, default value is equal to 1000 items on buffer</param>
+        /// <returns>True if target is created correcly, False if an exception occurs</returns>
+        bool CreateLogTarget(string name, string directory, int customBuffer = 1000);
 
         /// <summary>
         /// Method to write on a file previously created
@@ -22,14 +28,13 @@ namespace InterfazLogging
         /// <param name="file">Reference to the file to be written upon</param>
         /// <param name="contents">Contents to be written on the file</param>
         /// <returns>True if written correctly, False if an exception occurs</returns>
-        bool WriteToLog(T file, string contents);
+        bool WriteToLog(string contents);
 
         /// <summary>
         /// Method to close a file and free resources associated with it
         /// </summary>
-        /// <param name="file">Reference to the file to be closed</param>
         /// <returns>True if closed correctly, False if an exception occurs</returns>
-        bool CloseLogTarget(T file);
+        bool CloseLogTarget();
 
     }
 }

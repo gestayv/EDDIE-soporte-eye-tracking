@@ -29,6 +29,7 @@ namespace ModuloRastreoOcular
         {
             base.OnMouseEnter(e);
             if (intermediate.mouseControl && clickTimer != null) clickTimer.Start();
+            Console.WriteLine(clickTimer.Interval);
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -49,7 +50,6 @@ namespace ModuloRastreoOcular
         /// <param name="e"></param>
         private void PollUpdates(object sender, EventArgs e)
         {
-            //Console.WriteLine(Cursor.Position);
             mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
             intermediate.clickRegister = 1;
@@ -57,7 +57,6 @@ namespace ModuloRastreoOcular
 
         public void DetectTimerChange(object sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine(sender);
             if(e.PropertyName == "ClickTimer")
             {
                 if (clickTimer == null)
@@ -71,9 +70,3 @@ namespace ModuloRastreoOcular
         }
     }
 }
-
-// necesito que la clase de botón sepa:
-//  si se van a generar clicks con enter/leave
-//  el tiempo que toma en generarse un click
-//  cuando el timer llega a 0
-//  cuando se cambia el valor del timer
