@@ -77,7 +77,7 @@ namespace AugmentedReadingApp
             string selectedPlugin = ((trackingPlugins.Text == "None") ? null : pluginsCurrentRoute + trackingPlugins.Text);
             string selectedReticle = ((reticleSelected.Text == "None") ? null : reticlesCurrentRoute + reticleSelected.Text);
 
-            if (trackingPlugins.Text != null)
+            if (selectedPlugin != null)
             {
                 try
                 {
@@ -193,6 +193,7 @@ namespace AugmentedReadingApp
         // Configuration loading - saving methods
         private void loadConfig_Click(object sender, EventArgs e)
         {
+            openFileConfig.FileName = "";
             openFileConfig.Title = "Seleccione un archivo para cargar una configuración";
             openFileConfig.Filter = "Archivos de texto (*.txt)|*.txt|Archivo JSON (*.json)|*.json";
             SettingsManager settings = new SettingsManager();
