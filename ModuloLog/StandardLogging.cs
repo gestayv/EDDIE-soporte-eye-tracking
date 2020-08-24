@@ -33,7 +33,7 @@ namespace ModuloLog
 
         public bool CreateLogTarget(string directory, string name, int customBuffer = 1000)
         {
-            string fileRouteName = directory + "\\" + name;
+            string fileRouteName = ((name == "") ? directory : directory + "\\" + name);
 
             try
             {

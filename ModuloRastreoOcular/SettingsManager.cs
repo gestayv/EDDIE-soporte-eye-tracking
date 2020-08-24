@@ -49,7 +49,7 @@ namespace ModuloRastreoOcular
                 fAttributes.fileRoute = (string)controls.ElementAt(8);
                 // ASSembly conflict
                 string jsonConfig = JsonConvert.SerializeObject(fAttributes);
-                logSettings.CreateLogTarget("", fileRoute);
+                logSettings.CreateLogTarget(fileRoute, ""); 
                 logSettings.WriteToLog(jsonConfig);
                 logSettings.CloseLogTarget();
             }

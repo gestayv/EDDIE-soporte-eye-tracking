@@ -29,7 +29,6 @@ namespace ModuloRastreoOcular
         {
             base.OnMouseEnter(e);
             if (intermediate.mouseControl && clickTimer != null) clickTimer.Start();
-            Console.WriteLine(clickTimer.Interval);
         }
 
         protected override void OnMouseLeave(EventArgs e)

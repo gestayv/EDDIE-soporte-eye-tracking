@@ -18,14 +18,17 @@ namespace AugmentedReadingApp
         public Type assemblyType;
         public object assemblyInstance;
 
-        private string pluginsCurrentRoute = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking\\";
-        private string reticlesCurrentRoute = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking\\";
-        private string dataSaveCurrentRoute = Directory.GetCurrentDirectory() + "\\Eye Tracking Logging\\";
+        private string pluginsCurrentRoute = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking";
+        private string reticlesCurrentRoute = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking";
+        private string dataSaveCurrentRoute = Directory.GetCurrentDirectory() + "\\Eye Tracking Logging";
 
         public EyeTrackingConfiguration()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            if (!Directory.Exists(pluginsCurrentRoute)) Directory.CreateDirectory(pluginsCurrentRoute);
+            if (!Directory.Exists(reticlesCurrentRoute)) Directory.CreateDirectory(reticlesCurrentRoute);
+            if (!Directory.Exists(dataSaveCurrentRoute)) Directory.CreateDirectory(dataSaveCurrentRoute);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -74,8 +77,8 @@ namespace AugmentedReadingApp
         private void SaveChanges_MouseClick(object sender, MouseEventArgs e)
         {
             IntermediateClass interClass = IntermediateClass.GetInstance();
-            string selectedPlugin = ((trackingPlugins.Text == "None") ? null : pluginsCurrentRoute + trackingPlugins.Text);
-            string selectedReticle = ((reticleSelected.Text == "None") ? null : reticlesCurrentRoute + reticleSelected.Text);
+            string selectedPlugin = ((trackingPlugins.Text == "None") ? null : pluginsCurrentRoute + "\\" + trackingPlugins.Text);
+            string selectedReticle = ((reticleSelected.Text == "None") ? null : reticlesCurrentRoute + "\\" + reticleSelected.Text);
 
             if (selectedPlugin != null)
             {
@@ -84,8 +87,16 @@ namespace AugmentedReadingApp
                     
                     interClass.InitializeClass(selectedPlugin, selectedReticle, controlMouse.Checked, Decimal.ToInt32(clickTimer.Value), saveData.Checked, dataSaveCurrentRoute, fileNameTextBox.Text);
                     interClass.SetUpAssembly();
-                    MessageBox.Show("Configuración seleccionada con éxito");
-                    this.Close();
+                    Exception assemblyLoad = interClass.SetUpAssembly();
+                    if (assemblyLoad == null)
+                    {
+                        MessageBox.Show("Configuración seleccionada con éxito");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(assemblyLoad.ToString());
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -233,6 +244,8 @@ namespace AugmentedReadingApp
             saveFileConfig.DefaultExt = "config - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
             saveFileConfig.Filter = "Archivos de texto (*.txt)|*.txt|Archivo JSON (*.json)|*.json";
             saveFileConfig.ShowDialog();
+
+            if (File.Exists(saveFileConfig.FileName)) File.Delete(saveFileConfig.FileName);
 
             // preparation of data to be saved
             object[] configData = { pluginsRoute.Text, trackingPlugins.SelectedIndex, reticlesRoute.Text, reticleSelected.SelectedIndex,

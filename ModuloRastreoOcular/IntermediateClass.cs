@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.ComponentModel;
 using ModuloLog;
@@ -68,7 +65,6 @@ namespace ModuloRastreoOcular
                     {
                         _Instance = new IntermediateClass();
                     }
-                    return _Instance;
                 }
             }
             return _Instance;
@@ -164,22 +160,35 @@ namespace ModuloRastreoOcular
         /// 1. Subscribing to the "PropertyChanged" event (in order to detect when new eye tracking data is received)
         /// 2. Calling the "OpenConnection" method, to startup the connection with the eye tracker device.
         /// </summary>
-        public void SetUpAssembly() 
+        public Exception SetUpAssembly()
         {
-            
-            assemblyType        =   pluginAssembly.GetTypes()[0];
-            assemblyInstance    =   Activator.CreateInstance(assemblyType);
+            try
+            {
+                assemblyType = pluginAssembly.GetTypes()[0];
+                assemblyInstance = Activator.CreateInstance(assemblyType);
 
-            EventInfo evPropChange  =   assemblyType.GetEvent("PropertyChanged");
-            Type delegateType       =   evPropChange.EventHandlerType;
+                EventInfo evPropChange = assemblyType.GetEvent("PropertyChanged");
+                Type delegateType = evPropChange.EventHandlerType;
 
-            Delegate propChangeDel  =   Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
-            MethodInfo addHandler   =   evPropChange.GetAddMethod();
-            Object[] addHandlerArgs =   { propChangeDel };
-            addHandler.Invoke(assemblyInstance, addHandlerArgs);
+                Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
+                MethodInfo addHandler = evPropChange.GetAddMethod();
+                Object[] addHandlerArgs = { propChangeDel };
+                addHandler.Invoke(assemblyInstance, addHandlerArgs);
 
-            MethodInfo assemblyOpenConn =   assemblyType.GetMethod("OpenConnection");
-            assemblyOpenConn.Invoke(assemblyInstance, new object[] { });
+                MethodInfo assemblyOpenConn = assemblyType.GetMethod("OpenConnection");
+                assemblyOpenConn.Invoke(assemblyInstance, new object[] { });
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                if (ex is System.Reflection.ReflectionTypeLoadException)
+                {
+                    var typeLoadException = ex as ReflectionTypeLoadException;
+                    var loaderExceptions = typeLoadException.LoaderExceptions;
+                }
+                return ex;
+            }
         }
 
         /// <summary>
