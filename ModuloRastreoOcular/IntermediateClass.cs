@@ -134,7 +134,15 @@ namespace ModuloRastreoOcular
         /// </summary>
         public void ClearClass() 
         {
-            pluginAssembly      =   null;
+            // Initially the handler "ChangeCoordinates" is unsuscribed from the event "PropertyChanged"
+            // This effectively stops the data flow between the eye tracking device and the app
+            EventInfo evPropChange = assemblyType.GetEvent("PropertyChanged");
+            Type delegateType = evPropChange.EventHandlerType;
+            Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
+            evPropChange.RemoveEventHandler(assemblyInstance, propChangeDel);
+
+            // Then, every variable related to eye tracking gets reinitialized
+            pluginAssembly =   null;
             assemblyType        =   null;
             assemblyInstance    =   null;
             mouseControl        =   false;
@@ -171,9 +179,10 @@ namespace ModuloRastreoOcular
                 Type delegateType = evPropChange.EventHandlerType;
 
                 Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
-                MethodInfo addHandler = evPropChange.GetAddMethod();
-                Object[] addHandlerArgs = { propChangeDel };
-                addHandler.Invoke(assemblyInstance, addHandlerArgs);
+                //MethodInfo addHandler = evPropChange.GetAddMethod();
+                //Object[] addHandlerArgs = { propChangeDel };
+                //addHandler.Invoke(assemblyInstance, addHandlerArgs);
+                evPropChange.AddEventHandler(assemblyInstance, propChangeDel);
 
                 MethodInfo assemblyOpenConn = assemblyType.GetMethod("OpenConnection");
                 assemblyOpenConn.Invoke(assemblyInstance, new object[] { });
