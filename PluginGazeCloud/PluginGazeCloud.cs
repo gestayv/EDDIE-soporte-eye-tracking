@@ -25,11 +25,7 @@ namespace PluginGazeCloud
 
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            PropertyChanged?.Invoke(this, e);
             //else
             //{
             //    Console.WriteLine("handler null");

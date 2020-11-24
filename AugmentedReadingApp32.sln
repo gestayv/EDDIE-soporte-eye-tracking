@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginGazeCloud", "PluginGa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuloRastreoOcular", "ModuloRastreoOcular\ModuloRastreoOcular.csproj", "{53F0271C-7AD5-494F-8796-20EA8F816E06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTribePlugin", "EyeTribePlugin\EyeTribePlugin.csproj", "{469D0155-4040-468A-AA03-9F359406E6DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53F0271C-7AD5-494F-8796-20EA8F816E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{469D0155-4040-468A-AA03-9F359406E6DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{4AC51111-F707-4C02-AEEA-F91A4CFF19D9} = {E593CC45-5446-4885-B511-F411AAF71715}
 		{94C65441-F0B0-4706-A7FA-C2FF9694F2C0} = {7432BB62-7783-4112-9635-D7D447A75581}
 		{AAE9D108-8BBC-4BCA-98BF-B20D7473E986} = {5AA5353B-7089-413A-B865-52EB1206303F}
+		{469D0155-4040-468A-AA03-9F359406E6DA} = {5AA5353B-7089-413A-B865-52EB1206303F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74785ED8-BCC4-407D-94A3-EBA4056B9E49}

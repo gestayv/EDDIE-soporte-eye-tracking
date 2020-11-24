@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// TODO: SettingsManager emplea StandardLogging, diagrama de clases.
 // TODO: Clicks asincrónicos?
     // Cuál es la llamada asincrónica, abrir la form? dibujar a pantalla y mover el mouse?
 namespace AugmentedReadingApp

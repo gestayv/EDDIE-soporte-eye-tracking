@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.ComponentModel;
 using ModuloLog;
+using System.Diagnostics;
 
 
 namespace ModuloRastreoOcular
@@ -12,6 +13,15 @@ namespace ModuloRastreoOcular
     /// </summary>
     public class IntermediateClass
     {
+        // TODO: performance
+        //private bool iniciarCaptura = true;
+        //private System.Timers.Timer performanceTimer = new System.Timers.Timer(10000);
+        //private PerformanceCounter CPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");  // Llamar dos veces minimo, la primera medida siempre es 0
+        //private PerformanceCounter MemCounter2 = new PerformanceCounter("Memory", "Available MBytes");
+        //private PerformanceCounter MemCounter = new PerformanceCounter("Memory", "% Committed Bytes In Use", null);
+        //private PerformanceCounter DisCounter = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
+        //private StandardLogging performanceLogging = new StandardLogging();
+
         //  Attributes for implementing the class as a thread safe singleton
         private static IntermediateClass _Instance  =   null;
         private static readonly object padlock      =   new object();
@@ -83,6 +93,14 @@ namespace ModuloRastreoOcular
         /// <param name="fileName">Name of the file to be generated</param>
         public void InitializeClass(string pluginName, string reticleRoute, bool mouseControl, int countdown, bool saveData, string saveRoute, string fileName)
         {
+            // TODO: performance, aca llamar los counters por primera vez y en el evento del counter llamarlos las veces restantes, escribir a archivo.
+            //performanceTimer.Elapsed += PollUpdates;
+            //CPUCounter.NextValue();
+            //MemCounter.NextValue();
+            //MemCounter2.NextValue();
+            //DisCounter.NextValue();
+            //performanceLogging.CreateLogTarget("C:\\Users\\gesta\\Desktop", "performance_" + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss")+".csv");
+            
             pluginAssembly      = Assembly.LoadFrom(pluginName);
             ClickTimer          = countdown*1000;
             this.mouseControl   = mouseControl;
@@ -208,9 +226,20 @@ namespace ModuloRastreoOcular
         /// <param name="e"></param>
         public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
         {
+            // TODO: performance
+            //if (iniciarCaptura)
+            //{
+            //    iniciarCaptura = false;
+            //    performanceTimer.Start();
+            //    Console.WriteLine(CPUCounter.NextValue());
+            //    Console.WriteLine(MemCounter.NextValue());
+            //    Console.WriteLine(MemCounter2.NextValue());
+            //    Console.WriteLine(DisCounter.NextValue());
+            //}
+
             //  First the property where the eye tracking data is saved is recovered
             PropertyInfo assemblyData               =   assemblyType.GetProperty("Data");
-            Dictionary<string, string> Coordinates  =   (Dictionary<string, string>)assemblyData.GetValue(assemblyInstance);
+            Dictionary<string, string> Coordinates  =   (Dictionary<string, string>)assemblyData.GetValue(sender, null);
             Data = Coordinates;
 
             //  Then, for each action linked to the new eye tracking coordinates, the program determines what to execute and what not to.
@@ -221,7 +250,8 @@ namespace ModuloRastreoOcular
             }
             if (saveData)
             {
-                logging.WriteToLog(Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + clickRegister.ToString());
+                string trackingData = Data["X_Coordinate"] + ", " + Data["Y_Coordinate"] + ", " + Data["Timestamp"] + "," + clickRegister.ToString();
+                logging.WriteToLog(trackingData);
                 clickRegister = 0;
             }
             if (mouseControl)
@@ -244,5 +274,43 @@ namespace ModuloRastreoOcular
         {
             TimerChanged?.Invoke(this, e);
         }
+
+        // TODO: performance
+        //private void PollUpdates(object sender, EventArgs e)
+        //{
+        //    // obtener data aca
+        //    // Console.WriteLine("CPU: " + CPUCounter.NextValue().ToString());
+        //    performanceLogging.WriteToLog(CPUCounter.NextValue().ToString());
+        //    performanceLogging.WriteToLog(MemCounter.NextValue().ToString());
+        //    performanceLogging.WriteToLog(MemCounter2.NextValue().ToString());
+        //    performanceLogging.WriteToLog(DisCounter.NextValue().ToString());
+        //    performanceLogging.WriteToLog("================");
+        //    Console.WriteLine("hey");
+        //}
     }
-}   
+}
+
+
+//PerformanceCounter("Processor", "% Processor Time", "_Total");
+//PerformanceCounter("Processor", "% Privileged Time", "_Total");
+//PerformanceCounter("Processor", "% Interrupt Time", "_Total");
+//PerformanceCounter("Processor", "% DPC Time", "_Total");
+//PerformanceCounter("Memory", "Available MBytes", null);
+//PerformanceCounter("Memory", "Committed Bytes", null);
+//PerformanceCounter("Memory", "Commit Limit", null);
+//PerformanceCounter("Memory", "% Committed Bytes In Use", null);
+//PerformanceCounter("Memory", "Pool Paged Bytes", null);
+//PerformanceCounter("Memory", "Pool Nonpaged Bytes", null);
+//PerformanceCounter("Memory", "Cache Bytes", null);
+//PerformanceCounter("Paging File", "% Usage", "_Total");
+//PerformanceCounter("PhysicalDisk", "Avg. Disk Queue Length", "_Total");
+//PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", "_Total");
+//PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", "_Total");
+//PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Read", "_Total");
+//PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Write", "_Total");
+//PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
+//PerformanceCounter("Process", "Handle Count", "_Total");
+//PerformanceCounter("Process", "Thread Count", "_Total");
+//PerformanceCounter("System", "Context Switches/sec", null);
+//PerformanceCounter("System", "System Calls/sec", null);
+//PerformanceCounter("System", "Processor Queue Length", null);

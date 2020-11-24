@@ -56,7 +56,6 @@ namespace AugmentedReadingApp
 
             SeleccionInteraccionPorVoz seleccionInteraccionPorVoz = new SeleccionInteraccionPorVoz();
             seleccionInteraccionPorVoz.TopMost = true;
-            // TODO: here
             seleccionInteraccionPorVoz.Show();
 
             InitializeComponent();
@@ -204,22 +203,19 @@ namespace AugmentedReadingApp
             return SelectedItem.Key;
         }
 
-        private async void ProyectionActivityBt(object sender, EventArgs e)
+        private void ProyectionActivityBt(object sender, EventArgs e)
         {
             var CameraNumber = _CameraTextIndex;
 
             projection.Show();
-            await Task.Run( () =>
+            if (captureText == null)
             {
-                if (captureText == null)
-                {
-                    captureText = new VideoCapture(CameraNumber);
-                    captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth, (double)numericUpDownResXText.Value);
-                    captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight, (double)numericUpDownResYText.Value);
+                captureText = new VideoCapture(CameraNumber);
+                captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameWidth, (double)numericUpDownResXText.Value);
+                captureText.SetCaptureProperty(Emgu.CV.CvEnum.CapProp.FrameHeight, (double)numericUpDownResYText.Value);
 
-                    imageBox1.Image = recTxt.Recognition(captureText);
-                }
-            });
+                imageBox1.Image = recTxt.Recognition(captureText);
+            }
         }
 
         private void comenzarToolStripMenuItem_Click(object sender, EventArgs e)

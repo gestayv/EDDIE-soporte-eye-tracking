@@ -35,3 +35,4 @@ C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclope
 C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csproj.CopyComplete
 C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.dll
 C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.pdb
+C:\Users\gesta\Desktop\2020-1\tesis\repo\ApiEnciclopedia2\obj\Debug\ApiEnciclopedia2.csprojAssemblyReference.cache
