@@ -4,7 +4,8 @@ using System.Reflection;
 using System.ComponentModel;
 using ModuloLog;
 using System.Diagnostics;
-
+using System.Security.Policy;
+using System.IO;
 
 namespace ModuloRastreoOcular
 {
@@ -13,36 +14,26 @@ namespace ModuloRastreoOcular
     /// </summary>
     public class IntermediateClass
     {
-        // TODO: performance
-        //private bool iniciarCaptura = true;
-        //private System.Timers.Timer performanceTimer = new System.Timers.Timer(10000);
-        //private PerformanceCounter CPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");  // Llamar dos veces minimo, la primera medida siempre es 0
-        //private PerformanceCounter MemCounter2 = new PerformanceCounter("Memory", "Available MBytes");
-        //private PerformanceCounter MemCounter = new PerformanceCounter("Memory", "% Committed Bytes In Use", null);
-        //private PerformanceCounter DisCounter = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
-        //private StandardLogging performanceLogging = new StandardLogging();
-
         //  Attributes for implementing the class as a thread safe singleton
         private static IntermediateClass _Instance  =   null;
         private static readonly object padlock      =   new object();
 
-        //  Attributes for reflection
-        public Assembly pluginAssembly;
-        public Type assemblyType;
-        public object assemblyInstance;
+        //  Proxy class for reflection, used so it's possible to change assemblies on runtime
+        private Proxy proxyInstance;
             
         //  Attributes for handling new eye tracking data
         private Dictionary<string, string> _Data = new Dictionary<string, string>();
         public event PropertyChangedEventHandler PropertyChanged, TimerChanged;
 
-        //  Attributes for controling mouse movement, logging data, drawing the reticle, and generate clicks.
-        private MouseControl controller;
+        //  Classes controling mouse movement, data logging, reticle drawing and click generation.
+        private MouseControl    controller;
         private StandardLogging logging;
-        private ReticleDrawing drawingClass;
-        public bool mouseControl;
-        public bool saveData;
-        public int clickRegister;
-        private int _ClickTimer;
+        private ReticleDrawing  drawingClass;
+        //  Configuration attributes
+        public  bool            mouseControl;
+        public  bool            saveData;
+        public  int             clickRegister;
+        private int             _ClickTimer;
 
         public int ClickTimer
         {
@@ -52,6 +43,12 @@ namespace ModuloRastreoOcular
                 _ClickTimer = value;
                 OnTimerChanged(this, new PropertyChangedEventArgs(nameof(ClickTimer)));
             }
+        }
+
+        public IntermediateClass()
+        {
+            proxyInstance = new Proxy();
+            proxyInstance.PropertyChanged += ChangeCoordinates;
         }
 
         //  Dictionary where the eye tracking data is kept
@@ -82,7 +79,7 @@ namespace ModuloRastreoOcular
 
 
         /// <summary>
-        /// Method for initializating IntermediateClasss
+        /// Method for initializating IntermediateClasss, receives the parameters contained in a configuration.
         /// </summary>
         /// <param name="pluginName">Full route to the plugin to be loaded as an assembly</param>
         /// <param name="reticleRoute">Full route to the image to be used as a reticle</param>
@@ -93,15 +90,7 @@ namespace ModuloRastreoOcular
         /// <param name="fileName">Name of the file to be generated</param>
         public void InitializeClass(string pluginName, string reticleRoute, bool mouseControl, int countdown, bool saveData, string saveRoute, string fileName)
         {
-            // TODO: performance, aca llamar los counters por primera vez y en el evento del counter llamarlos las veces restantes, escribir a archivo.
-            //performanceTimer.Elapsed += PollUpdates;
-            //CPUCounter.NextValue();
-            //MemCounter.NextValue();
-            //MemCounter2.NextValue();
-            //DisCounter.NextValue();
-            //performanceLogging.CreateLogTarget("C:\\Users\\gesta\\Desktop", "performance_" + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss")+".csv");
-            
-            pluginAssembly      = Assembly.LoadFrom(pluginName);
+            proxyInstance.CreateAppDomain(pluginName);
             ClickTimer          = countdown*1000;
             this.mouseControl   = mouseControl;
             this.saveData       = saveData;
@@ -147,24 +136,13 @@ namespace ModuloRastreoOcular
         }
 
         /// <summary>
-        /// Method for cleaning up the class, leaving it in the same state as before executing
-        /// the method "initializeClass"
+        /// Method for cleaning up the class current configuration 
         /// </summary>
         public void ClearClass() 
         {
-            // Initially the handler "ChangeCoordinates" is unsuscribed from the event "PropertyChanged"
-            // This effectively stops the data flow between the eye tracking device and the app
-            EventInfo evPropChange = assemblyType.GetEvent("PropertyChanged");
-            Type delegateType = evPropChange.EventHandlerType;
-            Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
-            evPropChange.RemoveEventHandler(assemblyInstance, propChangeDel);
-
-            // Then, every variable related to eye tracking gets reinitialized
-            pluginAssembly =   null;
-            assemblyType        =   null;
-            assemblyInstance    =   null;
-            mouseControl        =   false;
-            saveData            =   false;
+            //  Every variable related to eye tracking gets reinitialized
+            mouseControl    =   false;
+            saveData        =   false;
             if (controller != null)
             {
                 controller = null;
@@ -182,65 +160,15 @@ namespace ModuloRastreoOcular
         }
 
         /// <summary>
-        /// Method that uses reflection to set up the eye tracking plugin that has been selected, specifically:
-        /// 1. Subscribing to the "PropertyChanged" event (in order to detect when new eye tracking data is received)
-        /// 2. Calling the "OpenConnection" method, to startup the connection with the eye tracker device.
-        /// </summary>
-        public Exception SetUpAssembly()
-        {
-            try
-            {
-                assemblyType = pluginAssembly.GetTypes()[0];
-                assemblyInstance = Activator.CreateInstance(assemblyType);
-
-                EventInfo evPropChange = assemblyType.GetEvent("PropertyChanged");
-                Type delegateType = evPropChange.EventHandlerType;
-
-                Delegate propChangeDel = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
-                //MethodInfo addHandler = evPropChange.GetAddMethod();
-                //Object[] addHandlerArgs = { propChangeDel };
-                //addHandler.Invoke(assemblyInstance, addHandlerArgs);
-                evPropChange.AddEventHandler(assemblyInstance, propChangeDel);
-
-                MethodInfo assemblyOpenConn = assemblyType.GetMethod("OpenConnection");
-                assemblyOpenConn.Invoke(assemblyInstance, new object[] { });
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                if (ex is System.Reflection.ReflectionTypeLoadException)
-                {
-                    var typeLoadException = ex as ReflectionTypeLoadException;
-                    var loaderExceptions = typeLoadException.LoaderExceptions;
-                }
-                return ex;
-            }
-        }
-
-        /// <summary>
-        /// Method used in the subscription to "PropertyChanged" of the eye tracking plugin, it manages all actions linked
-        /// to the eye tracker, whenever new data is received.
+        /// Method used in the subscription to "PropertyChanged" of the eye tracking plugin, it manages all actions
+        /// to be performed once the eye tracking device generates new data.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
         {
-            // TODO: performance
-            //if (iniciarCaptura)
-            //{
-            //    iniciarCaptura = false;
-            //    performanceTimer.Start();
-            //    Console.WriteLine(CPUCounter.NextValue());
-            //    Console.WriteLine(MemCounter.NextValue());
-            //    Console.WriteLine(MemCounter2.NextValue());
-            //    Console.WriteLine(DisCounter.NextValue());
-            //}
-
-            //  First the property where the eye tracking data is saved is recovered
-            PropertyInfo assemblyData               =   assemblyType.GetProperty("Data");
-            Dictionary<string, string> Coordinates  =   (Dictionary<string, string>)assemblyData.GetValue(sender, null);
-            Data = Coordinates;
+            //  The new data is extracted from the plugin currently loaded
+            Data = proxyInstance.newData;
 
             //  Then, for each action linked to the new eye tracking coordinates, the program determines what to execute and what not to.
             //  These actions beings (up until now), drawing the reticle, saving the new data to a file and controlling the mouse's position.
@@ -261,7 +189,7 @@ namespace ModuloRastreoOcular
         }
 
         /// <summary>
-        /// Method fired when the property Data of the class is modified
+        /// Fired when the property Data of the class is modified
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -274,43 +202,142 @@ namespace ModuloRastreoOcular
         {
             TimerChanged?.Invoke(this, e);
         }
+    }
 
-        // TODO: performance
-        //private void PollUpdates(object sender, EventArgs e)
-        //{
-        //    // obtener data aca
-        //    // Console.WriteLine("CPU: " + CPUCounter.NextValue().ToString());
-        //    performanceLogging.WriteToLog(CPUCounter.NextValue().ToString());
-        //    performanceLogging.WriteToLog(MemCounter.NextValue().ToString());
-        //    performanceLogging.WriteToLog(MemCounter2.NextValue().ToString());
-        //    performanceLogging.WriteToLog(DisCounter.NextValue().ToString());
-        //    performanceLogging.WriteToLog("================");
-        //    Console.WriteLine("hey");
-        //}
+
+    //  Proxy class used to load different assemblies without having trouble with dependencies
+    public class Proxy : MarshalByRefObject
+    {
+        //  The assemblies are loaded inside an AppDomain, which is unloaded each time a new assembly is
+        //  selected (this only happens if there was another assembly had been loaded previously).
+        AppDomain appDomainPlugins = null;
+        bool loadedAppDomain = false;
+        AppDomainPlugin AppDomainInstance = null;
+
+        //  Event for handling the new data generated by an eye tracking device
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private Dictionary<string, string> _newData;
+
+        public Dictionary<string, string> newData
+        {
+            get { return _newData; }
+            set
+            {
+                _newData = value;
+                OnPropertyChanged(this, new PropertyChangedEventArgs(nameof(newData)));
+            }
+        }
+
+        /// <summary>
+        /// Method in charge of creating an AppDomain and loading a plugin (assembly), inside it.
+        /// </summary>
+        /// <param name="pluginRoute">Full route of the assembly to be loaded</param>
+        public void CreateAppDomain(string pluginRoute)
+        {
+            if (loadedAppDomain)
+            {
+                AppDomainInstance.ClearAssembly();
+                AppDomain.Unload(appDomainPlugins);
+            }
+
+            AppDomainSetup domainInfo = new AppDomainSetup
+            {
+                ApplicationBase = System.Environment.CurrentDirectory,
+            };
+
+            Evidence adevidence = AppDomain.CurrentDomain.Evidence;
+            appDomainPlugins    = AppDomain.CreateDomain("pluginsDomain", adevidence, domainInfo);
+            loadedAppDomain     = true;
+            Type type           = typeof(AppDomainPlugin);
+            object[] arguments  = { this };
+            AppDomainInstance   = (AppDomainPlugin)appDomainPlugins.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName, true, BindingFlags.Default, null, arguments, null, null);
+            try
+            {
+                AppDomainInstance.LoadFrom(pluginRoute);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, e);
+        }
+    }
+
+    /// <summary>
+    /// Class used to instantiate assemblies
+    /// </summary>
+    public class AppDomainPlugin : MarshalByRefObject
+    {
+        public Assembly assemblyLoaded;
+        public Type     assemblyType;
+        public object   assemblyInstance;
+        private Proxy   proxyInstance;
+
+        public AppDomainPlugin(Proxy proxyInstance)
+        {
+            this.proxyInstance  = proxyInstance;
+            assemblyLoaded      = null;
+        }
+
+        public void LoadFrom(string path)
+        {
+            ValidatePath(path);
+            if (assemblyLoaded != null) ClearAssembly();
+            assemblyLoaded = Assembly.LoadFrom(path);
+            SetUpAssembly();
+        }
+
+        public void ValidatePath(string path)
+        {
+            if (path == null) throw new ArgumentException("null");
+            if (!File.Exists(path))
+                throw new ArgumentException(String.Format("path \"{0}\" does not exist", path));
+        }
+
+        public void ClearAssembly()
+        {
+            EventInfo evPropChange  = assemblyType.GetEvent("PropertyChanged");
+            Type delegateType       = evPropChange.EventHandlerType;
+            Delegate propChangeDel  = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
+            evPropChange.RemoveEventHandler(assemblyInstance, propChangeDel);
+        }
+
+        public void SetUpAssembly()
+        {
+            // Creation of a new instance from the assembly
+            assemblyType        = assemblyLoaded.GetTypes()[0];
+            assemblyInstance    = Activator.CreateInstance(assemblyType);
+
+            // Event subscription to PropertyChanged
+            EventInfo evPropChange  = assemblyType.GetEvent("PropertyChanged");
+            Type delegateType       = evPropChange.EventHandlerType;
+            Delegate propChangeDel  = Delegate.CreateDelegate(delegateType, this, "ChangeCoordinates");
+            MethodInfo addHandler   = evPropChange.GetAddMethod();
+            Object[] addHandlerArgs = { propChangeDel };
+            addHandler.Invoke(assemblyInstance, addHandlerArgs);
+
+            // Call to the OpenConnection method of the assembly/plugin
+            MethodInfo assemblyConn = assemblyType.GetMethod("OpenConnection");
+            assemblyConn.Invoke(assemblyInstance, new object[] { });
+        }
+
+        public void ChangeCoordinates(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyInfo assemblyData = assemblyType.GetProperty("Data");
+            Dictionary<string, string> Coordinates = (Dictionary<string, string>)assemblyData.GetValue(sender, null);
+            try
+            {
+                proxyInstance.newData = Coordinates;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
-
-
-//PerformanceCounter("Processor", "% Processor Time", "_Total");
-//PerformanceCounter("Processor", "% Privileged Time", "_Total");
-//PerformanceCounter("Processor", "% Interrupt Time", "_Total");
-//PerformanceCounter("Processor", "% DPC Time", "_Total");
-//PerformanceCounter("Memory", "Available MBytes", null);
-//PerformanceCounter("Memory", "Committed Bytes", null);
-//PerformanceCounter("Memory", "Commit Limit", null);
-//PerformanceCounter("Memory", "% Committed Bytes In Use", null);
-//PerformanceCounter("Memory", "Pool Paged Bytes", null);
-//PerformanceCounter("Memory", "Pool Nonpaged Bytes", null);
-//PerformanceCounter("Memory", "Cache Bytes", null);
-//PerformanceCounter("Paging File", "% Usage", "_Total");
-//PerformanceCounter("PhysicalDisk", "Avg. Disk Queue Length", "_Total");
-//PerformanceCounter("PhysicalDisk", "Disk Read Bytes/sec", "_Total");
-//PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", "_Total");
-//PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Read", "_Total");
-//PerformanceCounter("PhysicalDisk", "Avg. Disk sec/Write", "_Total");
-//PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
-//PerformanceCounter("Process", "Handle Count", "_Total");
-//PerformanceCounter("Process", "Thread Count", "_Total");
-//PerformanceCounter("System", "Context Switches/sec", null);
-//PerformanceCounter("System", "System Calls/sec", null);
-//PerformanceCounter("System", "Processor Queue Length", null);

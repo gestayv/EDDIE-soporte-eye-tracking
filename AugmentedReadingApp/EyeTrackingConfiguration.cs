@@ -18,17 +18,17 @@ namespace AugmentedReadingApp
         public Type assemblyType;
         public object assemblyInstance;
 
-        private string pluginsCurrentRoute  = Directory.GetCurrentDirectory() + "\\PluginsEyeTracking";
-        private string reticlesCurrentRoute = Directory.GetCurrentDirectory() + "\\RecursosEyeTracking";
-        private string dataSaveCurrentRoute = Directory.GetCurrentDirectory() + "\\Eye Tracking Logging";
+        private string pluginsCurrentRoute  = Directory.GetCurrentDirectory();
+        private string reticlesCurrentRoute = Directory.GetCurrentDirectory();
+        private string dataSaveCurrentRoute = Directory.GetCurrentDirectory();
 
         public EyeTrackingConfiguration()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            if (!Directory.Exists(pluginsCurrentRoute)) Directory.CreateDirectory(pluginsCurrentRoute);
-            if (!Directory.Exists(reticlesCurrentRoute)) Directory.CreateDirectory(reticlesCurrentRoute);
-            if (!Directory.Exists(dataSaveCurrentRoute)) Directory.CreateDirectory(dataSaveCurrentRoute);
+            if (!Directory.Exists(pluginsCurrentRoute))     Directory.CreateDirectory(pluginsCurrentRoute);
+            if (!Directory.Exists(reticlesCurrentRoute))    Directory.CreateDirectory(reticlesCurrentRoute);
+            if (!Directory.Exists(dataSaveCurrentRoute))    Directory.CreateDirectory(dataSaveCurrentRoute);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -45,10 +45,6 @@ namespace AugmentedReadingApp
             saveFileRoute.Text  = dataSaveCurrentRoute;
 
             IntermediateClass intermediate = IntermediateClass.GetInstance();
-            if (intermediate.pluginAssembly == null)
-            {
-                resetConfig.Enabled = false;
-            }
         }
 
         /// <summary>
@@ -67,9 +63,6 @@ namespace AugmentedReadingApp
             target.SelectedIndex = 0;
         }
 
-
-        //  TODO: acá deberia revisar si ya existia una configuración previamente o no, de ser así, tengo que reinicializar la clase
-        //  intermedia, acá es donde está el bug
         /// <summary>
         /// Method to use the current eyetracking configuration
         /// </summary>
@@ -77,18 +70,17 @@ namespace AugmentedReadingApp
         /// <param name="e"></param>
         private void SaveChanges_MouseClick(object sender, MouseEventArgs e)
         {
-            
+            //  Gets the instance of the intermediate class
             IntermediateClass interClass    = IntermediateClass.GetInstance();
+            //  Plugin and reticle selection, if "None" has been selected, the string is null
             string selectedPlugin           = ((trackingPlugins.Text == "None") ? null : pluginsCurrentRoute + "\\" + trackingPlugins.Text);
             string selectedReticle          = ((reticleSelected.Text == "None") ? null : reticlesCurrentRoute + "\\" + reticleSelected.Text);
-
-            if (interClass.pluginAssembly != null) interClass.ClearClass();
-
+        
             if (selectedPlugin != null)
             {
                 try
                 {
-                    
+                    //  If a plugin was selected, then the intermediate class is initializated with the current configuration
                     interClass.InitializeClass( selectedPlugin, 
                                                 selectedReticle, 
                                                 controlMouse.Checked, 
@@ -96,17 +88,8 @@ namespace AugmentedReadingApp
                                                 saveData.Checked, 
                                                 dataSaveCurrentRoute, 
                                                 fileNameTextBox.Text);
-                    interClass.SetUpAssembly();
-                    Exception assemblyLoad = interClass.SetUpAssembly();
-                    if (assemblyLoad == null)
-                    {
-                        MessageBox.Show("Configuración seleccionada con éxito");
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(assemblyLoad.ToString());
-                    }
+                    MessageBox.Show("Configuración seleccionada con éxito");
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -130,17 +113,10 @@ namespace AugmentedReadingApp
         }
 
         /// <summary>
-        /// Method to reset the current eye tracking configuration being used
+        /// Updates the display used to show how a reticle looks like.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ResetConfig_Click(object sender, EventArgs e)
-        {
-            IntermediateClass intermediate = IntermediateClass.GetInstance();
-            intermediate.ClearClass();
-            resetConfig.Enabled = false;
-        }
-
         private void ReticleSelected_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedReticle = reticlesCurrentRoute + "\\" + reticleSelected.Text;
@@ -178,6 +154,11 @@ namespace AugmentedReadingApp
             }
         }
 
+        /// <summary>
+        /// Updates the combobox that lists every plugin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PluginsRoute_Click(object sender, EventArgs e)
         {
             routeBrowser.Description = "Seleccione la carpeta donde se ubican los plugins de rastreo ocular";
@@ -189,6 +170,11 @@ namespace AugmentedReadingApp
             }
         }
 
+        /// <summary>
+        /// Updates the combobox that lists every reticle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReticlesRoute_Click(object sender, EventArgs e)
         {
             routeBrowser.Description = "Seleccione la carpeta donde se ubican las retículas";
@@ -200,6 +186,11 @@ namespace AugmentedReadingApp
             }
         }
 
+        /// <summary>
+        /// Sets the route for the file used for eye tracking logging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveFileRoute_Click(object sender, EventArgs e)
         {
             routeBrowser.Description = "Seleccione la carpeta donde se desean almacenar los archivos con los datos generados por el eye tracker";
@@ -211,8 +202,12 @@ namespace AugmentedReadingApp
         }
 
         
-        // Configuration loading - saving methods
-        private void loadConfig_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Used to select a file to load a configuration
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadConfig_Click(object sender, EventArgs e)
         {
             openFileConfig.FileName = "";
             openFileConfig.Title = "Seleccione un archivo para cargar una configuración";
@@ -224,61 +219,87 @@ namespace AugmentedReadingApp
                 //  Opening settings
                 var filePath = openFileConfig.FileName;
                 FormAttributes settingsAttribute = settings.LoadSettings(filePath);
-                if(settingsAttribute != null)
+                if (VerifyConfig(settingsAttribute))
                 {
-                    pluginsRoute.Text               = settingsAttribute.pluginsRoute;
+                    pluginsCurrentRoute     = settingsAttribute.pluginsRoute;
+                    reticlesCurrentRoute    = settingsAttribute.reticlesRoute;
+                    dataSaveCurrentRoute    = settingsAttribute.fileRoute;
+                    pluginsRoute.Text       = settingsAttribute.pluginsRoute;                    
+                    reticlesRoute.Text      = settingsAttribute.reticlesRoute;
+                    controlMouse.Checked    = settingsAttribute.mouseControl;
+                    clickTimer.Value        = settingsAttribute.clickTime;
+                    saveData.Checked        = settingsAttribute.saveData;
+                    fileNameTextBox.Text    = settingsAttribute.fileName;
+                    saveFileRoute.Text      = settingsAttribute.fileRoute;
                     InitializeComboBox(trackingPlugins, pluginsRoute.Text, "*.dll");
-                    trackingPlugins.SelectedIndex   = settingsAttribute.pluginsIndex;
-                    reticlesRoute.Text              = settingsAttribute.reticlesRoute;
                     InitializeComboBox(reticleSelected, reticlesRoute.Text, "*.png");
-                    reticleSelected.SelectedIndex   = settingsAttribute.reticlesIndex;
-                    controlMouse.Checked            = settingsAttribute.mouseControl;
-                    clickTimer.Value                = settingsAttribute.clickTime;
-                    saveData.Checked                = settingsAttribute.saveData;
-                    fileNameTextBox.Text            = settingsAttribute.fileName;
-                    saveFileRoute.Text              = settingsAttribute.fileRoute;
-
+                    trackingPlugins.SelectedIndex = trackingPlugins.FindStringExact(settingsAttribute.pluginName);
+                    reticleSelected.SelectedIndex = reticleSelected.FindStringExact(settingsAttribute.reticleName);
                     MessageBox.Show("Configuración cargada con éxito");
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo cargar la configuración seleccionada.");
+                    MessageBox.Show("No se pudo cargar la configuración seleccionada.\n" +
+                                    "El archivo pudo ser modificado o los directorios\n" +
+                                    "y archivos señalados ya no existen o han sido   \n" +
+                                    "movidos a otra ubicación.");
                 }
             }
 
         }
+
+        /// <summary>
+        /// Verifies a configuration (validates routes in case these don't exist anymore)
+        /// </summary>
+        /// <param name="configuration">FormAttributes class with every setting of a configuration</param>
+        /// <returns>True if configuration is valid, false if not.</returns>
+        private bool VerifyConfig(FormAttributes configuration)
+        {
+            if (configuration != null && 
+                Directory.Exists(configuration.pluginsRoute) &&
+                Directory.Exists(configuration.reticlesRoute) && 
+                Directory.Exists(configuration.fileRoute))
+            {
+                if (File.Exists(configuration.pluginsRoute + "\\" + configuration.pluginName) &&
+                    File.Exists(configuration.reticlesRoute + "\\" + configuration.reticleName))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         
-        private void saveConfig_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Used to select a directory where a configuration will be stored as a json file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveConfig_Click(object sender, EventArgs e)
         {
             // dialog configuration
             saveFileConfig.Title        = "Seleccione un directorio y un nombre para guardar su configuración";
             saveFileConfig.DefaultExt   = "config - " + DateTime.Now.ToString("dd-M-yyyy_HH-mm-ss");
             saveFileConfig.Filter       = "Archivo JSON (*.json)|*.json";
-            saveFileConfig.ShowDialog();
-
-            if (File.Exists(saveFileConfig.FileName)) File.Delete(saveFileConfig.FileName);
 
             // preparation of data to be saved
-            object[] configData = { pluginsRoute.Text, 
-                                    trackingPlugins.SelectedIndex, 
-                                    reticlesRoute.Text, 
-                                    reticleSelected.SelectedIndex,
-                                    controlMouse.Checked, 
-                                    Decimal.ToInt32(clickTimer.Value), 
-                                    saveData.Checked, 
-                                    fileNameTextBox.Text, 
-                                    saveFileRoute.Text };
+            object[] configData = { pluginsRoute.Text, trackingPlugins.Text, 
+                                    reticlesRoute.Text, reticleSelected.Text,
+                                    controlMouse.Checked, Decimal.ToInt32(clickTimer.Value), 
+                                    saveData.Checked, fileNameTextBox.Text, saveFileRoute.Text };
             List<object> config = new List<object>();
             config.AddRange(configData);
 
             SettingsManager settings = new SettingsManager();
-            if (settings.SaveSettings(saveFileConfig.FileName, config))
+            if (saveFileConfig.ShowDialog() == DialogResult.OK) 
             {
-                MessageBox.Show("Configuración guardada con éxito");
-            }
-            else
-            {
-                MessageBox.Show("No se pudo guardar la configuración seleccionada.");
+                if (settings.SaveSettings(saveFileConfig.FileName, config))
+                {
+                    MessageBox.Show("Configuración guardada con éxito");
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo guardar la configuración seleccionada.");
+                }
             }
         }
 

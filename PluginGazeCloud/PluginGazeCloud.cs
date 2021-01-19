@@ -8,6 +8,10 @@ using InterfazRastreoOcular;
 
 namespace PluginGazeCloud
 {
+    /// <summary>
+    /// Eye tracking plugin for the javascript library GazeCloudAPI.
+    /// Communication is achieved through sockets using localhosts and the port 3000
+    /// </summary>
     public class PluginGazeCloud : IEyeTracking
     {
         private Dictionary<string, string> _Data = new Dictionary<string, string>();

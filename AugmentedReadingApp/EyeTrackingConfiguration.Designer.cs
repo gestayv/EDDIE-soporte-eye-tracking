@@ -163,7 +163,7 @@
             this.resetConfig.TabIndex = 11;
             this.resetConfig.Text = "Reiniciar";
             this.resetConfig.UseVisualStyleBackColor = true;
-            this.resetConfig.Click += new System.EventHandler(this.ResetConfig_Click);
+            //this.resetConfig.Click += new System.EventHandler(this.ResetConfig_Click);
             // 
             // pluginsRouteBrowse
             // 
@@ -384,7 +384,7 @@
             this.saveConfig.TabIndex = 22;
             this.saveConfig.Text = "Guardar Configuración";
             this.saveConfig.UseVisualStyleBackColor = true;
-            this.saveConfig.Click += new System.EventHandler(this.saveConfig_Click);
+            this.saveConfig.Click += new System.EventHandler(this.SaveConfig_Click);
             // 
             // loadConfig
             // 
@@ -394,7 +394,7 @@
             this.loadConfig.TabIndex = 23;
             this.loadConfig.Text = "Cargar \r\nConfiguración";
             this.loadConfig.UseVisualStyleBackColor = true;
-            this.loadConfig.Click += new System.EventHandler(this.loadConfig_Click);
+            this.loadConfig.Click += new System.EventHandler(this.LoadConfig_Click);
             // 
             // EyeTrackingConfiguration
             // 

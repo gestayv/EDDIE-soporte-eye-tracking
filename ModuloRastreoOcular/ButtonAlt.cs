@@ -9,6 +9,9 @@ using System.ComponentModel;
 
 namespace ModuloRastreoOcular
 {
+    /// <summary>
+    /// Button implementation that supports interactions through eye tracking.
+    /// </summary>
     public class ButtonAlt : Button
     {
         private System.Timers.Timer clickTimer;
@@ -25,12 +28,20 @@ namespace ModuloRastreoOcular
             }
         }
 
+        /// <summary>
+        /// Starts timer when mouse hovers over the button
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             if (intermediate.mouseControl && clickTimer != null) clickTimer.Start();
         }
 
+        /// <summary>
+        /// Stops timer when mouse leaves the button
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
@@ -53,7 +64,12 @@ namespace ModuloRastreoOcular
             mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
             intermediate.clickRegister = 1;
         }
-
+        
+        /// <summary>
+        /// Event listening for changes in the timer used to generate clicks on a button once the mouse hovers over it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void DetectTimerChange(object sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName == "ClickTimer")

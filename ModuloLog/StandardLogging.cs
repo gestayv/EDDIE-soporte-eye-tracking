@@ -7,6 +7,9 @@ using Serilog.Sinks.Async;
 
 namespace ModuloLog
 {
+    /// <summary>
+    /// Class for data logging through async Serilog
+    /// </summary>
     public class StandardLogging : InterfazLogging.ILogging<Logger>
     {
         private Logger _Target;
